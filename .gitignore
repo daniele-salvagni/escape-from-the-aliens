@@ -5,6 +5,9 @@ bin/
 # ignore all target directories
 target/
 
+# ignore javadoc directory
+doc/
+
 # ignore Eclipse settings
 .project
 .classpath
