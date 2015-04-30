@@ -31,7 +31,9 @@ public final class CubicCoordinate {
     private int z;
 
     /**
-     * Instantiates a new cubic coordinate.
+     * Instantiates a new cubic coordinate, constructor is private as we use
+     * static factories so it is possible to have multiple constructors without
+     * causing confusion with parameters.
      *
      * @param x the x coordinate of a CubicCoordinate
      * @param z the z coordinate of a CubicCoordinate
