@@ -14,7 +14,7 @@ In this folder is possible to find a template file containing the mask and the c
 
 File *map-saving-process.png* contained in this folder:
 
-![Image processing](http://i.imgur.com/SAG48db.png)
+![Image processing](http://i.imgur.com/lYzt2cx.png)
 
 
 ### Colors Palette ###
