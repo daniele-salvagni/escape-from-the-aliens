@@ -23,7 +23,7 @@ File *map-saving-process.png* contained in this folder:
 | ------------- | ---------------------------------- |
 | **66CC66** *(Light Green)*    | Secure Sector      |
 | **009966** *(Medium Green)*   | Dangerous Sector   |
-| **993333** *(Red)*            | Dangerous Sector   |
-| **993399** *(Purple)*         | Dangerous Sector   |
-| **0099CC** *(Cyan)*           | Dangerous Sector   |
+| **993333** *(Red)*            | Escape Hatch       |
+| **993399** *(Purple)*         | Alien Sector       |
+| **0099CC** *(Cyan)*           | Human Sector       |
 | **003333** *(Dark Green)*     | EMPTY, no sectors  |
