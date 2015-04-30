@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.model;
+package it.polimi.ingsw.cg_2.model.map;
 
 /**
  * This class extends a standard (@link Sector) with the possibility to be open

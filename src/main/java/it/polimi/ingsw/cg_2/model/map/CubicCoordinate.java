@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.model;
+package it.polimi.ingsw.cg_2.model.map;
 
 /**
  * This class represent a Cubic Coordinate. This coordinate system is specific
@@ -24,8 +24,8 @@ package it.polimi.ingsw.cg_2.model;
 public final class CubicCoordinate {
 
     /*
-     * The z-axis coordinate is not needed as z = x + y so we internally store
-     * an the correspondent axial coordinate where q = x and r = z
+     * The z-axis coordinate is not needed as z = x + y so, by convention, we
+     * internally store the correspondent axial coordinate where q = x and r = z
      */
     private int x;
     private int z;
