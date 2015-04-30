@@ -119,7 +119,7 @@ public class ZoneHelper {
                     newPixelMatrix[x][y] = pixelMatrix[x][y];
 
                     if (y == imageHeight - 1) {
-                        newPixelMatrix[x][y - 1] = 0x00000000;
+                        newPixelMatrix[x][y + 1] = 0x00000000;
                     }
                 }
 
