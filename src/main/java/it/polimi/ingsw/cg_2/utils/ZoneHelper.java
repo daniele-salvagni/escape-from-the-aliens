@@ -7,7 +7,22 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
- * TODO: Complete javadoc This class will be used to load/save maps.
+ * This class provides static methods to load or save generated maps from/to a
+ * .PNG file. To avoid unexpected behavior it is mandatory, if compression is
+ * used, to provide only files using lossless compression.
+ * <p>
+ * The saved maps are in a format <b>easy to understand and edit</b> with the
+ * most basic image processing software. Each sector is represented by a 2x2px
+ * color square and each sector on an even column (counting from one) is shifted
+ * down by 1px.
+ * <p>
+ * Any standard RGB color can be used, however it is recommended not to use
+ * Black (#000000) which could be mistaken (by someone editing maps by hand)
+ * with margins, but the way it would still be functioning perfectly). In this
+ * class it is used the default RGB color model (TYPE_INT_ARGB).
+ * 
+ * @see http://i.imgur.com/lYzt2cx.png
+ * @see BufferedImage#TYPE_INT_ARGB
  */
 public class ZoneHelper {
 
@@ -17,6 +32,17 @@ public class ZoneHelper {
      */
     private ZoneHelper() {
         throw new AssertionError();
+    }
+    
+    // // PUBLIC METHODS // //
+
+    public static int[][] loadZone(String filePath) {
+        // TODO
+        return null;
+    }
+
+    public static void saveZone(int[][] pixelMatrix, String filePath) {
+        // TODO
     }
 
     // // IMAGE I/O // //
@@ -31,7 +57,7 @@ public class ZoneHelper {
      * 
      * @see BufferedImage#TYPE_INT_ARGB
      */
-    public static int[][] loadImage(String filePath) throws IOException {
+    private static int[][] loadImage(String filePath) throws IOException {
 
         BufferedImage bufferImage = ImageIO.read(new File(filePath));
 
@@ -60,7 +86,7 @@ public class ZoneHelper {
      * 
      * @see BufferedImage#TYPE_INT_ARGB
      */
-    public static void writeImage(int[][] pixelMatrix, String filePath)
+    private static void writeImage(int[][] pixelMatrix, String filePath)
             throws IOException {
 
         int imageWidth = pixelMatrix.length;
@@ -90,7 +116,7 @@ public class ZoneHelper {
      * @param pixelMatrix the input matrix
      * @return a new matrix with shifted columns and 1px higher
      */
-    public static int[][] addMargins(int[][] pixelMatrix) {
+    private static int[][] addMargins(int[][] pixelMatrix) {
 
         int imageWidth = pixelMatrix.length;
         int imageHeight = pixelMatrix[0].length;
@@ -138,7 +164,7 @@ public class ZoneHelper {
      * @param pixelMatrix the input matrix
      * @return a new matrix with shifted back columns and 1px less high
      */
-    public static int[][] removeMargins(int[][] pixelMatrix) {
+    private static int[][] removeMargins(int[][] pixelMatrix) {
 
         int imageWidth = pixelMatrix.length;
         int imageHeight = pixelMatrix[0].length;
@@ -169,6 +195,58 @@ public class ZoneHelper {
                 }
             }
 
+        }
+
+        return newPixelMatrix;
+    }
+
+    // // NORMALIZATION <-> DENORMALIZATION // //
+
+    /**
+     * This method scales a matrix by a x0.5 factor, for each 2x2 square only
+     * the top-left pixel is kept, the rest is discarded.
+     *
+     * @param pixelMatrix the input matrix
+     * @return the sampled matrix (size is /2)
+     */
+    private static int[][] samplePixels(int[][] pixelMatrix) {
+
+        int imageWidth = pixelMatrix.length;
+        int imageHeight = pixelMatrix[0].length;
+
+        int[][] newPixelMatrix = new int[imageWidth / 2][imageHeight / 2];
+
+        /* Loops trough every pixel on even row and column. */
+        for (int x = 0; x < imageWidth; x += 2) {
+            for (int y = 0; y < imageHeight; y += 2) {
+                newPixelMatrix[x / 2][y / 2] = pixelMatrix[x][y];
+            }
+        }
+
+        return newPixelMatrix;
+    }
+
+    /**
+     * This method scales a matrix by a x2 factor.
+     *
+     * @param pixelMatrix the input matrix
+     * @return the expanded matrix (size is x2)
+     */
+    private static int[][] expandPixels(int[][] pixelMatrix) {
+
+        int imageWidth = pixelMatrix.length;
+        int imageHeight = pixelMatrix[0].length;
+
+        int[][] newPixelMatrix = new int[imageWidth * 2][imageHeight * 2];
+
+        /* Expands each pixel into a 2x2 square. */
+        for (int x = 0; x < imageWidth; x++) {
+            for (int y = 0; y < imageHeight; y++) {
+                newPixelMatrix[x * 2][y * 2] = pixelMatrix[x][y];
+                newPixelMatrix[x * 2][y * 2 + 1] = pixelMatrix[x][y];
+                newPixelMatrix[x * 2 + 1][y * 2] = pixelMatrix[x][y];
+                newPixelMatrix[x * 2 + 1][y * 2 + 1] = pixelMatrix[x][y];
+            }
         }
 
         return newPixelMatrix;
