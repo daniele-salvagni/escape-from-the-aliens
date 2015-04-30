@@ -13,7 +13,7 @@ public class SectorCard implements Card {
         NOISE, DECEPTION, SILENCE;
     }
 
-    SectorCardType type;
+    private final SectorCardType type;
     boolean containsItem;
 
     /**

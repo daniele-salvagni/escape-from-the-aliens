@@ -13,7 +13,7 @@ public class ItemCard implements Card {
         ATTACK, TELEPORT, SEDATIVES, SPOTLIGHT, DEFENSE, ADRENALINE;
     }
 
-    ItemCardType type;
+    private final ItemCardType type;
 
     /**
      * Instantiates a new Item Card.

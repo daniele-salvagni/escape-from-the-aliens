@@ -13,7 +13,7 @@ public class HatchCard implements Card {
         RED, GREEN;
     }
 
-    HatchCardType type;
+    private final HatchCardType type;
 
     /**
      * Instantiates a new Hatch Card.
