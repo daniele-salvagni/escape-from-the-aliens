@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.model;
+package it.polimi.ingsw.cg_2.model.map;
 
 /**
  * This class represents a Sector, it has a position relative to a (@link Zone)

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.model;
+package it.polimi.ingsw.cg_2.model.map;
 
 /**
  * This class represent a Cubic Coordinate. This coordinate system is specific
