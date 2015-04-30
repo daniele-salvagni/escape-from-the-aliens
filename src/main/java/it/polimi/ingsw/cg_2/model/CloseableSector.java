@@ -1,10 +1,13 @@
 package it.polimi.ingsw.cg_2.model;
 
 /**
- * This class extends a standard (@link Sector) with the possibility to have a
- * status.
+ * This class extends a standard (@link Sector) with the possibility to be open
+ * or closed, it the main implementation the Hatch Sector will be the only one
+ * to use this behavior, however it would be conceptually wrong to call this
+ * class "HatchSector" because the type is already the attribute of the class,
+ * we are just adding a behavior.
  */
-public class HatchSector extends Sector {
+public class CloseableSector extends Sector {
 
     public static enum SectorStatus {
         OPEN, CLOSED;
@@ -13,12 +16,12 @@ public class HatchSector extends Sector {
     private SectorStatus sectorStatus;
 
     /**
-     * Instantiates a new HatchSector with the default status of Status.OPEN.
+     * Instantiates a new CloseableSector with the default status of Status.OPEN.
      *
      * @param position the position relative to a (@link Zone)
      * @param type the type of the Sector
      */
-    public HatchSector(CubicCoordinate position, SectorType type) {
+    public CloseableSector(CubicCoordinate position, SectorType type) {
         super(position, type);
         sectorStatus = SectorStatus.OPEN;
     }
