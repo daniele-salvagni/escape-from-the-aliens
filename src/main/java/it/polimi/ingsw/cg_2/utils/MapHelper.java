@@ -24,24 +24,24 @@ import javax.imageio.ImageIO;
  * @see http://i.imgur.com/lYzt2cx.png
  * @see BufferedImage#TYPE_INT_ARGB
  */
-public class ZoneHelper {
+public class MapHelper {
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
-    private ZoneHelper() {
+    private MapHelper() {
         throw new AssertionError();
     }
 
     // // PUBLIC METHODS // //
 
-    public static int[][] loadZone(String filePath) {
+    public static int[][] loadMap(String filePath) {
         // TODO
         return null;
     }
 
-    public static void saveZone(int[][] pixelMatrix, String filePath) {
+    public static void saveMap(int[][] pixelMatrix, String filePath) {
         // TODO
     }
 
