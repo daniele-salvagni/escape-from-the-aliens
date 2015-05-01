@@ -27,12 +27,27 @@ public class DeckManager<E extends Card> {
     private ArrayList<E> discardPile;
 
     /**
-     * Instantiates a new deck manager.
+     * Instantiates a new empty DeckManager, it is private because we provide a
+     * Static Factory Method to be used by an Abstract Factory.
      *
      * @param deck the deck contained in the new initialized DeckManage
      */
-    private DeckManager(Stack<E> deck) {
-        this.deck = deck; // TODO: To Factory Method
+    private DeckManager() {
+        deck = new Stack<E>();
+        discardPile = new ArrayList<E>();
+    }
+
+    /**
+     * Static factory for a new DeckManager, it is declared as protected because
+     * we provide a Factory Method in the same package to create deck for
+     * different game modes. This static factory removes the verbosity of
+     * "DeckManager<CardType1> = new DeckManager<CardType1>();", the type of
+     * (@link Card) is <b>inferenced</b> (Effective Java - Item 1).
+     *
+     * @return a new empty DeckManager
+     */
+    protected DeckManager<E> create() {
+        return new DeckManager<E>();
     }
 
     /**
@@ -91,7 +106,7 @@ public class DeckManager<E extends Card> {
     /**
      * Shuffle the deck of Cards.
      */
-    private void shuffleDeck() {
+    public void shuffleDeck() {
         Collections.shuffle(deck);
     }
 
