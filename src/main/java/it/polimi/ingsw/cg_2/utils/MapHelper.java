@@ -36,13 +36,18 @@ public class MapHelper {
 
     // // PUBLIC METHODS // //
 
-    public static int[][] loadMap(String filePath) {
-        // TODO
-        return null;
+    public static int[][] loadMap(String filePath) throws IOException {
+        int[][] image = loadImage(filePath);
+        image = removeMargins(image);
+        image = samplePixels(image);
+        return image;
     }
 
-    public static void saveMap(int[][] pixelMatrix, String filePath) {
-        // TODO
+    public static void saveMap(int[][] pixelMatrix, String filePath)
+            throws IOException {
+        int[][] image = expandPixels(pixelMatrix);
+        image = addMargins(image);
+        writeImage(image, filePath);
     }
 
     // // IMAGE I/O // //
