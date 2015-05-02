@@ -13,8 +13,9 @@ import java.util.Stack;
  * Elements of type (@link Card) can be handled polymorphically and it is
  * possible to create decks of mixed card types. In this case it does not make
  * sense to handle different decks polymorphically as they are just a data
- * structure similar to a (@link Stack) with additional behavior, so it is
- * better to use a class with genetic parameters.
+ * structure similar to a (@link Stack) with additional behavior and different
+ * decks must be used in different situations, so it is better to use a class
+ * with genetic parameters.
  *
  * @param <E> the element type
  */
