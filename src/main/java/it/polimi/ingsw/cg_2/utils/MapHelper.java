@@ -53,6 +53,18 @@ public class MapHelper {
         }
 
         int[][] image = loadImage(filePath);
+
+        /*
+         * Check if image width is even and height is odd. It would work anyways
+         * but we don't want this as it could lead to subtle errors or
+         * misconceptions.
+         */
+        if (image.length % 2 != 0) {
+            throw new IllegalArgumentException("Image width should be even.");
+        } else if (image[0].length % 2 != 1) {
+            throw new IllegalArgumentException("Image height should be odd.");
+        }
+
         int[][] imageWithoutMargins = removeMargins(image);
         int[][] sampledImage = samplePixels(imageWithoutMargins);
         return sampledImage;
