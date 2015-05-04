@@ -30,9 +30,12 @@ public class StandardDecksFactory implements DecksFactory {
         cards.add(new ItemCard(ItemCardType.SPOTLIGHT));
         cards.add(new ItemCard(ItemCardType.DEFENSE));
 
-        // Returns a new deck populated with the cards for the Advanced Game
-        // mode (standard).
-        return new DeckManager<ItemCard>(cards);
+        DeckManager<ItemCard> deckManager = new DeckManager<ItemCard>(cards);
+        deckManager.shuffleDeck();
+
+        // Returns a new shuffled deck populated with the Item cards for the
+        // Advanced Game mode (standard).
+        return deckManager;
     }
 
     @Override
@@ -60,10 +63,12 @@ public class StandardDecksFactory implements DecksFactory {
             cards.add(new SectorCard(SectorCardType.SILENCE));
         }
 
-        // Returns a new deck populated with the cards for the Advanced Game
-        // mode (standard).
-        return new DeckManager<SectorCard>(cards);
+        DeckManager<SectorCard> deckManager = new DeckManager<SectorCard>(cards);
+        deckManager.shuffleDeck();
 
+        // Returns a new shuffled deck populated with the Sector cards for the
+        // Advanced Game mode (standard).
+        return deckManager;
     }
 
     @Override
@@ -79,9 +84,12 @@ public class StandardDecksFactory implements DecksFactory {
             cards.add(new HatchCard(HatchCardType.RED));
         }
 
-        // Returns a new deck populated with the cards for the Advanced Game
-        // mode (standard).
-        return new DeckManager<HatchCard>(cards);
+        DeckManager<HatchCard> deckManager = new DeckManager<HatchCard>(cards);
+        deckManager.shuffleDeck();
+
+        // Returns a new shuffled deck populated with the Hatch cards for the
+        // Advanced Game mode (standard).
+        return deckManager;
     }
 
 }
