@@ -38,16 +38,16 @@ public class MapHelper {
 
     public static int[][] loadMap(String filePath) throws IOException {
         int[][] image = loadImage(filePath);
-        image = removeMargins(image);
-        image = samplePixels(image);
-        return image;
+        int[][] imageWithoutMargins = removeMargins(image);
+        int[][] sampledImage = samplePixels(imageWithoutMargins);
+        return sampledImage;
     }
 
     public static void saveMap(int[][] pixelMatrix, String filePath)
             throws IOException {
-        int[][] image = expandPixels(pixelMatrix);
-        image = addMargins(image);
-        writeImage(image, filePath);
+        int[][] expandedImage = expandPixels(pixelMatrix);
+        int[][] imageWithMargins = addMargins(expandedImage);
+        writeImage(imageWithMargins, filePath);
     }
 
     // // IMAGE I/O // //
