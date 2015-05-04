@@ -25,6 +25,8 @@ import javax.imageio.ImageIO;
  * @see BufferedImage#TYPE_INT_ARGB
  */
 public class MapHelper {
+    
+    private static final int ARGB_BLACK = 0x00000000;
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
@@ -196,7 +198,7 @@ public class MapHelper {
                      */
 
                     if (y == 0) {
-                        newPixelMatrix[x][y] = 0x00000000;
+                        newPixelMatrix[x][y] = ARGB_BLACK;
                     }
 
                     newPixelMatrix[x][y + 1] = pixelMatrix[x][y];
@@ -208,7 +210,7 @@ public class MapHelper {
                     newPixelMatrix[x][y] = pixelMatrix[x][y];
 
                     if (y == imageHeight - 1) {
-                        newPixelMatrix[x][y + 1] = 0x00000000;
+                        newPixelMatrix[x][y + 1] = ARGB_BLACK;
                     }
                 }
 
