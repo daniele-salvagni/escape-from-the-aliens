@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model.deck;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Stack;
 
@@ -29,26 +30,29 @@ public class DeckManager<E extends Card> {
 
     /**
      * Instantiates a new empty DeckManager, it is private because we provide a
-     * Static Factory Method to be used by an Abstract Factory.
+     * Static Factory Method (@link #create(Collection<E> cards)).
      *
-     * @param deck the deck contained in the new initialized DeckManage
+     * @param cards the cards to put inside the deck
      */
-    private DeckManager() {
+    private DeckManager(Collection<E> cards) {
         deck = new Stack<E>();
+        deck.addAll(cards);
         discardPile = new ArrayList<E>();
     }
 
     /**
      * Static factory for a new DeckManager, it is declared as protected because
-     * we provide a Factory Method in the same package to create deck for
-     * different game modes. This static factory removes the verbosity of
-     * "DeckManager<CardType1> = new DeckManager<CardType1>();", the type of
+     * we provide a Factory Method in the same package to allow the creation of
+     * decks for different game modes. This static factory reduces the verbosity
+     * of "DeckManager<CardType1> = new DeckManager<CardType1>();", the type of
      * (@link Card) is <b>inferenced</b> (Effective Java - Item 1).
      *
-     * @return a new empty DeckManager
+     * @param cards the cards to populate the deck
+     * @return a new DeckManager populated with the cards provided
      */
-    protected DeckManager<E> create() {
-        return new DeckManager<E>();
+    protected DeckManager<E> create(Collection<E> cards) {
+        DeckManager<E> deckManager = new DeckManager<E>(cards);
+        return deckManager;
     }
 
     /**
