@@ -24,25 +24,43 @@ import javax.imageio.ImageIO;
  * @see http://i.imgur.com/lYzt2cx.png
  * @see BufferedImage#TYPE_INT_ARGB
  */
-public class ZoneHelper {
+public class MapHelper {
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
-    private ZoneHelper() {
+    private MapHelper() {
         throw new AssertionError();
     }
 
     // // PUBLIC METHODS // //
 
-    public static int[][] loadZone(String filePath) {
-        // TODO
-        return null;
+    public static int[][] loadMap(String filePath) throws IOException {
+        
+        if (filePath == null) {
+            throw new IllegalArgumentException("filePath must be non-null.");
+        }
+
+        int[][] image = loadImage(filePath);
+        int[][] imageWithoutMargins = removeMargins(image);
+        int[][] sampledImage = samplePixels(imageWithoutMargins);
+        return sampledImage;
     }
 
-    public static void saveZone(int[][] pixelMatrix, String filePath) {
-        // TODO
+    public static void saveMap(int[][] pixelMatrix, String filePath)
+            throws IOException {
+
+        if (filePath == null || pixelMatrix == null) {
+            throw new IllegalArgumentException("Arguments must be not-null.");
+        } else if (!isMatrixRectangular(pixelMatrix)) {
+            throw new IllegalArgumentException(
+                    "Input 2D array should be rectangular.");
+        }
+
+        int[][] expandedImage = expandPixels(pixelMatrix);
+        int[][] imageWithMargins = addMargins(expandedImage);
+        writeImage(imageWithMargins, filePath);
     }
 
     // // IMAGE I/O // //
@@ -214,6 +232,11 @@ public class ZoneHelper {
         int imageWidth = pixelMatrix.length;
         int imageHeight = pixelMatrix[0].length;
 
+        if (imageWidth < 2 || imageHeight < 2) {
+            throw new IllegalArgumentException(
+                    "pixelMatrix must be at least 2x2px.");
+        }
+
         int[][] newPixelMatrix = new int[imageWidth / 2][imageHeight / 2];
 
         /* Loops trough every pixel on even row and column. */
@@ -250,6 +273,24 @@ public class ZoneHelper {
         }
 
         return newPixelMatrix;
+    }
+
+    /**
+     * Checks if the given matrix is rectangular. (It is not a matrix, but an
+     * array of arrays).
+     *
+     * @param pixelMatrix the matrix to check
+     * @return true, if is the matrix is rectangular
+     */
+    private static boolean isMatrixRectangular(int[][] pixelMatrix) {
+
+        for (int i = 0; i < pixelMatrix.length; i++) {
+            if (pixelMatrix[0].length != pixelMatrix[i].length) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
