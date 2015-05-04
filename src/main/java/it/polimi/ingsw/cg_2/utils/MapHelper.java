@@ -219,6 +219,11 @@ public class MapHelper {
         int imageWidth = pixelMatrix.length;
         int imageHeight = pixelMatrix[0].length;
 
+        if (imageWidth < 2 || imageHeight < 2) {
+            throw new IllegalArgumentException(
+                    "pixelMatrix must be at least 2x2px.");
+        }
+
         int[][] newPixelMatrix = new int[imageWidth / 2][imageHeight / 2];
 
         /* Loops trough every pixel on even row and column. */
