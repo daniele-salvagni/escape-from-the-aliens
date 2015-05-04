@@ -22,10 +22,7 @@ import java.util.Stack;
  */
 public class DeckManager<E extends Card> {
 
-    /** The cards deck. */
     private Stack<E> deck;
-
-    /** The discard pile. */
     private ArrayList<E> discardPile;
 
     /**
