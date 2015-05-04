@@ -84,11 +84,11 @@ public class MapHelperTest {
         thrown.expect(IllegalArgumentException.class);
         MapHelper.saveMap(null, null);
     }
-    
+
     // // NOT WELL FORMED ARGUMENTS // //
-    
+
     /**
-     * Test the saving on disk of a map.
+     * Test the saving on disk of a not well formed 2D array.
      */
     @Test
     public void testSaveNotWellFormedMap() throws Exception {
@@ -96,9 +96,11 @@ public class MapHelperTest {
 
         /* A column has 3 pixels instead of 2. */
         int[][] inputMatrix = new int[][] { { 0xFF66CC66, 0xFF009966 },
-                { 0xFF993333, 0xFF0099CC, 0xFF993333 }, { 0xFF993399, 0xFF003333 } };
+                { 0xFF993333, 0xFF0099CC, 0xFF993333 },
+                { 0xFF993399, 0xFF003333 } };
 
-        File outputFile = tempFolder.newFile("map-test-save-not-well-formed.png");
+        File outputFile = tempFolder
+                .newFile("map-test-save-not-well-formed.png");
         String filePath = outputFile.getPath();
 
         MapHelper.saveMap(inputMatrix, filePath);
