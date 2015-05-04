@@ -26,30 +26,15 @@ public class DeckManager<E extends Card> {
     private ArrayList<E> discardPile;
 
     /**
-     * Instantiates a new empty DeckManager, it is private because we provide a
-     * Static Factory Method (@link #create(Collection<E> cards)).
+     * Instantiates a new empty DeckManager, it is protected because it should
+     * be used only by the Abstrct Factory (@link {@link DecksFactory}).
      *
      * @param cards the cards to put inside the deck
      */
-    private DeckManager(Collection<E> cards) {
+    protected DeckManager(Collection<E> cards) {
         deck = new Stack<E>();
         deck.addAll(cards);
         discardPile = new ArrayList<E>();
-    }
-
-    /**
-     * Static factory for a new DeckManager, it is declared as protected because
-     * we provide a Factory Method in the same package to allow the creation of
-     * decks for different game modes. This static factory reduces the verbosity
-     * of "DeckManager<CardType1> = new DeckManager<CardType1>();", the type of
-     * (@link Card) is <b>inferenced</b> (Effective Java - Item 1).
-     *
-     * @param cards the cards to populate the deck
-     * @return a new DeckManager populated with the cards provided
-     */
-    protected DeckManager<E> create(Collection<E> cards) {
-        DeckManager<E> deckManager = new DeckManager<E>(cards);
-        return deckManager;
     }
 
     /**
