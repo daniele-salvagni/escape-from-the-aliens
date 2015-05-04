@@ -26,10 +26,11 @@ public class DeckManager<E extends Card> {
     private ArrayList<E> discardPile;
 
     /**
-     * Instantiates a new empty DeckManager, it is protected because it should
-     * be used only by the Abstrct Factory (@link {@link DecksFactory}).
+     * Instantiates a new DeckManager populated with a (@link Collection) of
+     * (@link Card)s, it is protected because it should be used only by the
+     * Abstrct Factory (@link {@link DecksFactory}).
      *
-     * @param cards the cards to put inside the deck
+     * @param cards a (@link Collection) of cards to put inside the deck
      */
     protected DeckManager(Collection<E> cards) {
         deck = new Stack<E>();
