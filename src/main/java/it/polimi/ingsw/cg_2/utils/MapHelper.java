@@ -37,6 +37,11 @@ public class MapHelper {
     // // PUBLIC METHODS // //
 
     public static int[][] loadMap(String filePath) throws IOException {
+        
+        if (filePath == null) {
+            throw new IllegalArgumentException("filePath must be non-null.");
+        }
+
         int[][] image = loadImage(filePath);
         int[][] imageWithoutMargins = removeMargins(image);
         int[][] sampledImage = samplePixels(imageWithoutMargins);
@@ -45,6 +50,14 @@ public class MapHelper {
 
     public static void saveMap(int[][] pixelMatrix, String filePath)
             throws IOException {
+
+        if (filePath == null || pixelMatrix == null) {
+            throw new IllegalArgumentException("Arguments must be not-null.");
+        } else if (!isMatrixRectangular(pixelMatrix)) {
+            throw new IllegalArgumentException(
+                    "Input 2D array should be rectangular.");
+        }
+
         int[][] expandedImage = expandPixels(pixelMatrix);
         int[][] imageWithMargins = addMargins(expandedImage);
         writeImage(imageWithMargins, filePath);
@@ -260,6 +273,24 @@ public class MapHelper {
         }
 
         return newPixelMatrix;
+    }
+
+    /**
+     * Checks if the given matrix is rectangular. (It is not a matrix, but an
+     * array of arrays).
+     *
+     * @param pixelMatrix the matrix to check
+     * @return true, if is the matrix is rectangular
+     */
+    private static boolean isMatrixRectangular(int[][] pixelMatrix) {
+
+        for (int i = 0; i < pixelMatrix.length; i++) {
+            if (pixelMatrix[0].length != pixelMatrix[i].length) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
