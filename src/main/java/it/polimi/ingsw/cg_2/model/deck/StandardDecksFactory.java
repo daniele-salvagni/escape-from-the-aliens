@@ -6,6 +6,20 @@ import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import java.util.ArrayList;
 
+/**
+ * This class is a concrete factory that implements the abstract (@link
+ * DecksFactory), it creates the following decks:
+ * <ul>
+ * <li><b>ItemDeck:</b> 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives, 2
+ * Spotlight, 1 Defense.</li>
+ * <li><b>SectorDeck:</b> 10 Noise (4 with object), 10 Deception (4 with
+ * object), 5 Silence.</li>
+ * <li><b>HatchDeck:</b> 3 Green, 3 Red.</li>
+ * 
+ * @see ItemCard
+ * @see SectorCard
+ * @see HatchCard
+ */
 public class StandardDecksFactory implements DecksFactory {
 
     @Override
