@@ -88,7 +88,8 @@ public class MapHelperTest {
     // // NOT WELL FORMED ARGUMENTS // //
 
     /**
-     * Test the saving on disk of a not well formed 2D array.
+     * Test the saving on disk of a not well formed 2D array. Should throw
+     * IllegalArgumentException.
      */
     @Test
     public void testSaveNotWellFormedMap() throws Exception {
@@ -112,6 +113,32 @@ public class MapHelperTest {
         int[][] savedMatrix = MapHelper.loadMap(filePath);
 
         assertTrue(Arrays.deepEquals(inputMatrix, savedMatrix));
+    }
+
+    /**
+     * Try to load a map with an odd width in pixels.
+     */
+    @Test
+    public void testLoadOddWidth() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+
+        /* This file has an odd width in pixels. */
+        String filePath = getClass().getResource(
+                "/map/map-test-error-oddwidth.png").getFile();
+        MapHelper.loadMap(filePath);
+    }
+
+    /**
+     * Try to load a map with an even height in pixels.
+     */
+    @Test
+    public void testLoadEvenHeight() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
+
+        /* This file has an even height in pixels. */
+        String filePath = getClass().getResource(
+                "/map/map-test-error-evenheight.png").getFile();
+        MapHelper.loadMap(filePath);
     }
 
 }
