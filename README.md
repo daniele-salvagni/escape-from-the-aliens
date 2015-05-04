@@ -6,3 +6,10 @@ This is the repository for the java implementation of the board game *Escape fro
 
 * [Daniele Salvagni](https://bitbucket.org/daniele-salvagni/)
 * [Simone Triventi](https://bitbucket.org/simone-triventi/)
+
+
+#### Repository folders: ####
+
+* **src/:** contains the java source code of the application.
+* **docs/:** various resources unrelated to the source code like spare documentation and uml diagrams. 
+* **docs/maps/:** a collection of maps, resources to manually draw them and a quick graphical documentation on the map import/export process.
