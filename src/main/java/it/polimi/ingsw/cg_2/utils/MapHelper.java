@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  * @see BufferedImage#TYPE_INT_ARGB
  */
 public class MapHelper {
-    
+
     private static final int ARGB_BLACK = 0x00000000;
 
     /**
@@ -38,8 +38,16 @@ public class MapHelper {
 
     // // PUBLIC METHODS // //
 
+    /**
+     * Loads a map from a human readable and editable image format into a 2D
+     * array in offset coordinate system (odd-q).
+     *
+     * @param filePath the file path of the image map
+     * @return a 2D array representing the map in offset coordinate system
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static int[][] loadMap(String filePath) throws IOException {
-        
+
         if (filePath == null) {
             throw new IllegalArgumentException("filePath must be non-null.");
         }
@@ -50,6 +58,15 @@ public class MapHelper {
         return sampledImage;
     }
 
+    /**
+     * Saves a map from a 2D array in offset coordinate system (odd-q) to an
+     * human readable and editable image format.
+     *
+     * @param pixelMatrix a 2D array representing the map in offset coordinate
+     *            system
+     * @param filePath the file path where to save the image
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static void saveMap(int[][] pixelMatrix, String filePath)
             throws IOException {
 
