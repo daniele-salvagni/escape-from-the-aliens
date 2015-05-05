@@ -110,6 +110,10 @@ public class MapHelper {
 
         BufferedImage bufferImage = ImageIO.read(new File(filePath));
 
+        if (bufferImage == null) {
+            throw new IllegalArgumentException("Input file must be an image.");
+        }
+
         int imageWidth = bufferImage.getWidth();
         int imageHeight = bufferImage.getHeight();
 
