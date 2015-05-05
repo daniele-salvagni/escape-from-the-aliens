@@ -21,7 +21,8 @@ import javax.imageio.ImageIO;
  * with margins, but the way it would still be functioning perfectly). In this
  * class it is used the default RGB color model (TYPE_INT_ARGB).
  * 
- * @see http://i.imgur.com/lYzt2cx.png
+ * @see <a href="http://i.imgur.com/lYzt2cx.png">Image transformation
+ *      process</a>
  * @see BufferedImage#TYPE_INT_ARGB
  */
 public class MapHelper {
@@ -72,7 +73,8 @@ public class MapHelper {
 
     /**
      * Saves a map from a 2D array in offset coordinate system (odd-q) to an
-     * human readable and editable image format.
+     * human readable and editable image format. 2D array must be rectangular
+     * (every sub-array must have the same length).
      *
      * @param pixelMatrix a 2D array representing the map in offset coordinate
      *            system
@@ -199,8 +201,8 @@ public class MapHelper {
                     }
 
                 }
-            }
 
+            }
         }
 
         return newPixelMatrix;
