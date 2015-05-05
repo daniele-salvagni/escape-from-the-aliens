@@ -146,17 +146,12 @@ public class MapHelperTest {
      */
     @Test
     public void testLoadInvalidMap() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
 
         /* Load the testing image. */
         String filePath = getClass().getResource("/map/map-invalid.png")
                 .getFile();
-        int[][] loadedMatrix = MapHelper.loadMap(filePath);
-
-        /* The expected matrix of pixels. */
-        int[][] expectedMatrix = new int[][] { { 0xFF66CC66, 0xFF009966 },
-                { 0xFF993333, 0xFF0099CC }, { 0xFF993399, 0xFF003333 } };
-
-        assertFalse(Arrays.deepEquals(loadedMatrix, expectedMatrix));
+        MapHelper.loadMap(filePath);
     }
 
 }

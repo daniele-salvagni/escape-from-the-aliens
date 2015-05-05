@@ -110,6 +110,7 @@ public class MapHelper {
 
         BufferedImage bufferImage = ImageIO.read(new File(filePath));
 
+        /* ImageIO returns null if the provided file is not a valid image. */
         if (bufferImage == null) {
             throw new IllegalArgumentException("Input file must be an image.");
         }
