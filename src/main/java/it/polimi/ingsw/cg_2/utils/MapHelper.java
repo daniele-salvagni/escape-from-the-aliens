@@ -21,10 +21,13 @@ import javax.imageio.ImageIO;
  * with margins, but the way it would still be functioning perfectly). In this
  * class it is used the default RGB color model (TYPE_INT_ARGB).
  * 
- * @see http://i.imgur.com/lYzt2cx.png
+ * @see <a href="http://i.imgur.com/lYzt2cx.png">Image transformation
+ *      process</a>
  * @see BufferedImage#TYPE_INT_ARGB
  */
 public class MapHelper {
+
+    private static final int ARGB_BLACK = 0x00000000;
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
@@ -36,18 +39,48 @@ public class MapHelper {
 
     // // PUBLIC METHODS // //
 
+    /**
+     * Loads a map from a human readable and editable image format into a 2D
+     * array in offset coordinate system (odd-q).
+     *
+     * @param filePath the file path of the image map
+     * @return a 2D array representing the map in offset coordinate system
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static int[][] loadMap(String filePath) throws IOException {
-        
+
         if (filePath == null) {
             throw new IllegalArgumentException("filePath must be non-null.");
         }
 
         int[][] image = loadImage(filePath);
+
+        /*
+         * Check if image width is even and height is odd. It would work anyways
+         * but we don't want this as it could lead to subtle errors or
+         * misconceptions.
+         */
+        if (image.length % 2 != 0) {
+            throw new IllegalArgumentException("Image width should be even.");
+        } else if (image[0].length % 2 != 1) {
+            throw new IllegalArgumentException("Image height should be odd.");
+        }
+
         int[][] imageWithoutMargins = removeMargins(image);
         int[][] sampledImage = samplePixels(imageWithoutMargins);
         return sampledImage;
     }
 
+    /**
+     * Saves a map from a 2D array in offset coordinate system (odd-q) to an
+     * human readable and editable image format. 2D array must be rectangular
+     * (every sub-array must have the same length).
+     *
+     * @param pixelMatrix a 2D array representing the map in offset coordinate
+     *            system
+     * @param filePath the file path where to save the image
+     * @throws IOException Signals that an I/O exception has occurred.
+     */
     public static void saveMap(int[][] pixelMatrix, String filePath)
             throws IOException {
 
@@ -78,6 +111,11 @@ public class MapHelper {
     private static int[][] loadImage(String filePath) throws IOException {
 
         BufferedImage bufferImage = ImageIO.read(new File(filePath));
+
+        /* ImageIO returns null if the provided file is not a valid image. */
+        if (bufferImage == null) {
+            throw new IllegalArgumentException("Input file must be an image.");
+        }
 
         int imageWidth = bufferImage.getWidth();
         int imageHeight = bufferImage.getHeight();
@@ -163,8 +201,8 @@ public class MapHelper {
                     }
 
                 }
-            }
 
+            }
         }
 
         return newPixelMatrix;
@@ -196,7 +234,7 @@ public class MapHelper {
                      */
 
                     if (y == 0) {
-                        newPixelMatrix[x][y] = 0x00000000;
+                        newPixelMatrix[x][y] = ARGB_BLACK;
                     }
 
                     newPixelMatrix[x][y + 1] = pixelMatrix[x][y];
@@ -208,7 +246,7 @@ public class MapHelper {
                     newPixelMatrix[x][y] = pixelMatrix[x][y];
 
                     if (y == imageHeight - 1) {
-                        newPixelMatrix[x][y + 1] = 0x00000000;
+                        newPixelMatrix[x][y + 1] = ARGB_BLACK;
                     }
                 }
 
