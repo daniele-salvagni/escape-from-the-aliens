@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg_2.model.map;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * This class represent a Cubic Coordinate. This coordinate system is specific
  * for hexagonal grids and so it should not be extended or reused in other
@@ -23,6 +26,14 @@ package it.polimi.ingsw.cg_2.model.map;
 
 public final class CubicCoordinate {
 
+    /**
+     * The six possible directions in a CubicCoordinate, by adding them to an
+     * existing coordinate it is possible to get its neighbors.
+     */
+    public static final List<CubicCoordinate> DIRECTIONS = Arrays.asList(
+            create(1, -1, 0), create(1, 0, -1), create(0, 1, -1),
+            create(-1, 1, 0), create(-1, 0, 1), create(0, -1, 1));
+
     /*
      * The z-axis coordinate is not needed as z = x + y so, by convention, we
      * internally store the correspondent axial coordinate where q = x and r = z
@@ -44,18 +55,6 @@ public final class CubicCoordinate {
     }
 
     /**
-     * This static factory method creates a CubicCoordinate object from an axial
-     * coordinate system, by convention the parameters are:
-     *
-     * @param q the x coordinate of a CubicCoordinate (q for axial)
-     * @param r the z coordinate of a CubicCoordinate (r for axial)
-     * @return a new CubicCoordinate object
-     */
-    public static CubicCoordinate createFromAxial(int q, int r) {
-        return new CubicCoordinate(q, r);
-    }
-
-    /**
      * Creates a CubicCoordinate object, one of the three could be implicit,
      * this static factory method is provided only for code readability and
      * validation. x + y + z must equal zero, otherwise an exception is thrown.
@@ -73,7 +72,18 @@ public final class CubicCoordinate {
         } else {
             throw new IllegalArgumentException("x + y + z must equal 0.");
         }
+    }
 
+    /**
+     * This static factory method creates a CubicCoordinate object from an axial
+     * coordinate system, by convention the parameters are:
+     *
+     * @param q the x coordinate of a CubicCoordinate (q for axial)
+     * @param r the z coordinate of a CubicCoordinate (r for axial)
+     * @return a new CubicCoordinate object
+     */
+    public static CubicCoordinate createFromAxial(int q, int r) {
+        return new CubicCoordinate(q, r);
     }
 
     /**
