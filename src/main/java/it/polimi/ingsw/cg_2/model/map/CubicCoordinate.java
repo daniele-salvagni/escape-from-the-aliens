@@ -128,4 +128,9 @@ public final class CubicCoordinate {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "CubicCoordinate [x=" + x + ", z=" + z + "]";
+    }
+
 }
