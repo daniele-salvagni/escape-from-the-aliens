@@ -28,7 +28,8 @@ public final class CubicCoordinate {
 
     /**
      * The six possible directions in a CubicCoordinate, by adding them to an
-     * existing coordinate it is possible to get its neighbors.
+     * existing coordinate it is possible to get its neighbors. We use 3
+     * coordinates for clarity.
      */
     public static final List<CubicCoordinate> DIRECTIONS = Arrays.asList(
             create(1, -1, 0), create(1, 0, -1), create(0, 1, -1),
@@ -111,6 +112,18 @@ public final class CubicCoordinate {
      */
     public int getZ() {
         return z;
+    }
+
+    /**
+     * Returns a new CubicCoordinate obtained by adding another CubicCoordinate
+     * to this one.
+     *
+     * @param coordinate the coordinate to add
+     * @return a new CubicCoordinate
+     */
+    public CubicCoordinate add(CubicCoordinate coordinate) {
+        return createFromAxial(this.getX() + coordinate.getX(), this.getZ()
+                + coordinate.getZ());
     }
 
     @Override
