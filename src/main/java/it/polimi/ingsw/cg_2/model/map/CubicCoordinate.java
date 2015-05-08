@@ -126,6 +126,18 @@ public final class CubicCoordinate {
                 + coordinate.getZ());
     }
 
+    /**
+     * Returns a new CubicCoordinate obtained by subtracting another
+     * CubicCoordinate to this one.
+     *
+     * @param coordinate the coordinate to subtract
+     * @return a new CubicCoordinate
+     */
+    public CubicCoordinate sub(CubicCoordinate coordinate) {
+        return createFromAxial(this.getX() - coordinate.getX(), this.getZ()
+                - coordinate.getZ());
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
