@@ -1,60 +1,80 @@
 package it.polimi.ingsw.cg_2.model.map;
 
-import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Set;
 
 public class Zone {
+
     Map<CubicCoordinate, Sector> sectors;
 
     // TODO: Incomplete
 
+    /**
+     * Returns all the sectors of the Zone mapped by CubicCoordinate.
+     *
+     * @return all the sectors of the zone
+     */
     public Map<CubicCoordinate, Sector> getSectors() {
         return sectors;
     }
 
+    /**
+     * Gets the human sector. Throws an exception if the sector has not been
+     * found or if more than one has been found. (a Zone should contain exactly
+     * one HUMAN sector).
+     *
+     * @return the human sector
+     */
     public Sector getHumanSector() {
-        Sector humanSector = findSectorFromType(SectorType.HUMAN);
-        if (humanSector == null) {
-            throw new NullPointerException(
-                    "A Zone must contain an human sector.");
+        ArrayList<Sector> humanSectors = findSectorsFromType(SectorType.HUMAN);
+        if (humanSectors.size() != 1) {
+            throw new IllegalStateException(
+                    "A Zone must contain exactly one human sector.");
         } else {
-            return humanSector;
+            return humanSectors.get(0);
         }
     }
 
+    /**
+     * Gets the alien sector. Throws an exception if the sector has not been
+     * found or if more than one has been found. (a Zone should contain exactly
+     * one ALIEN sector).
+     *
+     * @return the alien sector
+     */
     public Sector getAlienSector() {
-        Sector alienSector = findSectorFromType(SectorType.ALIEN);
-        if (alienSector == null) {
-            throw new NullPointerException(
-                    "A Zone must contain an alien sector.");
+        ArrayList<Sector> alienSectors = findSectorsFromType(SectorType.ALIEN);
+        if (alienSectors.size() != 1) {
+            throw new IllegalStateException(
+                    "A Zone must contain exactly one alien sector.");
         } else {
-            return alienSector;
+            return alienSectors.get(0);
         }
     }
 
+    /**
+     * Gets the hatch sectors contained in this zone.
+     *
+     * @return the hatch sectors
+     */
     public ArrayList<Sector> getHatchSectors() {
         ArrayList<Sector> hatchSectors = findSectorsFromType(SectorType.HATCH);
         if (hatchSectors.isEmpty()) {
-            throw new NullPointerException(
+            throw new IllegalStateException(
                     "A Zone must contain at least one escape hatch.");
         } else {
             return hatchSectors;
         }
     }
 
-    private Sector findSectorFromType(SectorType sectorType) {
-        for (Sector s : sectors.values()) {
-            if (s.getType() == sectorType) {
-                return s;
-            }
-        }
-        return null;
-    }
-
+    /**
+     * Find all the sectors in the Zone of a certain type.
+     *
+     * @param sectorType the sector type to be searched for
+     * @return an ArrayList containing the sectors found
+     */
     private ArrayList<Sector> findSectorsFromType(SectorType sectorType) {
         ArrayList<Sector> foundSectors = new ArrayList<Sector>();
         for (Sector s : sectors.values()) {
