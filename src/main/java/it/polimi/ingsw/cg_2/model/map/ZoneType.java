@@ -27,7 +27,7 @@ public enum ZoneType {
     }
 
     /**
-     * Gets the name of the file on disk containing the map.
+     * Gets the name of the file on disk containing the map (not the file path).
      *
      * @return the file name
      */
