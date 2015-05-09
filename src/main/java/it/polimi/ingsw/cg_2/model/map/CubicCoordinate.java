@@ -1,8 +1,5 @@
 package it.polimi.ingsw.cg_2.model.map;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
  * This class represent a Cubic Coordinate. This coordinate system is specific
  * for hexagonal grids and so it should not be extended or reused in other
@@ -25,15 +22,6 @@ import java.util.List;
  * */
 
 public final class CubicCoordinate {
-
-    /**
-     * The six possible directions in a CubicCoordinate, by adding them to an
-     * existing coordinate it is possible to get its neighbors. We use 3
-     * coordinates for clarity.
-     */
-    public static final List<CubicCoordinate> DIRECTIONS = Arrays.asList(
-            create(1, -1, 0), create(1, 0, -1), create(0, 1, -1),
-            create(-1, 1, 0), create(-1, 0, 1), create(0, -1, 1));
 
     /*
      * The z-axis coordinate is not needed as z = x + y so, by convention, we
@@ -124,30 +112,6 @@ public final class CubicCoordinate {
      */
     public int getZ() {
         return z;
-    }
-
-    /**
-     * Returns a new CubicCoordinate obtained by adding another CubicCoordinate
-     * to this one.
-     *
-     * @param coordinate the coordinate to add
-     * @return a new CubicCoordinate
-     */
-    public CubicCoordinate add(CubicCoordinate coordinate) {
-        return createFromAxial(this.getX() + coordinate.getX(), this.getZ()
-                + coordinate.getZ());
-    }
-
-    /**
-     * Returns a new CubicCoordinate obtained by subtracting another
-     * CubicCoordinate to this one.
-     *
-     * @param coordinate the coordinate to subtract
-     * @return a new CubicCoordinate
-     */
-    public CubicCoordinate sub(CubicCoordinate coordinate) {
-        return createFromAxial(this.getX() - coordinate.getX(), this.getZ()
-                - coordinate.getZ());
     }
 
     @Override
