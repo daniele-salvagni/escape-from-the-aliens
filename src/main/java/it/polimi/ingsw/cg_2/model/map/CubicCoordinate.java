@@ -91,11 +91,11 @@ public final class CubicCoordinate {
      * This static factory method created a CubicCoordinate object form an
      * offset "odd-q" coordinate system.
      *
-     * @param row the row in the odd-q coordinate system
      * @param col the column in the odd-q coordinate system
+     * @param row the row in the odd-q coordinate system
      * @return a new CubicCooridnate object
      */
-    public static CubicCoordinate createFromOddQ(int row, int col) {
+    public static CubicCoordinate createFromOddQ(int col, int row) {
         return new CubicCoordinate(col, row - (col - (col & 1)) / 2);
     }
 
