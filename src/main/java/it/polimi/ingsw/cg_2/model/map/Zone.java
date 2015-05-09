@@ -18,7 +18,10 @@ import java.util.Set;
  */
 public class Zone {
 
-    /** A map containing all the sectors of the Zone. */
+    /**
+     * A map containing all the sectors of the Zone. A Sector also contain its
+     * coordinate but we provide this for faster access.
+     */
     private Map<CubicCoordinate, Sector> sectorMap;
 
     /**
@@ -59,6 +62,13 @@ public class Zone {
         return newSectorsMap;
     }
 
+    /**
+     * Gets a set containing all the coordinates of the sectors (of any kind) in
+     * this Zone. We return a copy of the Set used in the Map implementation to
+     * minimize mutability.
+     *
+     * @return the coordinates of this zone
+     */
     public Set<CubicCoordinate> getCoordinates() {
         /*
          * The set returned by the keySet() method is backed by the map, so
