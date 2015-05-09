@@ -5,7 +5,9 @@ import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This class represents a Zone (the map of this game), this zone should
@@ -27,7 +29,7 @@ public class Zone {
      *
      * @param sectors the sectors to add to this zone
      */
-    protected Zone(Collection<Sector> sectors) {
+    protected Zone(Set<Sector> sectors) {
 
         sectorMap = new HashMap<CubicCoordinate, Sector>();
 
@@ -48,7 +50,12 @@ public class Zone {
      *
      * @return a new Map containing all the sectors of the zone
      */
-    public Map<CubicCoordinate, Sector> getSectors() {
+    public Map<CubicCoordinate, Sector> getSectorsMap() {
+        /*
+         * Effective Java - Item 11: it is better not to use clone(). The copy
+         * constructor, however, is not defined for the Map interface but only
+         * for some implementations.
+         */
         Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
         newSectorsMap.putAll(sectorMap);
         return newSectorsMap;
@@ -56,52 +63,53 @@ public class Zone {
 
     /**
      * Gets the human sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (a Zone should contain exactly
+     * found or if more than one has been found. (A Zone should contain exactly
      * one HUMAN sector).
      *
      * @return the human sector
      */
     public Sector getHumanSector() {
 
-        ArrayList<Sector> humanSectors = findSectorsFromType(SectorType.HUMAN);
+        Set<Sector> humanSectors = findSectorsFromType(SectorType.HUMAN);
 
         if (humanSectors.size() != 1) {
             throw new IllegalStateException(
                     "A Zone must contain exactly one human sector.");
         } else {
-            return humanSectors.get(0);
+            return humanSectors.iterator().next();
         }
 
     }
 
     /**
      * Gets the alien sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (a Zone should contain exactly
+     * found or if more than one has been found. (A Zone should contain exactly
      * one ALIEN sector).
      *
      * @return the alien sector
      */
     public Sector getAlienSector() {
 
-        ArrayList<Sector> alienSectors = findSectorsFromType(SectorType.ALIEN);
+        Set<Sector> alienSectors = findSectorsFromType(SectorType.ALIEN);
 
         if (alienSectors.size() != 1) {
             throw new IllegalStateException(
                     "A Zone must contain exactly one alien sector.");
         } else {
-            return alienSectors.get(0);
+            return alienSectors.iterator().next();
         }
 
     }
 
     /**
-     * Gets all the hatch sectors contained in this zone.
+     * Gets all the hatch sectors contained in this zone. (A Zone should contain
+     * at least one HATCH sector).
      *
      * @return the hatch sectors
      */
-    public ArrayList<Sector> getHatchSectors() {
+    public Set<Sector> getHatchSectors() {
 
-        ArrayList<Sector> hatchSectors = findSectorsFromType(SectorType.HATCH);
+        Set<Sector> hatchSectors = findSectorsFromType(SectorType.HATCH);
 
         if (hatchSectors.isEmpty()) {
             throw new IllegalStateException(
@@ -118,9 +126,9 @@ public class Zone {
      * @param sectorType the sector type to be searched for
      * @return an ArrayList containing the sectors found
      */
-    private ArrayList<Sector> findSectorsFromType(SectorType sectorType) {
+    private Set<Sector> findSectorsFromType(SectorType sectorType) {
 
-        ArrayList<Sector> foundSectors = new ArrayList<Sector>();
+        Set<Sector> foundSectors = new HashSet<Sector>();
 
         for (Sector s : sectorMap.values()) {
             if (s.getType() == sectorType) {
