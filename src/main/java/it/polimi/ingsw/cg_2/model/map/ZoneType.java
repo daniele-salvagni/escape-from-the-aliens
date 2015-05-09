@@ -6,10 +6,19 @@ package it.polimi.ingsw.cg_2.model.map;
  */
 public enum ZoneType {
 
-    EN_GARDE("map-en-garde.png"), FERMI("map-fermi.png"), FRENZY(
-            "map-frenzy.png"), GALILEI("map-galilei.png"), GALVANI(
-            "map-galvani.png"), MACHIAVELLI("map-machiavelli.png"), SINISTRA(
-            "map-sinsitra.png");
+    ASCESA("map-ascesa.png"),
+    BALENA("map-balena.png"),
+    CAVOUR("map-cavour.png"),
+    DILEMMA("map-dilemma.png"),
+    EN_GARDE("map-en-garde.png"),
+    FERMI("map-fermi.png"),
+    FRENZY("map-frenzy.png"),
+    GALILEI("map-galilei.png"),
+    GARIBALDI("map-garibaldi.png"),
+    GALVANI("map-galvani.png"),
+    MACHIAVELLI("map-machiavelli.png"),
+    SINISTRA("map-sinsitra.png"),
+    SOCRATES("map-socrates.png");
 
     private final String fileName;
 
