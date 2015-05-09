@@ -19,7 +19,7 @@ public class HexCalculator {
      * coordinate it is possible to get its neighbors. We use 3 coordinates for
      * clarity.
      */
-    public static final List<CubicCoordinate> DIRECTIONS = Arrays.asList(
+    private static final List<CubicCoordinate> DIRECTIONS = Arrays.asList(
     /*
      * Moving one space in hex coordinates involves changing one of the 3 cube
      * coordinates by +1 and changing another one by -1 (the sum must remain 0).
@@ -27,6 +27,14 @@ public class HexCalculator {
     CubicCoordinate.create(1, -1, 0), CubicCoordinate.create(1, 0, -1),
             CubicCoordinate.create(0, 1, -1), CubicCoordinate.create(-1, 1, 0),
             CubicCoordinate.create(-1, 0, 1), CubicCoordinate.create(0, -1, 1));
+    
+    /**
+     * Suppress the default constructor for noninstantiability (Effective Java -
+     * Item 4).
+     */
+    private HexCalculator() {
+        throw new AssertionError();
+    }
 
     /**
      * Returns a new CubicCoordinate obtained by the sum of 2.
