@@ -59,6 +59,17 @@ public class Zone {
         return newSectorsMap;
     }
 
+    public Set<CubicCoordinate> getCoordinates() {
+        /*
+         * The set returned by the keySet() method is backed by the map, so
+         * changes to the map are reflected in the set, and vice-versa. For this
+         * reason we return a copy of the set to reduce mutability.
+         */
+        Set<CubicCoordinate> newCoordSet = new HashSet<>();
+        newCoordSet.addAll(sectorMap.keySet());
+        return newCoordSet;
+    }
+
     /**
      * Gets the human sector. Throws an exception if the sector has not been
      * found or if more than one has been found. (A Zone should contain exactly
