@@ -25,8 +25,8 @@ public class Zone {
     private Map<CubicCoordinate, Sector> sectorMap;
 
     /**
-     * Instantiates a new zone with a (@link Collection) of (@link Sector)s that
-     * will be mapped by (@link CubicCoordinate).
+     * Instantiates a new zone with a {@link Collection} of {@link Sector}s that
+     * will be mapped by {@link CubicCoordinate}.
      *
      * @param sectors the sectors to add to this zone
      */

@@ -17,8 +17,8 @@ package it.polimi.ingsw.cg_2.model.map;
  * Static factory methods are provided to avoid confusion between the two
  * representations (Effective Java - Item 1).
  * <p>
- * This class must remain immutable, it is also used as an (@link HashMap) key
- * inside a (@link Zone).
+ * This class must remain immutable, it is also used as an {@link HashMap} key
+ * inside a {@link Zone}.
  * */
 
 public final class CubicCoordinate {

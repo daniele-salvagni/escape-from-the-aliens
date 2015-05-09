@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_2.model.map;
 
 /**
- * This class represents a Sector, it has a (@link CubicCoordinate) relative to
- * a (@link Zone) and a type. This class is immutable.
+ * This class represents a Sector, it has a {@link CubicCoordinate} relative to
+ * a {@link Zone} and a type. This class is immutable.
  */
 public class Sector {
 
@@ -19,7 +19,7 @@ public class Sector {
     /**
      * Instantiates a new sector.
      *
-     * @param position the position relative to a (@link Zone)
+     * @param position the position relative to a {@link Zone}
      * @param type the type of the sector
      */
     public Sector(CubicCoordinate position, SectorType type) {
@@ -37,7 +37,7 @@ public class Sector {
     }
 
     /**
-     * Gets the sector coordinate relative to the (@link Zone).
+     * Gets the sector coordinate relative to the {@link Zone}.
      *
      * @return the sector coordinate.
      */
