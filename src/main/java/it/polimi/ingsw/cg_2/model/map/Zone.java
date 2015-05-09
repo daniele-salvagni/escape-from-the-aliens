@@ -19,7 +19,7 @@ import java.util.Map;
 public class Zone {
 
     /** A map containing all the sectors of the Zone. */
-    private Map<CubicCoordinate, Sector> sectors;
+    private Map<CubicCoordinate, Sector> sectorMap;
 
     /**
      * Instantiates a new zone with a (@link Collection) of (@link Sector)s that
@@ -29,14 +29,14 @@ public class Zone {
      */
     protected Zone(Collection<Sector> sectors) {
 
-        this.sectors = new HashMap<CubicCoordinate, Sector>();
+        sectorMap = new HashMap<CubicCoordinate, Sector>();
 
         for (Sector sector : sectors) {
-            if (this.sectors.containsKey(sector.getCooridnate())) {
+            if (sectorMap.containsKey(sector.getCooridnate())) {
                 throw new IllegalArgumentException(
                         "A Zone cannot contain two sectors in the same position.");
             } else {
-                this.sectors.put(sector.getCooridnate(), sector);
+                sectorMap.put(sector.getCooridnate(), sector);
             }
         }
 
@@ -50,7 +50,7 @@ public class Zone {
      */
     public Map<CubicCoordinate, Sector> getSectors() {
         Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
-        newSectorsMap.putAll(sectors);
+        newSectorsMap.putAll(sectorMap);
         return newSectorsMap;
     }
 
@@ -122,7 +122,7 @@ public class Zone {
 
         ArrayList<Sector> foundSectors = new ArrayList<Sector>();
 
-        for (Sector s : sectors.values()) {
+        for (Sector s : sectorMap.values()) {
             if (s.getType() == sectorType) {
                 foundSectors.add(s);
             }
