@@ -2,8 +2,6 @@ package it.polimi.ingsw.cg_2.model.map;
 
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
