@@ -1,5 +1,5 @@
 package it.polimi.ingsw.cg_2.model.player;
 
-public class CharacterType {
-
+public enum CharacterType {
+	HUMAN, ALIEN;
 }
