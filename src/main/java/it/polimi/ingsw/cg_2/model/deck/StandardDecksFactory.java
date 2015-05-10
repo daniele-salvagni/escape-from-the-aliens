@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is a concrete factory that implements the abstract (@link
@@ -29,7 +30,7 @@ public class StandardDecksFactory implements DecksFactory {
          * List of Item Cards: 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives,
          * 2 Spotlight, 1 Defense.
          */
-        ArrayList<ItemCard> cards = new ArrayList<ItemCard>();
+        List<ItemCard> cards = new ArrayList<ItemCard>();
         cards.add(new ItemCard(ItemCardType.ATTACK));
         cards.add(new ItemCard(ItemCardType.ATTACK));
         cards.add(new ItemCard(ItemCardType.TELEPORT));
@@ -58,7 +59,7 @@ public class StandardDecksFactory implements DecksFactory {
          * List of Sector Cards: 10 Noise (4 with object), 10 Deception (4 with
          * object), 5 Silence.
          */
-        ArrayList<SectorCard> cards = new ArrayList<SectorCard>();
+        List<SectorCard> cards = new ArrayList<SectorCard>();
 
         for (int i = 1; i <= 10; i++) {
             if (i <= 4) {
@@ -90,7 +91,7 @@ public class StandardDecksFactory implements DecksFactory {
         /*
          * List of Hatch Cards: 3 Green, 3 Red.
          */
-        ArrayList<HatchCard> cards = new ArrayList<HatchCard>();
+        List<HatchCard> cards = new ArrayList<HatchCard>();
 
         for (int i = 1; i < 3; i++) {
             cards.add(new HatchCard(HatchCardType.GREEN));
