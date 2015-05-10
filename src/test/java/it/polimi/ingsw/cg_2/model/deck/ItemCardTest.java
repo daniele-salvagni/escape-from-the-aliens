@@ -8,17 +8,24 @@ import org.junit.Test;
 
 public class ItemCardTest {
 
+    ItemCardType type = ItemCardType.ADRENALINE;
+
     @Test
     public void souldBeCreated() {
-        ItemCardType type = ItemCardType.ADRENALINE;
         ItemCard card = new ItemCard(type);
         assertNotNull(card);
     }
 
     @Test
     public void shouldGetType() {
-        ItemCardType expectedType = ItemCardType.ADRENALINE;
-        ItemCard card = new ItemCard(expectedType);
-        assertEquals(expectedType, card.getType());
+        for (ItemCardType type : ItemCardType.values()) {
+            assertEquals(type, getType(type));
+        }
+
+    }
+
+    ItemCardType getType(ItemCardType type) {
+        ItemCard card = new ItemCard(type);
+        return card.getType();
     }
 }
