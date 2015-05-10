@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_2.model.deck;
 
 import static org.junit.Assert.*;
-import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import org.junit.Test;
