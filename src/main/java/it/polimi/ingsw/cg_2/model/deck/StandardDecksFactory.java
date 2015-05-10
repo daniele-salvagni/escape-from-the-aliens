@@ -21,7 +21,7 @@ import java.util.List;
  * @see SectorCard
  * @see HatchCard
  */
-public class StandardDecksFactory implements DecksFactory {
+public class StandardDecksFactory extends DecksFactory {
 
     @Override
     public Deck<ItemCard> createItemDeck() {
