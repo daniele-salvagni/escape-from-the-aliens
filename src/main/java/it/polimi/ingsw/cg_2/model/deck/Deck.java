@@ -16,8 +16,8 @@ import java.util.Stack;
  * possible to create decks of mixed card types. In this case it does not make
  * sense to handle different decks polymorphically as they are just a data
  * structure similar to a (@link Stack) with additional behavior and different
- * decks must be used in different situations but with the same behavior, so it
- * is better to use a class with genetic parameters.
+ * decks must be used in different situations but with the <b>same behavior</b>,
+ * so it is better to use a class with genetic parameters.
  *
  * @param <E> the element type
  */
@@ -27,9 +27,9 @@ public class Deck<E extends Card> {
     private List<E> discardPile;
 
     /**
-     * Instantiates a new Deck populated with a (@link Collection) of
-     * (@link Card)s. The cards are <b>not shuffled</b> when the deck is
-     * created, so they will be dealt from the last to the first one.
+     * Instantiates a new Deck populated with a (@link Collection) of (@link
+     * Card)s. The cards are <b>not shuffled</b> when the deck is created, so
+     * they will be dealt from the last to the first one.
      *
      * @param cards a (@link Collection) of cards to put inside the deck
      */
