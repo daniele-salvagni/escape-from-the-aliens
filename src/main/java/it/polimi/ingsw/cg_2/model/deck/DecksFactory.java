@@ -7,23 +7,23 @@ package it.polimi.ingsw.cg_2.model.deck;
 public interface DecksFactory {
 
     /**
-     * Creates a populated (@link DeckManager) of (@link ItemCard).
+     * Creates a populated (@link Deck) of (@link ItemCard).
      *
-     * @return a new (@link DeckManager) of (@link ItemCard).
+     * @return a new (@link Deck) of (@link ItemCard).
      */
-    DeckManager<ItemCard> createItemDeck();
+    Deck<ItemCard> createItemDeck();
 
     /**
-     * Creates a populated (@link DeckManager) of (@link SectorCard).
+     * Creates a populated (@link Deck) of (@link SectorCard).
      *
-     * @return a new (@link DeckManager) of (@link SectorCard).
+     * @return a new (@link Deck) of (@link SectorCard).
      */
-    DeckManager<SectorCard> createSectorDeck();
+    Deck<SectorCard> createSectorDeck();
 
     /**
-     * Creates a populated (@link DeckManager) of (@link HatchCard).
+     * Creates a populated (@link Deck) of (@link HatchCard).
      *
-     * @return a new (@link DeckManager) of (@link HatchCard).
+     * @return a new (@link Deck) of (@link HatchCard).
      */
-    DeckManager<HatchCard> createHatchDeck();
+    Deck<HatchCard> createHatchDeck();
 }

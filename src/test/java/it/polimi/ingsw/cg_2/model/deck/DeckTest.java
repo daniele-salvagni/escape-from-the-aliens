@@ -12,9 +12,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-public class DeckManagerTest {
+public class DeckTest {
 
-    private DeckManager<Card> deck;
+    private Deck<Card> deck;
     private List<Card> cards;
 
     @Before
@@ -30,7 +30,7 @@ public class DeckManagerTest {
         cards.add(new HatchCard(HatchCardType.RED));
 
         /* Instantiate a new deck populated with some test cards. */
-        deck = new DeckManager<Card>(cards);
+        deck = new Deck<Card>(cards);
 
     }
 

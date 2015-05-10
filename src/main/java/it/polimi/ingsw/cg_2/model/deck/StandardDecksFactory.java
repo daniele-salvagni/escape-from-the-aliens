@@ -24,7 +24,7 @@ import java.util.List;
 public class StandardDecksFactory implements DecksFactory {
 
     @Override
-    public DeckManager<ItemCard> createItemDeck() {
+    public Deck<ItemCard> createItemDeck() {
 
         /*
          * List of Item Cards: 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives,
@@ -44,7 +44,7 @@ public class StandardDecksFactory implements DecksFactory {
         cards.add(new ItemCard(ItemCardType.SPOTLIGHT));
         cards.add(new ItemCard(ItemCardType.DEFENSE));
 
-        DeckManager<ItemCard> deckManager = new DeckManager<ItemCard>(cards);
+        Deck<ItemCard> deckManager = new Deck<ItemCard>(cards);
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Item cards for the
@@ -53,7 +53,7 @@ public class StandardDecksFactory implements DecksFactory {
     }
 
     @Override
-    public DeckManager<SectorCard> createSectorDeck() {
+    public Deck<SectorCard> createSectorDeck() {
 
         /*
          * List of Sector Cards: 10 Noise (4 with object), 10 Deception (4 with
@@ -77,7 +77,7 @@ public class StandardDecksFactory implements DecksFactory {
             cards.add(new SectorCard(SectorCardType.SILENCE));
         }
 
-        DeckManager<SectorCard> deckManager = new DeckManager<SectorCard>(cards);
+        Deck<SectorCard> deckManager = new Deck<SectorCard>(cards);
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Sector cards for the
@@ -86,7 +86,7 @@ public class StandardDecksFactory implements DecksFactory {
     }
 
     @Override
-    public DeckManager<HatchCard> createHatchDeck() {
+    public Deck<HatchCard> createHatchDeck() {
 
         /*
          * List of Hatch Cards: 3 Green, 3 Red.
@@ -98,7 +98,7 @@ public class StandardDecksFactory implements DecksFactory {
             cards.add(new HatchCard(HatchCardType.RED));
         }
 
-        DeckManager<HatchCard> deckManager = new DeckManager<HatchCard>(cards);
+        Deck<HatchCard> deckManager = new Deck<HatchCard>(cards);
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Hatch cards for the
