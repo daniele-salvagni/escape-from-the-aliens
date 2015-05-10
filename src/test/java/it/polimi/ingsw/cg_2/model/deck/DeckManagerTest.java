@@ -80,13 +80,27 @@ public class DeckManagerTest {
     }
 
     @Test
-    public void shouldReturnTrueIfEmpry() {
-        // TODO
+    public void shouldReturnTrueIfDeckIsEmpry() {
+        assertFalse(deck.isEmpty());
+        // We empty the deck
+        for (int i = 0; i < cards.size(); i++) {
+            deck.drawCard();
+        }
+        assertTrue(deck.isDeckEmpty());
+
     }
 
     @Test
-    public void shouldReturnTrueIfDiscardIsEmpty() {
-        // TODO
+    public void shouldReturnTrueIfDiscardAndDeckAreEmpty() {
+        assertFalse(deck.isEmpty());
+        // We empty the deck
+        for (int i = 0; i < cards.size(); i++) {
+            deck.drawCard();
+        }
+        assertTrue(deck.isEmpty());
+        // We add a card to the discard pile
+        deck.discardCard(new ItemCard(ItemCardType.ADRENALINE));
+        assertFalse(deck.isEmpty());
     }
 
     @Test
