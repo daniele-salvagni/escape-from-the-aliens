@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.model.deck;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -15,15 +16,15 @@ import java.util.Stack;
  * possible to create decks of mixed card types. In this case it does not make
  * sense to handle different decks polymorphically as they are just a data
  * structure similar to a (@link Stack) with additional behavior and different
- * decks must be used in different situations, so it is better to use a class
- * with genetic parameters.
+ * decks must be used in different situations but with the same behavior, so it
+ * is better to use a class with genetic parameters.
  *
  * @param <E> the element type
  */
 public class DeckManager<E extends Card> {
 
     private Stack<E> deck;
-    private ArrayList<E> discardPile;
+    private List<E> discardPile;
 
     /**
      * Instantiates a new DeckManager populated with a (@link Collection) of

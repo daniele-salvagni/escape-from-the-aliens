@@ -7,18 +7,30 @@ import org.junit.Test;
 
 public class HatchCardTest {
 
+    HatchCardType type = HatchCardType.RED;
+
     @Test
-    public void testConstructor() throws Exception {
-        HatchCardType cardType = HatchCardType.RED;
-        HatchCard hatchCard = new HatchCard(cardType);
-        assertNotNull(hatchCard);
+    public void souldBeCreated() {
+
+        HatchCard card = new HatchCard(type);
+        assertNotNull(card);
+
     }
 
     @Test
-    public void testGetType() throws Exception {
-        HatchCardType expectedType = HatchCardType.RED;
-        HatchCard hatchCard = new HatchCard(expectedType);
-        assertEquals(hatchCard.getType(), expectedType);
+    public void shouldGetType() {
+
+        for (HatchCardType type : HatchCardType.values()) {
+            assertEquals(type, getType(type));
+        }
+
+    }
+
+    HatchCardType getType(HatchCardType type) {
+
+        HatchCard card = new HatchCard(type);
+        return card.getType();
+
     }
 
 }

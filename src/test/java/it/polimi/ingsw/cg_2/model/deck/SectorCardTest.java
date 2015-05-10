@@ -7,26 +7,62 @@ import org.junit.Test;
 
 public class SectorCardTest {
 
-    @Test
-    public void testConstructor() throws Exception {
-        SectorCardType cardType = SectorCardType.NOISE;
-        SectorCard sectorCard = new SectorCard(cardType);
-        assertNotNull(sectorCard);
-    }
-
-    /*@Test
-    public void testConstructorWithObject() throws Exception {
-        throw new RuntimeException("not yet implemented");
-    }
+    SectorCardType type = SectorCardType.NOISE;
 
     @Test
-    public void testContainsItem() throws Exception {
-        throw new RuntimeException("not yet implemented");
+    public void souldBeCreated() {
+
+        SectorCard card = new SectorCard(type);
+        assertNotNull(card);
+
     }
 
     @Test
-    public void testGetType() throws Exception {
-        throw new RuntimeException("not yet implemented");
-    }*/
+    public void souldBeCreatedWithTwoParameters() {
+
+        SectorCard card = new SectorCard(type, false);
+        assertNotNull(card);
+
+    }
+
+    @Test
+    public void shouldNotContainItem() {
+
+        SectorCard card = new SectorCard(type);
+        assertEquals(false, card.containsItem());
+
+    }
+
+    @Test
+    public void shouldNotContainItemTwoParameters() {
+
+        SectorCard card = new SectorCard(type, false);
+        assertEquals(false, card.containsItem());
+
+    }
+
+    @Test
+    public void shouldContainItem() {
+
+        SectorCard card = new SectorCard(type, true);
+        assertEquals(true, card.containsItem());
+
+    }
+
+    @Test
+    public void shouldGetType() {
+
+        for (SectorCardType type : SectorCardType.values()) {
+            assertEquals(type, getType(type));
+        }
+
+    }
+
+    SectorCardType getType(SectorCardType type) {
+
+        SectorCard card = new SectorCard(type);
+        return card.getType();
+
+    }
 
 }
