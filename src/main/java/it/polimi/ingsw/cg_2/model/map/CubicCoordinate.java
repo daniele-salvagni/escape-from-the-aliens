@@ -46,16 +46,15 @@ public final class CubicCoordinate {
     /**
      * Creates a CubicCoordinate object, one of the three could be implicit,
      * this static factory method is provided only for code readability and
-     * validation. x + y + z must equal zero, otherwise an exception is thrown.
+     * validation. x + y + z must equal zero, otherwise an
+     * IllegalArgumentException is thrown.
      *
      * @param x the x coordinate
      * @param y the y coordinate
      * @param z the z coordinate
      * @return a new CubicCoordinate object
-     * @throws IllegalArgumentException if x + y + z != 0.
      */
-    public static CubicCoordinate create(int x, int y, int z)
-            throws IllegalArgumentException {
+    public static CubicCoordinate create(int x, int y, int z) {
         if ((x + y + z) == 0) {
             return new CubicCoordinate(x, z);
         } else {
