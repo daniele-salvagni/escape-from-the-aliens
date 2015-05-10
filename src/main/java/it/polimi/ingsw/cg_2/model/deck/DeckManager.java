@@ -28,14 +28,12 @@ public class DeckManager<E extends Card> {
 
     /**
      * Instantiates a new DeckManager populated with a (@link Collection) of
-     * (@link Card)s, it is protected because it should be used only by the
-     * Abstrct Factory (@link {@link DecksFactory}). The cards are <b>not
-     * shuffled</b> when the deck is created, so they will be dealt from the
-     * last to the first one.
+     * (@link Card)s. The cards are <b>not shuffled</b> when the deck is
+     * created, so they will be dealt from the last to the first one.
      *
      * @param cards a (@link Collection) of cards to put inside the deck
      */
-    protected DeckManager(Collection<E> cards) {
+    public DeckManager(Collection<E> cards) {
         deck = new Stack<E>();
         deck.addAll(cards);
         discardPile = new ArrayList<E>();
