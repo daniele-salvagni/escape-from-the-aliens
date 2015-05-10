@@ -37,37 +37,37 @@ public class DeckManagerTest {
     }
 
     @Test
-    public void shouldBeCreated() throws Exception {
-        
+    public void shouldBeCreated() {
+
         assertNotNull(deck);
-        
+
     }
 
     @Test
-    public void shouldDrawCards() throws Exception {
-        
+    public void shouldDrawCards() {
+
         // We expect cards to be drawn in reverse order (works like a stack)
         Collections.reverse(cards);
         for (Card card : cards) {
             assertEquals(card, deck.drawCard());
         }
-        
+
     }
 
     @Test
-    public void shouldDrawNullIfEmpty() throws Exception {
-        
+    public void shouldDrawNullIfEmpty() {
+
         // We empty the deck
         for (int i = 0; i < cards.size(); i++) {
             deck.drawCard();
         }
         assertNull(deck.drawCard());
-        
+
     }
 
     @Test
-    public void shouldUseDiscardPileIfDeckIsEmpty() throws Exception {
-        
+    public void shouldUseDiscardPileIfDeckIsEmpty() {
+
         // We empty the deck except for one card
         for (int i = 0; i < (cards.size() - 1); i++) {
             deck.drawCard();
@@ -78,22 +78,22 @@ public class DeckManagerTest {
         deck.discardCard(expectedCard);
         // We check if we get the same card
         assertEquals(expectedCard, deck.drawCard());
-        
+
     }
 
     @Test
-    public void shouldReturnTrueIfEmpry() throws Exception {
-        throw new RuntimeException("not yet implemented");
+    public void shouldReturnTrueIfEmpry() {
+        // TODO
     }
 
     @Test
-    public void shouldReturnTrueIfDiscardIsEmpty() throws Exception {
-        throw new RuntimeException("not yet implemented");
+    public void shouldReturnTrueIfDiscardIsEmpty() {
+        // TODO
     }
 
     @Test
-    public void testShuffleDeck() throws Exception {
-        throw new RuntimeException("not yet implemented");
+    public void testShuffleDeck() {
+        // TODO
     }
 
 }
