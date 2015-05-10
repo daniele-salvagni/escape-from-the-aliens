@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model.deck;
 
 import static org.junit.Assert.*;
+import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import org.junit.Test;
@@ -41,10 +42,9 @@ public class SectorCardTest {
 
     @Test
     public void shouldGetType() {
-        assertEquals(SectorCardType.NOISE, getType(SectorCardType.NOISE));
-        assertEquals(SectorCardType.DECEPTION,
-                getType(SectorCardType.DECEPTION));
-        assertEquals(SectorCardType.SILENCE, getType(SectorCardType.SILENCE));
+        for (SectorCardType type : SectorCardType.values()) {
+            assertEquals(type, getType(type));
+        }
 
     }
 
