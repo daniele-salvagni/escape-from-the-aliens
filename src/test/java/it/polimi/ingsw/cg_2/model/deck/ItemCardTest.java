@@ -12,12 +12,15 @@ public class ItemCardTest {
 
     @Test
     public void souldBeCreated() {
+
         ItemCard card = new ItemCard(type);
         assertNotNull(card);
+
     }
 
     @Test
     public void shouldGetType() {
+
         for (ItemCardType type : ItemCardType.values()) {
             assertEquals(type, getType(type));
         }
@@ -25,7 +28,10 @@ public class ItemCardTest {
     }
 
     ItemCardType getType(ItemCardType type) {
+
         ItemCard card = new ItemCard(type);
         return card.getType();
+
     }
+
 }

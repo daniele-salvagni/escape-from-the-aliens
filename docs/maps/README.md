@@ -10,14 +10,7 @@ The ZoneHelper class is able to support every map dimension, however the impleme
 
 In this folder is possible to find a template file containing the mask and the color palette used by this game to generate new maps.
 
-### Image Processing ###
-
-File *map-saving-process.png* contained in this folder:
-
-![Image processing](http://i.imgur.com/lYzt2cx.png)
-
-
-### Colors Palette ###
+## Colors Palette ##
 
 | Color         | Sector                             |
 | ------------- | ---------------------------------- |
@@ -27,3 +20,9 @@ File *map-saving-process.png* contained in this folder:
 | **993399** *(Purple)*         | Alien Sector       |
 | **0099CC** *(Cyan)*           | Human Sector       |
 | **003333** *(Dark Green)*     | EMPTY, no sectors  |
+
+## Image Processing ##
+
+File *map-saving-process.png* contained in this folder:
+
+![Image processing](http://i.imgur.com/lYzt2cx.png)

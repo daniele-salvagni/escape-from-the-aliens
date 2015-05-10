@@ -17,8 +17,8 @@ package it.polimi.ingsw.cg_2.model.map;
  * Static factory methods are provided to avoid confusion between the two
  * representations (Effective Java - Item 1).
  * <p>
- * This class must remain immutable, it is also used as an (@link HashMap) key
- * inside a (@link Zone).
+ * This class must remain immutable, it is also used as an {@link HashMap} key
+ * inside a {@link Zone}.
  * */
 
 public final class CubicCoordinate {
@@ -31,7 +31,9 @@ public final class CubicCoordinate {
     private int z;
 
     /**
-     * Instantiates a new cubic coordinate.
+     * Instantiates a new cubic coordinate, constructor is private as we use
+     * static factories so it is possible to have multiple constructors without
+     * causing confusion with parameters.
      *
      * @param x the x coordinate of a CubicCoordinate
      * @param z the z coordinate of a CubicCoordinate
@@ -39,18 +41,6 @@ public final class CubicCoordinate {
     private CubicCoordinate(int x, int z) {
         this.x = x;
         this.z = z;
-    }
-
-    /**
-     * This static factory method creates a CubicCoordinate object from an axial
-     * coordinate system, by convention the parameters are:
-     *
-     * @param q the x coordinate of a CubicCoordinate (q for axial)
-     * @param r the z coordinate of a CubicCoordinate (r for axial)
-     * @return a new CubicCoordinate object
-     */
-    public static CubicCoordinate createFromAxial(int q, int r) {
-        return new CubicCoordinate(q, r);
     }
 
     /**
@@ -71,7 +61,30 @@ public final class CubicCoordinate {
         } else {
             throw new IllegalArgumentException("x + y + z must equal 0.");
         }
+    }
 
+    /**
+     * This static factory method creates a CubicCoordinate object from an axial
+     * coordinate system, by convention the parameters are:
+     *
+     * @param q the x coordinate of a CubicCoordinate (q for axial)
+     * @param r the z coordinate of a CubicCoordinate (r for axial)
+     * @return a new CubicCoordinate object
+     */
+    public static CubicCoordinate createFromAxial(int q, int r) {
+        return new CubicCoordinate(q, r);
+    }
+
+    /**
+     * This static factory method created a CubicCoordinate object form an
+     * offset "odd-q" coordinate system.
+     *
+     * @param col the column in the odd-q coordinate system
+     * @param row the row in the odd-q coordinate system
+     * @return a new CubicCooridnate object
+     */
+    public static CubicCoordinate createFromOddQ(int col, int row) {
+        return new CubicCoordinate(col, row - (col - (col & 1)) / 2);
     }
 
     /**
@@ -124,6 +137,11 @@ public final class CubicCoordinate {
         if (z != other.z)
             return false;
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "CubicCoordinate [x=" + x + ", z=" + z + "]";
     }
 
 }

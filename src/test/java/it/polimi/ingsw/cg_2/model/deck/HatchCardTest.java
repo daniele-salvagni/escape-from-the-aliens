@@ -11,12 +11,15 @@ public class HatchCardTest {
 
     @Test
     public void souldBeCreated() {
+
         HatchCard card = new HatchCard(type);
         assertNotNull(card);
+
     }
 
     @Test
     public void shouldGetType() {
+
         for (HatchCardType type : HatchCardType.values()) {
             assertEquals(type, getType(type));
         }
@@ -24,8 +27,10 @@ public class HatchCardTest {
     }
 
     HatchCardType getType(HatchCardType type) {
+
         HatchCard card = new HatchCard(type);
         return card.getType();
+
     }
 
 }
