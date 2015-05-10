@@ -29,7 +29,9 @@ public class DeckManager<E extends Card> {
     /**
      * Instantiates a new DeckManager populated with a (@link Collection) of
      * (@link Card)s, it is protected because it should be used only by the
-     * Abstrct Factory (@link {@link DecksFactory}).
+     * Abstrct Factory (@link {@link DecksFactory}). The cards are <b>not
+     * shuffled</b> when the deck is created, so they will be dealt from the
+     * last to the first one.
      *
      * @param cards a (@link Collection) of cards to put inside the deck
      */
@@ -43,7 +45,7 @@ public class DeckManager<E extends Card> {
      * Draws a card by removing it from the stack. If the deck is empty it
      * checks if there are cards in the discardPile, if this empty then there
      * are no more cards and it returns null, otherwise the discardPile becomes
-     * the new deck and cards are shuffled.
+     * the new deck and cards are automatically shuffled.
      */
     public E drawCard() {
         if (this.isEmpty()) {
