@@ -25,8 +25,11 @@ public class SectorCardTest {
     public void shouldNotContainItem() {
         SectorCard card = new SectorCard(type);
         assertEquals(false, card.containsItem());
+    }
 
-        card = new SectorCard(type, false);
+    @Test
+    public void shouldNotContainItemTwoParameters() {
+        SectorCard card = new SectorCard(type, false);
         assertEquals(false, card.containsItem());
     }
 
@@ -34,6 +37,20 @@ public class SectorCardTest {
     public void shouldContainItem() {
         SectorCard card = new SectorCard(type, true);
         assertEquals(true, card.containsItem());
+    }
+
+    @Test
+    public void shouldGetType() {
+        assertEquals(SectorCardType.NOISE, getType(SectorCardType.NOISE));
+        assertEquals(SectorCardType.DECEPTION,
+                getType(SectorCardType.DECEPTION));
+        assertEquals(SectorCardType.SILENCE, getType(SectorCardType.SILENCE));
+
+    }
+
+    SectorCardType getType(SectorCardType type) {
+        SectorCard card = new SectorCard(type);
+        return card.getType();
     }
 
 }
