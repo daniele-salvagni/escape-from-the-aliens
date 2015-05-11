@@ -92,4 +92,22 @@ public class CubicCoordinateTest {
 
     }
 
+    @Test
+    public void shouldGetOddQColumn() {
+
+        int col = -5;
+        CubicCoordinate coordinate = CubicCoordinate.createFromOddQ(col, 3);
+        assertEquals(col, coordinate.getOddQCol());
+
+    }
+
+    @Test
+    public void shouldGetOddQRow() {
+
+        int row = 3;
+        CubicCoordinate coordinate = CubicCoordinate.createFromOddQ(-5, row);
+        assertEquals(row, coordinate.getOddQRow());
+
+    }
+
 }
