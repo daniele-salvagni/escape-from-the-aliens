@@ -156,9 +156,16 @@ public final class CubicCoordinate {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     * 
+     * Example: CubicCoordinate [x=-6, y=3, z=3]
+     */
     @Override
     public String toString() {
-        return "CubicCoordinate [x=" + x + ", z=" + z + "]";
+        return "CubicCoordinate [x=" + x + ", y=" + (-x - z) + ", z=" + z + "]";
     }
 
 }
