@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class DeckTest {
@@ -103,9 +104,12 @@ public class DeckTest {
         assertFalse(deck.isEmpty());
     }
 
-    @Test
+    @Ignore
     public void testShuffleDeck() {
-        // TODO
+        // It's impossible to determine if a deck is shuffled because in theory
+        // the shuffling could produce a deck that is exactly in the same order.
+        // We would need a statistical analysis but testing this method would be
+        // the same as testing Collections.shuffle which is unnecessary.
     }
 
 }
