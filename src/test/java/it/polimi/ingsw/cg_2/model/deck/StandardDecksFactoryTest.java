@@ -83,4 +83,35 @@ public class StandardDecksFactoryTest {
         assertArrayEquals(expectedNumberOfCards, numberOfCards);
 
     }
+
+    @Test
+    public void shouldPopulateSectorDeckCorrectly() {
+        Deck<SectorCard> deck = factory.createSectorDeck();
+        SectorCard card;
+
+        // It should create 3 Green and 3 Red cards.
+        int[] expectedNumberOfCards = new int[] { 4, 6, 4, 6, 5 };
+        int[] numberOfCards = new int[] { 0, 0, 0, 0, 0 };
+
+        while (!deck.isEmpty()) {
+            card = deck.drawCard();
+            if (card.getType() == NOISE && card.containsItem()) {
+                ++numberOfCards[0];
+            } else if (card.getType() == NOISE && !card.containsItem()) {
+                ++numberOfCards[1];
+            } else if (card.getType() == DECEPTION && card.containsItem()) {
+                ++numberOfCards[2];
+            } else if (card.getType() == DECEPTION && !card.containsItem()) {
+                ++numberOfCards[3];
+            } else if (card.getType() == SILENCE && !card.containsItem()) {
+                ++numberOfCards[4];
+            } else {
+                throw new AssertionError("Invalid card has been found.");
+            }
+        }
+
+        assertArrayEquals(expectedNumberOfCards, numberOfCards);
+
+    }
+
 }
