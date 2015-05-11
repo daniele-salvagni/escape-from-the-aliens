@@ -65,5 +65,31 @@ public class CubicCoordinateTest {
 
     }
 
+    @Test
+    public void shouldGetX() {
+
+        int x = 2;
+        CubicCoordinate coordinate = CubicCoordinate.create(x, -5, 3);
+        assertEquals(coordinate.getX(), x);
+
+    }
+
+    @Test
+    public void shouldGetY() {
+
+        int y = -5;
+        CubicCoordinate coordinate = CubicCoordinate.create(2, y, 3);
+        assertEquals(coordinate.getY(), y);
+
+    }
+
+    @Test
+    public void shouldGetZ() {
+
+        int z = 3;
+        CubicCoordinate coordinate = CubicCoordinate.create(2, -5, z);
+        assertEquals(coordinate.getZ(), z);
+
+    }
 
 }
