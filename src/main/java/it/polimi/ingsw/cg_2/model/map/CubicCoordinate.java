@@ -39,8 +39,10 @@ public final class CubicCoordinate {
      * @param z the z coordinate of a CubicCoordinate
      */
     private CubicCoordinate(int x, int z) {
+
         this.x = x;
         this.z = z;
+
     }
 
     /**
@@ -55,11 +57,13 @@ public final class CubicCoordinate {
      * @return a new CubicCoordinate object
      */
     public static CubicCoordinate create(int x, int y, int z) {
+
         if ((x + y + z) == 0) {
             return new CubicCoordinate(x, z);
         } else {
             throw new IllegalArgumentException("x + y + z must equal 0.");
         }
+
     }
 
     /**
@@ -71,7 +75,9 @@ public final class CubicCoordinate {
      * @return a new CubicCoordinate object
      */
     public static CubicCoordinate createFromAxial(int q, int r) {
+
         return new CubicCoordinate(q, r);
+
     }
 
     /**
@@ -83,7 +89,9 @@ public final class CubicCoordinate {
      * @return a new CubicCooridnate object
      */
     public static CubicCoordinate createFromOddQ(int col, int row) {
+
         return new CubicCoordinate(col, row - (col - (col & 1)) / 2);
+
     }
 
     /**
@@ -92,7 +100,9 @@ public final class CubicCoordinate {
      * @return the x coordinate
      */
     public int getX() {
+
         return x;
+
     }
 
     /**
@@ -101,7 +111,9 @@ public final class CubicCoordinate {
      * @return the y coordinate
      */
     public int getY() {
+
         return -(x + z);
+
     }
 
     /**
@@ -110,7 +122,9 @@ public final class CubicCoordinate {
      * @return the z coordinate
      */
     public int getZ() {
+
         return z;
+
     }
 
     /**
@@ -119,7 +133,9 @@ public final class CubicCoordinate {
      * @return the odd-q col
      */
     public int getOddQCol() {
+
         return x;
+
     }
 
     /**
@@ -128,7 +144,9 @@ public final class CubicCoordinate {
      * @return the odd-q row
      */
     public int getOddQRow() {
+
         return z + (x - (x & 1)) / 2;
+
     }
 
     @Override
