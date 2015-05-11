@@ -22,10 +22,9 @@ import java.util.List;
  * @see SectorCard
  * @see HatchCard
  */
-public class StandardDecksFactory extends DecksFactory {
+public class StandardDecksFactory implements DecksFactory {
 
-    /* This constructor is protected as it should be called from DecksFactory. */
-    protected StandardDecksFactory() {
+    public StandardDecksFactory() {
         super();
     }
 
