@@ -104,7 +104,7 @@ public class StandardDecksFactory extends DecksFactory {
         cards.add(new SectorCard(DECEPTION, false));
         cards.add(new SectorCard(DECEPTION, false));
 
-        // 4 Silence cards without objects
+        // 5 Silence cards without objects
         cards.add(new SectorCard(SILENCE));
         cards.add(new SectorCard(SILENCE));
         cards.add(new SectorCard(SILENCE));
