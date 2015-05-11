@@ -103,16 +103,20 @@ public class CubicCoordinateTest {
     }
 
     @Test
-    public void shouldBeEqual() {
+    public void testEquals() {
 
-        CubicCoordinate coord1 = CubicCoordinate.create(2, -5, 3);
-        CubicCoordinate coord2 = CubicCoordinate.create(2, -5, 3);
+        CubicCoordinate coord1 = CubicCoordinate.createFromAxial(2, 3);
+        CubicCoordinate coord2 = CubicCoordinate.createFromAxial(2, 3);
+
+        CubicCoordinate coord3 = CubicCoordinate.createFromAxial(1, 5);
 
         assertTrue(coord1.equals(coord1));
         assertTrue(coord1.equals(coord2));
         assertTrue(coord2.equals(coord1));
+        assertFalse(coord1.equals(coord3));
+        assertFalse(coord3.equals(coord1));
+        assertFalse(coord1.equals(new Integer(5)));
         assertFalse(coord1.equals(null));
 
     }
-
 }
