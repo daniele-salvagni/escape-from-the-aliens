@@ -102,6 +102,12 @@ public class CubicCoordinateTest {
     }
 
     @Test
+    public void testToString() {
+        CubicCoordinate coordinate = CubicCoordinate.create(2, -5, 3);
+        assertEquals("CubicCoordinate [x=2, y=-5, z=3]", coordinate.toString());
+    }
+
+    @Test
     public void testEquals() {
 
         CubicCoordinate coord1 = CubicCoordinate.createFromAxial(2, 3);
