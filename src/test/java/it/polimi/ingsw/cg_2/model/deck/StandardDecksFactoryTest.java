@@ -14,21 +14,26 @@ public class StandardDecksFactoryTest {
 
     @BeforeClass
     public static void init() {
+
         factory = new StandardDecksFactory();
+
     }
 
     @Test
     public void shouldBeCreated() {
+
         assertNotNull(factory);
+
     }
 
     @Test
     public void shouldPopulateItemDeckCorrectly() {
+
         Deck<ItemCard> deck = factory.createItemDeck();
         ItemCard card;
 
         // It should create 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives, 2
-        // Spotlight, 1 Defense
+        // Spotlight and 1 Defense cards.
         int[] expectedNumberOfCards = new int[] { 2, 2, 2, 3, 2, 1 };
         int[] numberOfCards = new int[] { 0, 0, 0, 0, 0, 0 };
 
@@ -46,6 +51,30 @@ public class StandardDecksFactoryTest {
                 ++numberOfCards[4];
             } else if (card.getType() == DEFENSE) {
                 ++numberOfCards[5];
+            } else {
+                throw new AssertionError("Invalid card has been found.");
+            }
+        }
+
+        assertArrayEquals(expectedNumberOfCards, numberOfCards);
+
+    }
+
+    @Test
+    public void shouldPopulateHatchDeckCorrectly() {
+        Deck<HatchCard> deck = factory.createHatchDeck();
+        HatchCard card;
+
+        // It should create 3 Green and 3 Red cards.
+        int[] expectedNumberOfCards = new int[] { 3, 3 };
+        int[] numberOfCards = new int[] { 0, 0 };
+
+        while (!deck.isEmpty()) {
+            card = deck.drawCard();
+            if (card.getType() == GREEN) {
+                ++numberOfCards[0];
+            } else if (card.getType() == RED) {
+                ++numberOfCards[1];
             } else {
                 throw new AssertionError("Invalid card has been found.");
             }
