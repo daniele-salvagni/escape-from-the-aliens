@@ -24,6 +24,11 @@ import java.util.List;
  */
 public class StandardDecksFactory extends DecksFactory {
 
+    /* This constructor is protected as it should be called from DecksFactory. */
+    protected StandardDecksFactory() {
+        super();
+    }
+
     /*
      * We could use some loops to populate decks but it would only reduce
      * readability and editability.
