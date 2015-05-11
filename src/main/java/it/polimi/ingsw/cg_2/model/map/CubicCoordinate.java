@@ -39,28 +39,31 @@ public final class CubicCoordinate {
      * @param z the z coordinate of a CubicCoordinate
      */
     private CubicCoordinate(int x, int z) {
+
         this.x = x;
         this.z = z;
+
     }
 
     /**
      * Creates a CubicCoordinate object, one of the three could be implicit,
      * this static factory method is provided only for code readability and
-     * validation. x + y + z must equal zero, otherwise an exception is thrown.
+     * validation. x + y + z must equal zero, otherwise an
+     * IllegalArgumentException is thrown.
      *
      * @param x the x coordinate
      * @param y the y coordinate
      * @param z the z coordinate
      * @return a new CubicCoordinate object
-     * @throws IllegalArgumentException if x + y + z != 0.
      */
-    public static CubicCoordinate create(int x, int y, int z)
-            throws IllegalArgumentException {
+    public static CubicCoordinate create(int x, int y, int z) {
+
         if ((x + y + z) == 0) {
             return new CubicCoordinate(x, z);
         } else {
             throw new IllegalArgumentException("x + y + z must equal 0.");
         }
+
     }
 
     /**
@@ -72,7 +75,9 @@ public final class CubicCoordinate {
      * @return a new CubicCoordinate object
      */
     public static CubicCoordinate createFromAxial(int q, int r) {
+
         return new CubicCoordinate(q, r);
+
     }
 
     /**
@@ -84,7 +89,9 @@ public final class CubicCoordinate {
      * @return a new CubicCooridnate object
      */
     public static CubicCoordinate createFromOddQ(int col, int row) {
+
         return new CubicCoordinate(col, row - (col - (col & 1)) / 2);
+
     }
 
     /**
@@ -93,7 +100,9 @@ public final class CubicCoordinate {
      * @return the x coordinate
      */
     public int getX() {
+
         return x;
+
     }
 
     /**
@@ -102,7 +111,9 @@ public final class CubicCoordinate {
      * @return the y coordinate
      */
     public int getY() {
+
         return -(x + z);
+
     }
 
     /**
@@ -111,7 +122,31 @@ public final class CubicCoordinate {
      * @return the z coordinate
      */
     public int getZ() {
+
         return z;
+
+    }
+
+    /**
+     * Returns the column of the odd-q offset representation of this coordinate.
+     *
+     * @return the odd-q col
+     */
+    public int getOddQCol() {
+
+        return x;
+
+    }
+
+    /**
+     * Returns the row of the odd-q offset representation of this coordinate.
+     *
+     * @return the odd-q row
+     */
+    public int getOddQRow() {
+
+        return z + (x - (x & 1)) / 2;
+
     }
 
     @Override
@@ -139,9 +174,16 @@ public final class CubicCoordinate {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     * 
+     * Example: CubicCoordinate [x=-6, y=3, z=3]
+     */
     @Override
     public String toString() {
-        return "CubicCoordinate [x=" + x + ", z=" + z + "]";
+        return "CubicCoordinate [x=" + x + ", y=" + (-x - z) + ", z=" + z + "]";
     }
 
 }

@@ -67,8 +67,7 @@ public class MapHelper {
         }
 
         int[][] imageWithoutMargins = removeMargins(image);
-        int[][] sampledImage = samplePixels(imageWithoutMargins);
-        return sampledImage;
+        return samplePixels(imageWithoutMargins);
     }
 
     /**
