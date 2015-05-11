@@ -3,8 +3,9 @@ package it.polimi.ingsw.cg_2.model.deck;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * This class models and manages a Deck of (@link Card)s (deck and discarded
@@ -16,26 +17,29 @@ import java.util.Stack;
  * possible to create decks of mixed card types. In this case it does not make
  * sense to handle different decks polymorphically as they are just a data
  * structure similar to a (@link Stack) with additional behavior and different
- * decks must be used in different situations but with the same behavior, so it
- * is better to use a class with genetic parameters.
+ * decks must be used in different situations but with the <b>same behavior</b>,
+ * so it is better to use a class with genetic parameters.
  *
  * @param <E> the element type
  */
-public class DeckManager<E extends Card> {
+public class Deck<E extends Card> {
 
-    private Stack<E> deck;
+    // Deque is better than Stack
+    private Deque<E> drawPile;
     private List<E> discardPile;
 
     /**
-     * Instantiates a new DeckManager populated with a (@link Collection) of
-     * (@link Card)s, it is protected because it should be used only by the
-     * Abstrct Factory (@link {@link DecksFactory}).
+     * Instantiates a new Deck populated with a (@link Collection) of (@link
+     * Card)s. The cards are <b>not shuffled</b> when the deck is created, so
+     * they will be dealt from the last to the first one.
      *
      * @param cards a (@link Collection) of cards to put inside the deck
      */
-    protected DeckManager(Collection<E> cards) {
-        deck = new Stack<E>();
-        deck.addAll(cards);
+    public Deck(Collection<E> cards) {
+        // We use a LinkedList as it implements both Deque and List interfaces
+        // (so we can also use Collections methods).
+        drawPile = new LinkedList<E>();
+        drawPile.addAll(cards);
         discardPile = new ArrayList<E>();
     }
 
@@ -43,23 +47,23 @@ public class DeckManager<E extends Card> {
      * Draws a card by removing it from the stack. If the deck is empty it
      * checks if there are cards in the discardPile, if this empty then there
      * are no more cards and it returns null, otherwise the discardPile becomes
-     * the new deck and cards are shuffled.
+     * the new deck and cards are automatically shuffled.
      */
     public E drawCard() {
         if (this.isEmpty()) {
             // No more cards in the deck AND in the discardPile
             return null;
         } else {
-            if (this.isDeckEmpty()) {
+            if (this.isDrawPileEmpty()) {
                 // Move the cards from the discardPile into the empty deck.
-                deck.addAll(discardPile);
+                drawPile.addAll(discardPile);
                 discardPile.clear();
                 // Shuffle the deck
                 this.shuffleDeck();
                 // Pop a card and return it
-                return deck.pop();
+                return drawPile.removeFirst();
             } else {
-                return deck.pop();
+                return drawPile.removeFirst();
             }
         }
     }
@@ -78,25 +82,25 @@ public class DeckManager<E extends Card> {
      *
      * @return true, if the deck empty
      */
-    public boolean isDeckEmpty() {
-        return deck.isEmpty();
+    public boolean isDrawPileEmpty() {
+        return drawPile.isEmpty();
     }
 
     /**
-     * Checks if the card manager is empty (deck is empty <b>and</b> the
+     * Checks if the card manager is empty (draw pile is empty <b>and</b> the
      * discarded pile is empty).
      *
-     * @return true, if the deck and the discarded pile is empty
+     * @return true, if the draw pile and the discarded pile is empty
      */
     public boolean isEmpty() {
-        return deck.isEmpty() && discardPile.isEmpty();
+        return drawPile.isEmpty() && discardPile.isEmpty();
     }
 
     /**
      * Shuffle the deck of Cards.
      */
     public void shuffleDeck() {
-        Collections.shuffle(deck);
+        Collections.shuffle((LinkedList<?>) drawPile);
     }
 
 }

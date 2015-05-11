@@ -1,15 +1,16 @@
 package it.polimi.ingsw.cg_2.model.deck;
 
-import it.polimi.ingsw.cg_2.model.deck.HatchCard.HatchCardType;
-import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
-import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
+import static it.polimi.ingsw.cg_2.model.deck.HatchCard.HatchCardType.*;
+import static it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType.*;
+import static it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This class is a concrete factory that implements the abstract (@link
- * DecksFactory), it creates the following decks:
+ * DecksFactory), it creates the following standard decks for the Advanced game
+ * mode:
  * <ul>
  * <li><b>ItemDeck:</b> 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives, 2
  * Spotlight, 1 Defense.</li>
@@ -21,30 +22,50 @@ import java.util.List;
  * @see SectorCard
  * @see HatchCard
  */
-public class StandardDecksFactory implements DecksFactory {
+public class StandardDecksFactory extends DecksFactory {
+
+    /* This constructor is protected as it should be called from DecksFactory. */
+    protected StandardDecksFactory() {
+        super();
+    }
+
+    /*
+     * We could use some loops to populate decks but it would only reduce
+     * readability and editability.
+     */
 
     @Override
-    public DeckManager<ItemCard> createItemDeck() {
+    public Deck<ItemCard> createItemDeck() {
 
-        /*
-         * List of Item Cards: 2 Attack, 2 Teleport, 2 Adrenaline, 3 Sedatives,
-         * 2 Spotlight, 1 Defense.
-         */
         List<ItemCard> cards = new ArrayList<ItemCard>();
-        cards.add(new ItemCard(ItemCardType.ATTACK));
-        cards.add(new ItemCard(ItemCardType.ATTACK));
-        cards.add(new ItemCard(ItemCardType.TELEPORT));
-        cards.add(new ItemCard(ItemCardType.TELEPORT));
-        cards.add(new ItemCard(ItemCardType.ADRENALINE));
-        cards.add(new ItemCard(ItemCardType.ADRENALINE));
-        cards.add(new ItemCard(ItemCardType.SEDATIVES));
-        cards.add(new ItemCard(ItemCardType.SEDATIVES));
-        cards.add(new ItemCard(ItemCardType.SEDATIVES));
-        cards.add(new ItemCard(ItemCardType.SPOTLIGHT));
-        cards.add(new ItemCard(ItemCardType.SPOTLIGHT));
-        cards.add(new ItemCard(ItemCardType.DEFENSE));
 
-        DeckManager<ItemCard> deckManager = new DeckManager<ItemCard>(cards);
+        // 2 Attack cards
+        cards.add(new ItemCard(ATTACK));
+        cards.add(new ItemCard(ATTACK));
+
+        // 2 Teleport cards
+        cards.add(new ItemCard(TELEPORT));
+        cards.add(new ItemCard(TELEPORT));
+
+        // 2 Adrenaline cards
+        cards.add(new ItemCard(ADRENALINE));
+        cards.add(new ItemCard(ADRENALINE));
+
+        // 3 Sedatives cards
+        cards.add(new ItemCard(SEDATIVES));
+        cards.add(new ItemCard(SEDATIVES));
+        cards.add(new ItemCard(SEDATIVES));
+
+        // 2 Spotlight cards
+        cards.add(new ItemCard(SPOTLIGHT));
+        cards.add(new ItemCard(SPOTLIGHT));
+
+        // 1 Defense card
+        cards.add(new ItemCard(DEFENSE));
+
+        // Create a new Deck
+        Deck<ItemCard> deckManager = new Deck<ItemCard>(cards);
+        // And shuffle it
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Item cards for the
@@ -53,31 +74,44 @@ public class StandardDecksFactory implements DecksFactory {
     }
 
     @Override
-    public DeckManager<SectorCard> createSectorDeck() {
+    public Deck<SectorCard> createSectorDeck() {
 
-        /*
-         * List of Sector Cards: 10 Noise (4 with object), 10 Deception (4 with
-         * object), 5 Silence.
-         */
         List<SectorCard> cards = new ArrayList<SectorCard>();
 
-        for (int i = 1; i <= 10; i++) {
-            if (i <= 4) {
-                // Add cards with Item (1-4)
-                cards.add(new SectorCard(SectorCardType.NOISE, true));
-                cards.add(new SectorCard(SectorCardType.DECEPTION, true));
-            } else {
-                // Add cards without Item (5-10)
-                cards.add(new SectorCard(SectorCardType.NOISE));
-                cards.add(new SectorCard(SectorCardType.DECEPTION));
-            }
-        }
+        // 4 Noise cards with an object
+        cards.add(new SectorCard(NOISE, true));
+        cards.add(new SectorCard(NOISE, true));
+        cards.add(new SectorCard(NOISE, true));
+        cards.add(new SectorCard(NOISE, true));
+        // 6 Noise cards without objects
+        cards.add(new SectorCard(NOISE, false));
+        cards.add(new SectorCard(NOISE, false));
+        cards.add(new SectorCard(NOISE, false));
+        cards.add(new SectorCard(NOISE, false));
+        cards.add(new SectorCard(NOISE, false));
+        cards.add(new SectorCard(NOISE, false));
 
-        for (int i = 1; i <= 5; i++) {
-            cards.add(new SectorCard(SectorCardType.SILENCE));
-        }
+        // 4 Deception cards with an object
+        cards.add(new SectorCard(DECEPTION, true));
+        cards.add(new SectorCard(DECEPTION, true));
+        cards.add(new SectorCard(DECEPTION, true));
+        cards.add(new SectorCard(DECEPTION, true));
+        // 6 Deception cards without objects
+        cards.add(new SectorCard(DECEPTION, false));
+        cards.add(new SectorCard(DECEPTION, false));
+        cards.add(new SectorCard(DECEPTION, false));
+        cards.add(new SectorCard(DECEPTION, false));
+        cards.add(new SectorCard(DECEPTION, false));
+        cards.add(new SectorCard(DECEPTION, false));
 
-        DeckManager<SectorCard> deckManager = new DeckManager<SectorCard>(cards);
+        // 5 Silence cards without objects
+        cards.add(new SectorCard(SILENCE));
+        cards.add(new SectorCard(SILENCE));
+        cards.add(new SectorCard(SILENCE));
+        cards.add(new SectorCard(SILENCE));
+        cards.add(new SectorCard(SILENCE));
+
+        Deck<SectorCard> deckManager = new Deck<SectorCard>(cards);
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Sector cards for the
@@ -86,19 +120,21 @@ public class StandardDecksFactory implements DecksFactory {
     }
 
     @Override
-    public DeckManager<HatchCard> createHatchDeck() {
+    public Deck<HatchCard> createHatchDeck() {
 
-        /*
-         * List of Hatch Cards: 3 Green, 3 Red.
-         */
         List<HatchCard> cards = new ArrayList<HatchCard>();
 
-        for (int i = 1; i < 3; i++) {
-            cards.add(new HatchCard(HatchCardType.GREEN));
-            cards.add(new HatchCard(HatchCardType.RED));
-        }
+        // 3 Green cards
+        cards.add(new HatchCard(GREEN));
+        cards.add(new HatchCard(GREEN));
+        cards.add(new HatchCard(GREEN));
 
-        DeckManager<HatchCard> deckManager = new DeckManager<HatchCard>(cards);
+        // 3 Red cards
+        cards.add(new HatchCard(RED));
+        cards.add(new HatchCard(RED));
+        cards.add(new HatchCard(RED));
+
+        Deck<HatchCard> deckManager = new Deck<HatchCard>(cards);
         deckManager.shuffleDeck();
 
         // Returns a new shuffled deck populated with the Hatch cards for the

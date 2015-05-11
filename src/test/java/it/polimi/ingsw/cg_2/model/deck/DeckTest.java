@@ -6,15 +6,15 @@ import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-public class DeckManagerTest {
+public class DeckTest {
 
-    private DeckManager<Card> deck;
+    private Deck<Card> deck;
     private List<Card> cards;
 
     @Before
@@ -30,7 +30,7 @@ public class DeckManagerTest {
         cards.add(new HatchCard(HatchCardType.RED));
 
         /* Instantiate a new deck populated with some test cards. */
-        deck = new DeckManager<Card>(cards);
+        deck = new Deck<Card>(cards);
 
     }
 
@@ -44,8 +44,6 @@ public class DeckManagerTest {
     @Test
     public void shouldDrawCards() {
 
-        // We expect cards to be drawn in reverse order (works like a stack)
-        Collections.reverse(cards);
         for (Card card : cards) {
             assertEquals(card, deck.drawCard());
         }
@@ -80,18 +78,35 @@ public class DeckManagerTest {
     }
 
     @Test
-    public void shouldReturnTrueIfEmpry() {
-        // TODO
+    public void shouldReturnTrueIfDeckIsEmpry() {
+        assertFalse(deck.isEmpty());
+        // We empty the deck
+        for (int i = 0; i < cards.size(); i++) {
+            deck.drawCard();
+        }
+        assertTrue(deck.isDrawPileEmpty());
+
     }
 
     @Test
-    public void shouldReturnTrueIfDiscardIsEmpty() {
-        // TODO
+    public void shouldReturnTrueIfDiscardAndDeckAreEmpty() {
+        assertFalse(deck.isEmpty());
+        // We empty the deck
+        for (int i = 0; i < cards.size(); i++) {
+            deck.drawCard();
+        }
+        assertTrue(deck.isEmpty());
+        // We add a card to the discard pile
+        deck.discardCard(new ItemCard(ItemCardType.ADRENALINE));
+        assertFalse(deck.isEmpty());
     }
 
-    @Test
+    @Ignore
     public void testShuffleDeck() {
-        // TODO
+        // It's impossible to determine if a deck is shuffled because in theory
+        // the shuffling could produce a deck that is exactly in the same order.
+        // We would need a statistical analysis but testing this method would be
+        // the same as testing Collections.shuffle which is unnecessary.
     }
 
 }
