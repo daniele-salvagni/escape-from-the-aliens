@@ -44,15 +44,7 @@ public class CubicCoordinateTest {
     }
 
     @Test
-    public void shouldBeEqual() {
-
-        assertTrue(CubicCoordinate.create(2, -5, 3).equals(
-                CubicCoordinate.create(2, -5, 3)));
-
-    }
-
-    @Test
-    public void shouldBeEqualWithConversions() {
+    public void shouldBeConvertedCorrectly() {
 
         assertTrue(CubicCoordinate.create(2, -5, 3).equals(
                 CubicCoordinate.createFromAxial(2, 3)));
@@ -107,6 +99,19 @@ public class CubicCoordinateTest {
         int row = 3;
         CubicCoordinate coordinate = CubicCoordinate.createFromOddQ(-5, row);
         assertEquals(row, coordinate.getOddQRow());
+
+    }
+
+    @Test
+    public void shouldBeEqual() {
+
+        CubicCoordinate coord1 = CubicCoordinate.create(2, -5, 3);
+        CubicCoordinate coord2 = CubicCoordinate.create(2, -5, 3);
+
+        assertTrue(coord1.equals(coord1));
+        assertTrue(coord1.equals(coord2));
+        assertTrue(coord2.equals(coord1));
+        assertFalse(coord1.equals(null));
 
     }
 
