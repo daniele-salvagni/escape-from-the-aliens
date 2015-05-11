@@ -6,7 +6,6 @@ import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard.SectorCardType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -45,8 +44,6 @@ public class DeckTest {
     @Test
     public void shouldDrawCards() {
 
-        // We expect cards to be drawn in reverse order (works like a stack)
-        Collections.reverse(cards);
         for (Card card : cards) {
             assertEquals(card, deck.drawCard());
         }
@@ -87,7 +84,7 @@ public class DeckTest {
         for (int i = 0; i < cards.size(); i++) {
             deck.drawCard();
         }
-        assertTrue(deck.isDeckEmpty());
+        assertTrue(deck.isDrawPileEmpty());
 
     }
 
