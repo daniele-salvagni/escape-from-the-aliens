@@ -113,6 +113,24 @@ public final class CubicCoordinate {
         return z;
     }
 
+    /**
+     * Returns the column of the odd-q offset representation of this coordinate.
+     *
+     * @return the odd-q col
+     */
+    public int getOddQCol() {
+        return x;
+    }
+
+    /**
+     * Returns the row of the odd-q offset representation of this coordinate.
+     *
+     * @return the odd-q row
+     */
+    public int getOddQRow() {
+        return z + (x - (x & 1)) / 2;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
