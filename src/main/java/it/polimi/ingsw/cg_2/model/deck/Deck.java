@@ -3,8 +3,9 @@ package it.polimi.ingsw.cg_2.model.deck;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Stack;
 
 /**
  * This class models and manages a Deck of (@link Card)s (deck and discarded
@@ -23,7 +24,7 @@ import java.util.Stack;
  */
 public class Deck<E extends Card> {
 
-    private Stack<E> deck;
+    private Deque<E> drawPile;
     private List<E> discardPile;
 
     /**
@@ -34,8 +35,8 @@ public class Deck<E extends Card> {
      * @param cards a (@link Collection) of cards to put inside the deck
      */
     public Deck(Collection<E> cards) {
-        deck = new Stack<E>();
-        deck.addAll(cards);
+        drawPile = new LinkedList<E>();
+        drawPile.addAll(cards);
         discardPile = new ArrayList<E>();
     }
 
@@ -50,16 +51,16 @@ public class Deck<E extends Card> {
             // No more cards in the deck AND in the discardPile
             return null;
         } else {
-            if (this.isDeckEmpty()) {
+            if (this.isDrawPileEmpty()) {
                 // Move the cards from the discardPile into the empty deck.
-                deck.addAll(discardPile);
+                drawPile.addAll(discardPile);
                 discardPile.clear();
                 // Shuffle the deck
                 this.shuffleDeck();
                 // Pop a card and return it
-                return deck.pop();
+                return drawPile.removeFirst();
             } else {
-                return deck.pop();
+                return drawPile.removeFirst();
             }
         }
     }
@@ -78,25 +79,25 @@ public class Deck<E extends Card> {
      *
      * @return true, if the deck empty
      */
-    public boolean isDeckEmpty() {
-        return deck.isEmpty();
+    public boolean isDrawPileEmpty() {
+        return drawPile.isEmpty();
     }
 
     /**
-     * Checks if the card manager is empty (deck is empty <b>and</b> the
+     * Checks if the card manager is empty (draw pile is empty <b>and</b> the
      * discarded pile is empty).
      *
-     * @return true, if the deck and the discarded pile is empty
+     * @return true, if the draw pile and the discarded pile is empty
      */
     public boolean isEmpty() {
-        return deck.isEmpty() && discardPile.isEmpty();
+        return drawPile.isEmpty() && discardPile.isEmpty();
     }
 
     /**
      * Shuffle the deck of Cards.
      */
     public void shuffleDeck() {
-        Collections.shuffle(deck);
+        Collections.shuffle((LinkedList<?>) drawPile);
     }
 
 }
