@@ -24,6 +24,7 @@ import java.util.List;
  */
 public class Deck<E extends Card> {
 
+    // Deque is better than Stack
     private Deque<E> drawPile;
     private List<E> discardPile;
 
@@ -35,6 +36,8 @@ public class Deck<E extends Card> {
      * @param cards a (@link Collection) of cards to put inside the deck
      */
     public Deck(Collection<E> cards) {
+        // We use a LinkedList as it implements both Deque and List interfaces
+        // (so we can also use Collections methods).
         drawPile = new LinkedList<E>();
         drawPile.addAll(cards);
         discardPile = new ArrayList<E>();
