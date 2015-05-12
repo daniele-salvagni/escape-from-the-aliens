@@ -1,10 +1,10 @@
-/*
- * 
- */
 package it.polimi.ingsw.cg_2.model.player;
 
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
+/**
+ * This class represent a character, it has a position, a rank and a type.
+ */
 public class Character {
 
     private CharacterType type;
