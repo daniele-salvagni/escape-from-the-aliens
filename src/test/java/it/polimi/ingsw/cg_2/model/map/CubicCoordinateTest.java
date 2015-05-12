@@ -103,6 +103,7 @@ public class CubicCoordinateTest {
 
     @Test
     public void testToString() {
+
         CubicCoordinate coordinate = CubicCoordinate.create(2, -5, 3);
         assertEquals("CubicCoordinate [x=2, y=-5, z=3]", coordinate.toString());
     }
@@ -110,17 +111,34 @@ public class CubicCoordinateTest {
     @Test
     public void testEquals() {
 
+        /*
+         * Effective Java: The equals method should be reflexive, symmetric,
+         * transitive, consistent and should return a false if the reference
+         * argument is null.
+         */
+
         CubicCoordinate coord1 = CubicCoordinate.createFromAxial(2, 3);
         CubicCoordinate coord2 = CubicCoordinate.createFromAxial(2, 3);
 
         CubicCoordinate coord3 = CubicCoordinate.createFromAxial(1, 5);
 
+        // Reflexive
         assertTrue(coord1.equals(coord1));
+
+        // Symmetric
         assertTrue(coord1.equals(coord2));
         assertTrue(coord2.equals(coord1));
+        assertTrue(coord1.hashCode() == coord2.hashCode());
+
+        // Not Equal
         assertFalse(coord1.equals(coord3));
         assertFalse(coord3.equals(coord1));
+        assertFalse(coord1.hashCode() == coord3.hashCode());
+
+        // Different object
         assertFalse(coord1.equals(new Integer(5)));
+
+        // Null
         assertFalse(coord1.equals(null));
 
     }
