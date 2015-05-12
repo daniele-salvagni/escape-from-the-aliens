@@ -52,6 +52,7 @@ public class Zone {
      * @return a new Map containing all the sectors of the zone
      */
     public Map<CubicCoordinate, Sector> getSectorsMap() {
+
         /*
          * Effective Java - Item 11: it is better not to use clone(). The copy
          * constructor, however, is not defined for the Map interface but only
@@ -60,6 +61,7 @@ public class Zone {
         Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
         newSectorsMap.putAll(sectorMap);
         return newSectorsMap;
+
     }
 
     /**
@@ -70,6 +72,7 @@ public class Zone {
      * @return the coordinates of this zone
      */
     public Set<CubicCoordinate> getCoordinates() {
+
         /*
          * The set returned by the keySet() method is backed by the map, so
          * changes to the map are reflected in the set, and vice-versa. For this
@@ -78,6 +81,7 @@ public class Zone {
         Set<CubicCoordinate> newCoordSet = new HashSet<>();
         newCoordSet.addAll(sectorMap.keySet());
         return newCoordSet;
+
     }
 
     /**
