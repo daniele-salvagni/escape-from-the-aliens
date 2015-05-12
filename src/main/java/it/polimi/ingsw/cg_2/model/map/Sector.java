@@ -17,8 +17,8 @@ public class Sector {
         HATCH;
     }
 
-    private SectorType type;
-    private CubicCoordinate position;
+    private final SectorType type;
+    private final CubicCoordinate position;
 
     /**
      * Instantiates a new sector.
@@ -27,8 +27,10 @@ public class Sector {
      * @param type the type of the sector
      */
     public Sector(CubicCoordinate position, SectorType type) {
+
         this.position = position;
         this.type = type;
+
     }
 
     /**
@@ -37,7 +39,9 @@ public class Sector {
      * @return the type of the Sector
      */
     public SectorType getType() {
+
         return type;
+
     }
 
     /**
@@ -46,12 +50,16 @@ public class Sector {
      * @return the sector coordinate.
      */
     public CubicCoordinate getCooridnate() {
+
         return position;
+
     }
 
     @Override
     public String toString() {
+
         return "Sector [type=" + type + ", position=" + position + "]";
+
     }
 
 }
