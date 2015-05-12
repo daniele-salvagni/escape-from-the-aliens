@@ -10,7 +10,8 @@ package it.polimi.ingsw.cg_2.model.map;
 public class CloseableSector extends Sector {
 
     public static enum SectorStatus {
-        OPEN, CLOSED;
+        OPEN,
+        CLOSED;
     }
 
     private SectorStatus sectorStatus;
@@ -23,22 +24,28 @@ public class CloseableSector extends Sector {
      * @param type the type of the Sector
      */
     public CloseableSector(CubicCoordinate position, SectorType type) {
+
         super(position, type);
         sectorStatus = SectorStatus.OPEN;
+
     }
 
     /**
      * Sets the Sector status to Status.OPEN.
      */
     public void open() {
+
         sectorStatus = SectorStatus.OPEN;
+
     }
 
     /**
      * Sets the Sector status to Status.CLOSED.
      */
     public void close() {
+
         sectorStatus = SectorStatus.CLOSED;
+
     }
 
     /**
@@ -47,6 +54,8 @@ public class CloseableSector extends Sector {
      * @return the Sector status
      */
     public SectorStatus getStatus() {
+
         return sectorStatus;
+
     }
 }
