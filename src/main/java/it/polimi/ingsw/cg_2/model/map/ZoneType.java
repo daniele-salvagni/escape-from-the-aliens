@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_2.model.map;
 
 /**
- * This class enumarates the premade {@link Zone}s for this game, for each map it is
- * possible to get the name of the file on disk containing the map.
+ * This class enumarates the premade {@link Zone}s for this game, for each map
+ * it is possible to get the name of the file on disk containing the map.
  */
 public enum ZoneType {
 
@@ -17,12 +17,15 @@ public enum ZoneType {
     GARIBALDI("map-garibaldi.png"),
     GALVANI("map-galvani.png"),
     MACHIAVELLI("map-machiavelli.png"),
+    MORGENLAND("map-morgenland.png"),
     SINISTRA("map-sinsitra.png"),
-    SOCRATES("map-socrates.png");
+    SOCRATES("map-socrates.png"),
+    SOUND_OF_SILENCE("map-sound-of-silence.png");
 
     private final String fileName;
 
     ZoneType(String fileName) {
+
         this.fileName = fileName;
     }
 
@@ -32,6 +35,7 @@ public enum ZoneType {
      * @return the file name
      */
     public String getFileName() {
+
         return fileName;
     }
 
