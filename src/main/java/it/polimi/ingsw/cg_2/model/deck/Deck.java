@@ -25,8 +25,8 @@ import java.util.List;
 public class Deck<E extends Card> {
 
     // Deque is better than Stack
-    private Deque<E> drawPile;
-    private List<E> discardPile;
+    private final Deque<E> drawPile;
+    private final List<E> discardPile;
 
     /**
      * Instantiates a new Deck populated with a (@link Collection) of (@link
@@ -36,11 +36,13 @@ public class Deck<E extends Card> {
      * @param cards a (@link Collection) of cards to put inside the deck
      */
     public Deck(Collection<E> cards) {
+
         // We use a LinkedList as it implements both Deque and List interfaces
         // (so we can also use Collections methods).
         drawPile = new LinkedList<E>();
         drawPile.addAll(cards);
         discardPile = new ArrayList<E>();
+
     }
 
     /**
@@ -50,6 +52,7 @@ public class Deck<E extends Card> {
      * the new deck and cards are automatically shuffled.
      */
     public E drawCard() {
+
         if (this.isEmpty()) {
             // No more cards in the deck AND in the discardPile
             return null;
@@ -66,6 +69,7 @@ public class Deck<E extends Card> {
                 return drawPile.removeFirst();
             }
         }
+
     }
 
     /**
@@ -74,7 +78,9 @@ public class Deck<E extends Card> {
      * @param card the card to discard
      */
     public void discardCard(E card) {
+
         discardPile.add(card);
+
     }
 
     /**
@@ -83,7 +89,9 @@ public class Deck<E extends Card> {
      * @return true, if the deck empty
      */
     public boolean isDrawPileEmpty() {
+
         return drawPile.isEmpty();
+
     }
 
     /**
@@ -93,14 +101,18 @@ public class Deck<E extends Card> {
      * @return true, if the draw pile and the discarded pile is empty
      */
     public boolean isEmpty() {
+
         return drawPile.isEmpty() && discardPile.isEmpty();
+
     }
 
     /**
      * Shuffle the deck of Cards.
      */
     public void shuffleDeck() {
+
         Collections.shuffle((LinkedList<?>) drawPile);
+
     }
 
 }
