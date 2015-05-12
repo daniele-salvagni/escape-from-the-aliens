@@ -6,6 +6,10 @@ import it.polimi.ingsw.cg_2.model.map.Sector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class represents a Player of a game which uses a {@link Character}.
+ *
+ */
 public class Player {
 
     private final Character character;
@@ -16,6 +20,11 @@ public class Player {
     private final List<ItemCard> heldItems;
     private final List<Sector> history;
 
+    /**
+     * Instantiates a new player and give him a character to play with.
+     *
+     * @param character the character to give to the player
+     */
     public Player(Character character) {
 
         this.character = character;
@@ -27,61 +36,113 @@ public class Player {
 
     }
 
+    /**
+     * Gets the character used by the player.
+     *
+     * @return the character
+     */
     public Character getCharacter() {
 
         return character;
 
     }
 
+    /**
+     * Moves the character used by the player in a new {@link Sector}, the move
+     * will be stored in a movement history.
+     *
+     * @param position the new position of the character
+     */
     public void moveCharacter(Sector position) {
 
         character.setPosition(position);
+        // Add the new position to the movement history
         history.add(position);
 
     }
 
+    /**
+     * Checks if the player is connected.
+     *
+     * @return true, if the player is connected
+     */
     public boolean isConnected() {
 
         return connected;
 
     }
 
+    /**
+     * Sets the connected status of the player.
+     *
+     * @param connected true if connected, false otherwise
+     */
     public void setConnected(boolean connected) {
 
         this.connected = connected;
 
     }
 
+    /**
+     * Checks if the player has been suspended.
+     *
+     * @return true, if the player is suspended
+     */
     public boolean isSuspended() {
 
         return suspended;
 
     }
 
+    /**
+     * Sets the suspended status of the player.
+     *
+     * @param suspended true to suspend the player
+     */
     public void setSuspended(boolean suspended) {
 
         this.suspended = suspended;
 
     }
 
+    /**
+     * Gets the {@link Character}s killed made by the player.
+     *
+     * @return the kills made by the player
+     */
     public List<Character> getKills() {
 
         return kills;
 
     }
 
+    /**
+     * Adds a new {@link Character} to the player kills.
+     *
+     * @param character the {@link Character} killed by the player
+     */
     public void addKill(Character character) {
 
         kills.add(character);
 
     }
 
+    /**
+     * Gets the {@link ItemCard}s held by the player.
+     *
+     * @return the held items
+     */
     public List<ItemCard> getHeldItems() {
 
         return heldItems;
 
     }
 
+    /**
+     * Give an {@link ItemCard} to the player.
+     *
+     * @param item the new item
+     */
     public void giveItem(ItemCard item) {
 
         heldItems.add(item);
