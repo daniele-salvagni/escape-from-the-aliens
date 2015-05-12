@@ -4,19 +4,19 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class CharacterTypeTest {
+public class CharacterRaceTest {
 
     @Test
     public void alienLiteralShouldExist() {
 
-        assertNotNull(CharacterType.valueOf("HUMAN"));
+        assertNotNull(CharacterRace.valueOf("HUMAN"));
 
     }
 
     @Test
     public void humanLiteralsShouldExist() {
 
-        assertNotNull(CharacterType.valueOf("HUMAN"));
+        assertNotNull(CharacterRace.valueOf("HUMAN"));
 
     }
 

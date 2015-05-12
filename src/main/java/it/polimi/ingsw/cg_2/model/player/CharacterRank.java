@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg_2.model.player;
 
-import static it.polimi.ingsw.cg_2.model.player.CharacterType.*;
+import static it.polimi.ingsw.cg_2.model.player.CharacterRace.*;
 
 /**
  * The possible ranks of a character, for every rank it is possible to get the
- * relative default {@link CharacterType}. It is the "default" one because an
+ * relative default {@link CharacterRace}. It is the "default" one because an
  * human character, for example, could become an alien during a game.
  */
 public enum CharacterRank {
@@ -18,20 +18,20 @@ public enum CharacterRank {
     THIRD(ALIEN),
     FOURTH(ALIEN);
 
-    private CharacterType defaultType;
+    private CharacterRace defaultType;
 
-    CharacterRank(CharacterType defaultType) {
+    CharacterRank(CharacterRace defaultType) {
 
         this.defaultType = defaultType;
 
     }
 
     /**
-     * Gets the default {@link CharacterType} for this rank.
+     * Gets the default {@link CharacterRace} for this rank.
      *
      * @return the default type relative to this rank
      */
-    public CharacterType getDefaultType() {
+    public CharacterRace getDefaultType() {
 
         return defaultType;
 

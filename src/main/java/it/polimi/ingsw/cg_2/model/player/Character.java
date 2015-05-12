@@ -10,7 +10,7 @@ public class Character {
     // The character rank should never change
     private final CharacterRank rank;
     // The character type could change (infection mode)
-    private CharacterType type;
+    private CharacterRace type;
     private Sector position;
     private boolean alive;
 
@@ -22,7 +22,7 @@ public class Character {
      * @param rank the rank of the character
      * @param type the type of the character
      */
-    public Character(Sector position, CharacterRank rank, CharacterType type) {
+    public Character(Sector position, CharacterRank rank, CharacterRace type) {
 
         this.position = position;
         this.rank = rank;
@@ -89,22 +89,22 @@ public class Character {
     }
 
     /**
-     * Gets the {@link CharacterType} of the character.
+     * Gets the {@link CharacterRace} of the character.
      *
      * @return the type of the character
      */
-    public CharacterType getType() {
+    public CharacterRace getType() {
 
         return type;
 
     }
 
     /**
-     * Sets the {@link CharacterType} of the character.
+     * Sets the {@link CharacterRace} of the character.
      *
      * @param type the new type of the character
      */
-    public void setType(CharacterType type) {
+    public void setType(CharacterRace type) {
 
         this.type = type;
 
