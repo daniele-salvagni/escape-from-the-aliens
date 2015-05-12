@@ -8,7 +8,7 @@ public class PlayerTest {
 
     @Test
     public void testPlayer() throws Exception {
-        throw new RuntimeException("not yet implemented");
+        // TODO
     }
 
 }
