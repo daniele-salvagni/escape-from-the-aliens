@@ -62,6 +62,17 @@ public class Player {
     }
 
     /**
+     * Gets the movement history of the player.
+     *
+     * @return the movement history
+     */
+    public List<Sector> getMovementHistory() {
+
+        return history;
+
+    }
+
+    /**
      * Checks if the player is connected.
      *
      * @return true, if the player is connected
