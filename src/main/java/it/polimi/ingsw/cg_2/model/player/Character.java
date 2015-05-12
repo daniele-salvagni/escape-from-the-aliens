@@ -7,8 +7,10 @@ import it.polimi.ingsw.cg_2.model.map.Sector;
  */
 public class Character {
 
+    // The character rank should never change
+    private final CharacterRank rank;
+    // The character type could change (infection mode)
     private CharacterType type;
-    private CharacterRank rank;
     private Sector position;
     private boolean alive;
 
@@ -87,7 +89,7 @@ public class Character {
     }
 
     /**
-     * Gets the type of the character.
+     * Gets the {@link CharacterType} of the character.
      *
      * @return the type of the character
      */
@@ -98,7 +100,7 @@ public class Character {
     }
 
     /**
-     * Sets the type of the character.
+     * Sets the {@link CharacterType} of the character.
      *
      * @param type the new type of the character
      */
@@ -109,7 +111,7 @@ public class Character {
     }
 
     /**
-     * Gets the rank of the character.
+     * Gets the {@link CharacterRank} of the character.
      *
      * @return the rank
      */
