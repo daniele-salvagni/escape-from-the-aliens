@@ -3,30 +3,30 @@ package it.polimi.ingsw.cg_2.model.player;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
 /**
- * This class represent a character, it has a position, a rank and a type.
+ * This class represent a character, it has a position, a rank and a race.
  */
 public class Character {
 
     // The character rank should never change
     private final CharacterRank rank;
     // The character type could change (infection mode)
-    private CharacterRace type;
+    private CharacterRace race;
     private Sector position;
     private boolean alive;
 
     /**
      * Instantiates a new character in a given position and with a given rank
-     * and type.
+     * and race.
      *
      * @param position the position relative to a {@Zone}
      * @param rank the rank of the character
-     * @param type the type of the character
+     * @param race the race of the character
      */
-    public Character(Sector position, CharacterRank rank, CharacterRace type) {
+    public Character(Sector position, CharacterRank rank, CharacterRace race) {
 
         this.position = position;
         this.rank = rank;
-        this.type = type;
+        this.race = race;
         alive = true;
 
     }
@@ -91,22 +91,22 @@ public class Character {
     /**
      * Gets the {@link CharacterRace} of the character.
      *
-     * @return the type of the character
+     * @return the race of the character
      */
-    public CharacterRace getType() {
+    public CharacterRace getRace() {
 
-        return type;
+        return race;
 
     }
 
     /**
      * Sets the {@link CharacterRace} of the character.
      *
-     * @param type the new type of the character
+     * @param race the new race of the character
      */
-    public void setType(CharacterRace type) {
+    public void setRace(CharacterRace race) {
 
-        this.type = type;
+        this.race = race;
 
     }
 
