@@ -18,7 +18,7 @@ package it.polimi.ingsw.cg_2.model.map;
  * representations (Effective Java - Item 1).
  * <p>
  * This class must remain immutable, it is also used as an {@link HashMap} key
- * inside a {@link Zone}.
+ * inside a {@link StandardZone}.
  * */
 
 public final class CubicCoordinate {

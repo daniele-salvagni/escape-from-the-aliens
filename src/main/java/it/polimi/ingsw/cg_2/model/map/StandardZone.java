@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class represents a Zone (the map of this game), this zone should
+ * This class represents a StandardZone (the map of this game), this zone should
  * contain:
  * <ul>
  * <li>Exactly one HUMAN Sector.</li>
@@ -16,10 +16,10 @@ import java.util.Set;
  * <li>At least one HATCH sector.</li>
  * </ul>
  */
-public class Zone {
+public class StandardZone {
 
     /**
-     * A map containing all the sectors of the Zone. A Sector also contain its
+     * A map containing all the sectors of the StandardZone. A Sector also contain its
      * coordinate but we provide this for faster access.
      */
     private final Map<CubicCoordinate, Sector> sectorMap;
@@ -30,14 +30,14 @@ public class Zone {
      *
      * @param sectors the sectors to add to this zone
      */
-    protected Zone(Set<Sector> sectors) {
+    protected StandardZone(Set<Sector> sectors) {
 
         sectorMap = new HashMap<CubicCoordinate, Sector>();
 
         for (Sector sector : sectors) {
             if (sectorMap.containsKey(sector.getCooridnate())) {
                 throw new IllegalArgumentException(
-                        "A Zone cannot contain two sectors in the same position.");
+                        "A StandardZone cannot contain two sectors in the same position.");
             } else {
                 sectorMap.put(sector.getCooridnate(), sector);
             }
@@ -46,7 +46,7 @@ public class Zone {
     }
 
     /**
-     * Gets all the sectors of the Zone mapped by CubicCoordinate. We return a
+     * Gets all the sectors of the StandardZone mapped by CubicCoordinate. We return a
      * copy of the Map to minimize mutability.
      *
      * @return a new Map containing all the sectors of the zone
@@ -78,7 +78,7 @@ public class Zone {
 
     /**
      * Gets a set containing all the coordinates of the sectors (of any kind) in
-     * this Zone. We return a copy of the Set used in the Map implementation to
+     * this StandardZone. We return a copy of the Set used in the Map implementation to
      * minimize mutability.
      *
      * @return the coordinates of this zone
@@ -98,7 +98,7 @@ public class Zone {
 
     /**
      * Gets the human sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (A Zone should contain exactly
+     * found or if more than one has been found. (A StandardZone should contain exactly
      * one HUMAN sector).
      *
      * @return the human sector
@@ -109,7 +109,7 @@ public class Zone {
 
         if (humanSectors.size() != 1) {
             throw new IllegalStateException(
-                    "A Zone must contain exactly one human sector.");
+                    "A StandardZone must contain exactly one human sector.");
         } else {
             return humanSectors.iterator().next();
         }
@@ -118,7 +118,7 @@ public class Zone {
 
     /**
      * Gets the alien sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (A Zone should contain exactly
+     * found or if more than one has been found. (A StandardZone should contain exactly
      * one ALIEN sector).
      *
      * @return the alien sector
@@ -129,7 +129,7 @@ public class Zone {
 
         if (alienSectors.size() != 1) {
             throw new IllegalStateException(
-                    "A Zone must contain exactly one alien sector.");
+                    "A StandardZone must contain exactly one alien sector.");
         } else {
             return alienSectors.iterator().next();
         }
@@ -137,7 +137,7 @@ public class Zone {
     }
 
     /**
-     * Gets all the hatch sectors contained in this zone. (A Zone should contain
+     * Gets all the hatch sectors contained in this zone. (A StandardZone should contain
      * at least one HATCH sector).
      *
      * @return the hatch sectors
@@ -148,7 +148,7 @@ public class Zone {
 
         if (hatchSectors.isEmpty()) {
             throw new IllegalStateException(
-                    "A Zone must contain at least one escape hatch.");
+                    "A StandardZone must contain at least one escape hatch.");
         } else {
             return hatchSectors;
         }
@@ -156,7 +156,7 @@ public class Zone {
     }
 
     /**
-     * Find all the sectors in the Zone of a certain type.
+     * Find all the sectors in the StandardZone of a certain type.
      *
      * @param sectorType the sector type to be searched for
      * @return an ArrayList containing the sectors found
