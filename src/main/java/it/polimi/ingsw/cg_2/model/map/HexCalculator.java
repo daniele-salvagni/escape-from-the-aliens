@@ -152,7 +152,6 @@ public class HexCalculator {
                     }
                 }
             }
-
         }
 
         return fringes;
