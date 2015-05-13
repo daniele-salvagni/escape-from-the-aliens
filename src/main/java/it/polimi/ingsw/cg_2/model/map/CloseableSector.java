@@ -14,7 +14,7 @@ public class CloseableSector extends Sector {
     /**
      * Instantiates a new CloseableSector with the default status open.
      *
-     * @param position the position relative to a {@link StandardZone}
+     * @param position the position relative to a {@link Zone}
      * @param type the type of the Sector
      */
     public CloseableSector(CubicCoordinate position, SectorType type) {
