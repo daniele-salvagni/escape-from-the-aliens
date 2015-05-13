@@ -1,7 +1,10 @@
 package it.polimi.ingsw.cg_2.model.map;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class models the constraints of an <b>hexagonal map</b>, the algorithms
@@ -27,12 +30,13 @@ public class HexCalculator {
     CubicCoordinate.create(1, -1, 0), CubicCoordinate.create(1, 0, -1),
             CubicCoordinate.create(0, 1, -1), CubicCoordinate.create(-1, 1, 0),
             CubicCoordinate.create(-1, 0, 1), CubicCoordinate.create(0, -1, 1));
-    
+
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
     private HexCalculator() {
+
         throw new AssertionError();
     }
 
@@ -122,6 +126,38 @@ public class HexCalculator {
                 .getZ() - coord2.getZ())) / 2;
 
         return distance;
+
+    }
+
+    public static List<List<CubicCoordinate>> distanceLimitedFloodFill(
+            Set<CubicCoordinate> grid, CubicCoordinate from, int steps) {
+
+        Set<CubicCoordinate> coords = new HashSet<CubicCoordinate>();
+        coords.add(from);
+
+        List<List<CubicCoordinate>> fringes = new ArrayList<List<CubicCoordinate>>();
+        fringes.add(new ArrayList<CubicCoordinate>());
+        fringes.get(0).add(from);
+
+        for (int i = 2; i <= steps; i++) {
+            fringes.add(new ArrayList<CubicCoordinate>());
+
+            for (CubicCoordinate c : fringes.get(i - 1)) {
+                for (CubicCoordinate direction : DIRECTIONS) {
+                    CubicCoordinate neighbor = add(c, direction);
+
+                    if (!grid.contains(c)) {
+                        coords.add(neighbor);
+                        fringes.get(i).add(neighbor);
+                    }
+                }
+            }
+
+        }
+
+        return fringes;
+
+        // TODO: Double-Check
 
     }
 
