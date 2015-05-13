@@ -1,6 +1,5 @@
 package it.polimi.ingsw.cg_2.model.map;
 
-import it.polimi.ingsw.cg_2.model.map.CloseableSector.SectorStatus;
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 import static org.junit.Assert.*;
 
@@ -25,7 +24,7 @@ public class CloseableSectorTest {
     @Test
     public void shouldGetStatus() {
 
-        assertEquals(SectorStatus.OPEN, sector.getStatus());
+        assertTrue(sector.isOpen());
 
     }
 
@@ -33,7 +32,7 @@ public class CloseableSectorTest {
     public void shouldClose() {
 
         sector.close();
-        assertEquals(SectorStatus.CLOSED, sector.getStatus());
+        assertFalse(sector.isOpen());
 
     }
 
@@ -42,7 +41,7 @@ public class CloseableSectorTest {
 
         sector.close();
         sector.open();
-        assertEquals(SectorStatus.OPEN, sector.getStatus());
+        assertTrue(sector.isOpen());
 
     }
 
