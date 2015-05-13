@@ -30,8 +30,8 @@ public class ZoneTest {
 
         sectors = new HashSet<Sector>();
 
-        coord1 = CubicCoordinate.createFromAxial(1, 2);
-        coord2 = CubicCoordinate.createFromAxial(1, 3);
+        coord1 = CubicCoordinate.createFromAxial(1, 1);
+        coord2 = CubicCoordinate.createFromAxial(1, 2);
 
         sector1 = new Sector(coord1, SectorType.SAFE);
         sector2 = new Sector(coord2, SectorType.DANGEROUS);
@@ -48,11 +48,7 @@ public class ZoneTest {
     @Test
     public void shouldBeCreated() {
 
-        Set<Sector> sectors = new HashSet<Sector>();
-        sectors.add(new Sector(CubicCoordinate.createFromAxial(1, 2),
-                SectorType.ALIEN));
-
-        assertNotNull(new Zone(sectors));
+        assertNotNull(zone);
 
     }
 
@@ -92,19 +88,71 @@ public class ZoneTest {
 
     }
 
+    @Test
+    public void shouldGetTheHumanSector() {
+
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(1, 3),
+                SectorType.HUMAN);
+
+        sectors.add(sector3);
+
+        // We need to create a new zone to add a human sector
+        Zone zone2 = new Zone(sectors);
+
+        assertEquals(sector3, zone2.getHumanSector());
+
+    }
+
+    @Test
+    public void shouldGetTheAlienSector() {
+
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(1, 3),
+                SectorType.ALIEN);
+
+        sectors.add(sector3);
+
+        // We need to create a new zone to add an alien sector
+        Zone zone2 = new Zone(sectors);
+
+        assertEquals(sector3, zone2.getAlienSector());
+
+    }
+
+    @Test
+    public void shouldGetHatchSectors() {
+
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(1, 3),
+                SectorType.HATCH);
+        Sector sector4 = new Sector(CubicCoordinate.createFromAxial(1, 4),
+                SectorType.HATCH);
+
+        sectors.add(sector3);
+        sectors.add(sector4);
+
+        // We need to create a new zone to add escape hatches
+        Zone zone2 = new Zone(sectors);
+
+        Set<Sector> hatches = zone2.getHatchSectors();
+
+        assertTrue(hatches.contains(sector3));
+        assertTrue(hatches.contains(sector4));
+        assertEquals(2, hatches.size());
+
+    }
+
     // // EXCEPTIONS // //
 
     @Test
     public void shouldThrowExceptionIfTwoSectorsHaveTheSameCoordinate() {
 
         // We add two sectors with the same coordinate
-        Sector sector1 = new Sector(CubicCoordinate.createFromAxial(0, 0),
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(0, 0),
                 SectorType.ALIEN);
-        Sector sector2 = new Sector(CubicCoordinate.createFromAxial(0, 0),
+        Sector sector4 = new Sector(CubicCoordinate.createFromAxial(0, 0),
                 SectorType.HUMAN);
 
-        sectors.add(sector1);
-        sectors.add(sector2);
+        sectors.add(sector3);
+        sectors.add(sector4);
 
         thrown.expect(IllegalArgumentException.class);
 
@@ -116,19 +164,19 @@ public class ZoneTest {
     public void shouldThrowExceptionIfWrongNumberOfAlienSectors() {
 
         // We add two alien sectors
-        Sector sector1 = new Sector(CubicCoordinate.createFromAxial(1, 4),
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(1, 3),
                 SectorType.ALIEN);
-        Sector sector2 = new Sector(CubicCoordinate.createFromAxial(1, 5),
+        Sector sector4 = new Sector(CubicCoordinate.createFromAxial(1, 4),
                 SectorType.ALIEN);
 
-        sectors.add(sector1);
-        sectors.add(sector2);
+        sectors.add(sector3);
+        sectors.add(sector4);
 
-        Zone zone = new Zone(sectors);
+        Zone zone2 = new Zone(sectors);
 
         thrown.expect(IllegalStateException.class);
 
-        zone.getAlienSector();
+        zone2.getAlienSector();
 
     }
 
@@ -136,19 +184,19 @@ public class ZoneTest {
     public void shouldThrowExceptionIfWrongNumberOfHumanSectors() {
 
         // We add two human sectors
-        Sector sector1 = new Sector(CubicCoordinate.createFromAxial(1, 4),
+        Sector sector3 = new Sector(CubicCoordinate.createFromAxial(1, 3),
                 SectorType.HUMAN);
-        Sector sector2 = new Sector(CubicCoordinate.createFromAxial(1, 5),
+        Sector sector4 = new Sector(CubicCoordinate.createFromAxial(1, 4),
                 SectorType.HUMAN);
 
-        sectors.add(sector1);
-        sectors.add(sector2);
+        sectors.add(sector3);
+        sectors.add(sector4);
 
-        Zone zone = new Zone(sectors);
+        Zone zone2 = new Zone(sectors);
 
         thrown.expect(IllegalStateException.class);
 
-        zone.getHumanSector();
+        zone2.getHumanSector();
 
     }
 
