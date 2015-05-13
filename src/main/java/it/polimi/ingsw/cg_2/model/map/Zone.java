@@ -22,7 +22,7 @@ public class Zone {
      * A map containing all the sectors of the Zone. A Sector also contain its
      * coordinate but we provide this for faster access.
      */
-    private Map<CubicCoordinate, Sector> sectorMap;
+    private final Map<CubicCoordinate, Sector> sectorMap;
 
     /**
      * Instantiates a new zone with a {@link Collection} of {@link Sector}s that
@@ -52,6 +52,7 @@ public class Zone {
      * @return a new Map containing all the sectors of the zone
      */
     public Map<CubicCoordinate, Sector> getSectorsMap() {
+
         /*
          * Effective Java - Item 11: it is better not to use clone(). The copy
          * constructor, however, is not defined for the Map interface but only
@@ -60,6 +61,19 @@ public class Zone {
         Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
         newSectorsMap.putAll(sectorMap);
         return newSectorsMap;
+
+    }
+
+    /**
+     * Gets the sector correspondent to a given coordinate.
+     *
+     * @param coord the coordinate to search for
+     * @return if present, the sector, otherwise null
+     */
+    public Sector getSector(CubicCoordinate coord) {
+
+        return sectorMap.get(coord);
+
     }
 
     /**
@@ -70,6 +84,7 @@ public class Zone {
      * @return the coordinates of this zone
      */
     public Set<CubicCoordinate> getCoordinates() {
+
         /*
          * The set returned by the keySet() method is backed by the map, so
          * changes to the map are reflected in the set, and vice-versa. For this
@@ -78,6 +93,7 @@ public class Zone {
         Set<CubicCoordinate> newCoordSet = new HashSet<>();
         newCoordSet.addAll(sectorMap.keySet());
         return newCoordSet;
+
     }
 
     /**

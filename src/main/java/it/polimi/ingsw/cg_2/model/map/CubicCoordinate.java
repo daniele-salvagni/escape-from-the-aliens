@@ -27,8 +27,8 @@ public final class CubicCoordinate {
      * The z-axis coordinate is not needed as z = x + y so, by convention, we
      * internally store the correspondent axial coordinate where q = x and r = z
      */
-    private int x;
-    private int z;
+    private final int x;
+    private final int z;
 
     /**
      * Instantiates a new cubic coordinate, constructor is private as we use

@@ -9,44 +9,47 @@ package it.polimi.ingsw.cg_2.model.map;
  */
 public class CloseableSector extends Sector {
 
-    public static enum SectorStatus {
-        OPEN, CLOSED;
-    }
-
-    private SectorStatus sectorStatus;
+    private boolean open;
 
     /**
-     * Instantiates a new CloseableSector with the default status of
-     * Status.OPEN.
+     * Instantiates a new CloseableSector with the default status open.
      *
      * @param position the position relative to a {@link Zone}
      * @param type the type of the Sector
      */
     public CloseableSector(CubicCoordinate position, SectorType type) {
+
         super(position, type);
-        sectorStatus = SectorStatus.OPEN;
+        open = true;
+
     }
 
     /**
-     * Sets the Sector status to Status.OPEN.
+     * Sets the Sector status to open.
      */
     public void open() {
-        sectorStatus = SectorStatus.OPEN;
+
+        open = true;
+
     }
 
     /**
-     * Sets the Sector status to Status.CLOSED.
+     * Sets the Sector status to closed.
      */
     public void close() {
-        sectorStatus = SectorStatus.CLOSED;
+
+        open = false;
+
     }
 
     /**
-     * Gets the Sector status.
+     * Checks if the Sector is open or closed.
      *
-     * @return the Sector status
+     * @return true, if the sector is open
      */
-    public SectorStatus getStatus() {
-        return sectorStatus;
+    public boolean isOpen() {
+
+        return open;
+
     }
 }
