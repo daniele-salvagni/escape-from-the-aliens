@@ -8,19 +8,13 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * This class represents a StandardZone (the map of this game), this zone should
- * contain:
- * <ul>
- * <li>Exactly one HUMAN Sector.</li>
- * <li>Exactly one ALIEN Sector.</li>
- * <li>At least one HATCH sector.</li>
- * </ul>
+ * This class represents a standard implementation of a {@link Zone}.
  */
-public class StandardZone {
+public class StandardZone implements Zone {
 
     /**
-     * A map containing all the sectors of the StandardZone. A Sector also contain its
-     * coordinate but we provide this for faster access.
+     * A map containing all the sectors of the StandardZone. A Sector also
+     * contain its coordinate but we provide this map for faster access.
      */
     private final Map<CubicCoordinate, Sector> sectorMap;
 
@@ -45,12 +39,7 @@ public class StandardZone {
 
     }
 
-    /**
-     * Gets all the sectors of the StandardZone mapped by CubicCoordinate. We return a
-     * copy of the Map to minimize mutability.
-     *
-     * @return a new Map containing all the sectors of the zone
-     */
+    @Override
     public Map<CubicCoordinate, Sector> getSectorsMap() {
 
         /*
@@ -64,25 +53,14 @@ public class StandardZone {
 
     }
 
-    /**
-     * Gets the sector correspondent to a given coordinate.
-     *
-     * @param coord the coordinate to search for
-     * @return if present, the sector, otherwise null
-     */
+    @Override
     public Sector getSector(CubicCoordinate coord) {
 
         return sectorMap.get(coord);
 
     }
 
-    /**
-     * Gets a set containing all the coordinates of the sectors (of any kind) in
-     * this StandardZone. We return a copy of the Set used in the Map implementation to
-     * minimize mutability.
-     *
-     * @return the coordinates of this zone
-     */
+    @Override
     public Set<CubicCoordinate> getCoordinates() {
 
         /*
@@ -96,13 +74,7 @@ public class StandardZone {
 
     }
 
-    /**
-     * Gets the human sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (A StandardZone should contain exactly
-     * one HUMAN sector).
-     *
-     * @return the human sector
-     */
+    @Override
     public Sector getHumanSector() {
 
         Set<Sector> humanSectors = findSectorsFromType(SectorType.HUMAN);
@@ -116,13 +88,7 @@ public class StandardZone {
 
     }
 
-    /**
-     * Gets the alien sector. Throws an exception if the sector has not been
-     * found or if more than one has been found. (A StandardZone should contain exactly
-     * one ALIEN sector).
-     *
-     * @return the alien sector
-     */
+    @Override
     public Sector getAlienSector() {
 
         Set<Sector> alienSectors = findSectorsFromType(SectorType.ALIEN);
@@ -136,12 +102,7 @@ public class StandardZone {
 
     }
 
-    /**
-     * Gets all the hatch sectors contained in this zone. (A StandardZone should contain
-     * at least one HATCH sector).
-     *
-     * @return the hatch sectors
-     */
+    @Override
     public Set<Sector> getHatchSectors() {
 
         Set<Sector> hatchSectors = findSectorsFromType(SectorType.HATCH);
@@ -150,6 +111,7 @@ public class StandardZone {
             throw new IllegalStateException(
                     "A StandardZone must contain at least one escape hatch.");
         } else {
+
             return hatchSectors;
         }
 
