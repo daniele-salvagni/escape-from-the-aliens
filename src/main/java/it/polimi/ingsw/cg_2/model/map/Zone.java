@@ -65,6 +65,18 @@ public class Zone {
     }
 
     /**
+     * Gets the sector correspondent to a given coordinate.
+     *
+     * @param coord the coordinate to search for
+     * @return if present, the sector, otherwise null
+     */
+    public Sector getSector(CubicCoordinate coord) {
+
+        return sectorMap.get(coord);
+
+    }
+
+    /**
      * Gets a set containing all the coordinates of the sectors (of any kind) in
      * this Zone. We return a copy of the Set used in the Map implementation to
      * minimize mutability.
