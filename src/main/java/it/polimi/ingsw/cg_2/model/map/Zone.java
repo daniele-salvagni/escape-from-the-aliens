@@ -22,7 +22,7 @@ public class Zone {
      * A map containing all the sectors of the Zone. A Sector also contain its
      * coordinate but we provide this for faster access.
      */
-    private Map<CubicCoordinate, Sector> sectorMap;
+    private final Map<CubicCoordinate, Sector> sectorMap;
 
     /**
      * Instantiates a new zone with a {@link Collection} of {@link Sector}s that
