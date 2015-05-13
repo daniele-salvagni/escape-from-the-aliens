@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.utils;
+package it.polimi.ingsw.cg_2.utils.procedural;
 
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 
