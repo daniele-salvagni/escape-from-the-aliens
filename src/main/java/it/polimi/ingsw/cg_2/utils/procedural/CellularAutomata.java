@@ -34,7 +34,7 @@ public class CellularAutomata {
             create(2, -1, -1), create(1, 1, -2), create(-1, 2, -1),
             create(-2, 1, 1), create(-1, -1, 2), create(1, -2, 1));
 
-    private final int ALIVE_CHANCE = 45;
+    private int ALIVE_CHANCE = 70;
 
     private int birthTreshold;
     private int deathTreshold;
@@ -51,17 +51,19 @@ public class CellularAutomata {
     /**
      * Instantiates a new cellular automata.
      */
-    public CellularAutomata(int birth, int death) {
+    public CellularAutomata(int birth, int death, int chance) {
 
         this.birthTreshold = birth;
         this.deathTreshold = death;
 
-        this.seed = 234643;
+        this.seed = 298031;
         this.gridWidth = 23;
         this.gridHeight = 14;
 
         this.grid = new LinkedHashMap<>();
         this.rand = new Random();
+        
+        this.ALIVE_CHANCE = chance;
 
     }
 
