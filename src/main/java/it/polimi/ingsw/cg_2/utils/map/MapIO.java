@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.utils;
+package it.polimi.ingsw.cg_2.utils.map;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
  *      process</a>
  * @see BufferedImage#TYPE_INT_ARGB
  */
-public class MapHelper {
+public class MapIO {
 
     private static final int ARGB_BLACK = 0x00000000;
 
@@ -33,7 +33,7 @@ public class MapHelper {
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
-    private MapHelper() {
+    private MapIO() {
         throw new AssertionError();
     }
 
