@@ -139,7 +139,7 @@ public class HexCalculator {
         fringes.add(new ArrayList<CubicCoordinate>());
         fringes.get(0).add(from);
 
-        for (int i = 2; i <= steps; i++) {
+        for (int i = 1; i <= steps; i++) {
             fringes.add(new ArrayList<CubicCoordinate>());
 
             for (CubicCoordinate c : fringes.get(i - 1)) {
