@@ -34,6 +34,11 @@ public class CellularAutomata {
             create(2, -1, -1), create(1, 1, -2), create(-1, 2, -1),
             create(-2, 1, 1), create(-1, -1, 2), create(1, -2, 1));
 
+    private static final List<CubicCoordinate> NEIGHBORHOOD2 = Arrays.asList(
+    /* DIRECTIONS */
+    create(1, -1, 0), create(1, 0, -1), create(0, 1, -1), create(-1, 1, 0),
+            create(-1, 0, 1), create(0, -1, 1));
+
     private int ALIVE_CHANCE = 70;
 
     private int birthTreshold;
@@ -62,7 +67,7 @@ public class CellularAutomata {
 
         this.grid = new LinkedHashMap<>();
         this.rand = new Random();
-        
+
         this.ALIVE_CHANCE = chance;
 
     }
@@ -83,8 +88,6 @@ public class CellularAutomata {
         safeSectors();
         safeSectors();
         safeSectors();
-      
-        
 
     }
 
@@ -111,8 +114,8 @@ public class CellularAutomata {
          * only by the previous one, and not the current one during the
          * iteration.
          */
-        //Map<CubicCoordinate, CellStatus> newGrid = new LinkedHashMap<>();
-        //newGrid.putAll(grid);
+        // Map<CubicCoordinate, CellStatus> newGrid = new LinkedHashMap<>();
+        // newGrid.putAll(grid);
 
         for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
 
@@ -124,11 +127,11 @@ public class CellularAutomata {
             int safe = countSafeNeighbors(cellCoord);
 
             if (cellStatus == ALIVE) {
-                if (((alive > 11) &&(safe<1))) {
+                if (((alive > 11) && (safe < 1))) {
                     cell.setValue(SAFE);
                 }
             } else if (cellStatus == SAFE) {
-                if (((safe > 2)&&(alive<2))||(safe<3)) {
+                if (((safe > 2) && (alive < 2)) || (safe < 3)) {
                     cell.setValue(ALIVE);
                 }
             }
@@ -136,7 +139,7 @@ public class CellularAutomata {
         }
 
         // Update the grid status
-        //grid = newGrid; // Update the grid status
+        // grid = newGrid; // Update the grid status
     }
 
     public int[][] getPixelRepresentation() {

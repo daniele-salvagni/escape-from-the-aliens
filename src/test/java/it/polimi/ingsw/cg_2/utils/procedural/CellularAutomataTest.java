@@ -8,6 +8,8 @@ import org.junit.Test;
 
 public class CellularAutomataTest {
 
+    
+    @Test
     public void testDoThings() throws InterruptedException {
 
         CellularAutomata automata;
@@ -18,7 +20,7 @@ public class CellularAutomataTest {
                 // 2,5
                 // 7,1
 
-                automata = new CellularAutomata(6, 5, 30);
+                automata = new CellularAutomata(0, 4, 20);
                 automata.doThings();
                 automata.getPixelRepresentation();
                 MapHelper.saveMap(automata.getPixelRepresentation(),
@@ -50,7 +52,6 @@ public class CellularAutomataTest {
 
     }
 
-    @Test
     public void testDoThing2s() {
 
         CellularAutomata automata;
