@@ -95,6 +95,7 @@ public class Seed {
      */
     protected Map<CubicCoordinate, CellStatus> generateRectangularDeadGrid() {
 
+        // Linked, we want to preserve the iteration order
         Map<CubicCoordinate, CellStatus> rectGrid = new LinkedHashMap<>();
 
         for (int col = 0; col < getGridWidth(); col++) {
