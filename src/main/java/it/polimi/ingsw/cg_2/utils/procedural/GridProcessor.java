@@ -38,8 +38,35 @@ public class GridProcessor {
         return foundCells;
 
     }
-    
 
+    /**
+     * Replaces the status of all the clusters in the grid except for the
+     * biggest one.
+     *
+     * @param grid the grid where the clusters will be replaced
+     * @param status the status of the clusters
+     * @param newStatus the new status to be set to the smaller clusters
+     */
+    public static void replaceSmallerClusters(
+            Map<CubicCoordinate, CellStatus> grid, CellStatus status,
+            CellStatus newStatus) {
+
+        // Find the biggest cluster
+        Set<CubicCoordinate> biggestCluster = new HashSet<CubicCoordinate>();
+        biggestCluster = findBiggestCluster(grid, status);
+
+        // Remove everything but the biggest cluster from the grid
+        for (Map.Entry<CubicCoordinate, CellStatus> entry : grid.entrySet()) {
+
+            // If the cell of the grid is not in the biggest cluster then we set
+            // it to the new status
+            if (!biggestCluster.contains(entry.getKey())) {
+                entry.setValue(newStatus);
+            }
+
+        }
+
+    }
 
     /**
      * Finds the biggest cluster within a certain grid. If there are two
