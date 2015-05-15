@@ -51,16 +51,18 @@ public class SeedGenerator {
      * having an higher concentration of cells helps obtaining a more centered
      * and ordered map.
      *
-     * @param aliveChance the chance for a cell to be born
+     * @param bornChance the born chance
      * @param alteredChance the altered chance in the center of the seed, if -1
-     *            the seed will not be altered
+     *            the seed will not be altered (0-100)
      * @param alive the 'alive' status
      * @param dead the 'dead' status
      * @param seed the seed used for the generation of pseudo random numbers, if
      *            -1 the seed will be chosen randomly.
+     * @return the generated seed
      */
-    public static void generateAlteredSeed(int bornChance, int alteredChance,
-            CellStatus alive, CellStatus dead, long seed) {
+    public static Map<CubicCoordinate, CellStatus> generateAlteredSeed(
+            int bornChance, int alteredChance, CellStatus alive,
+            CellStatus dead, long seed) {
 
         Map<CubicCoordinate, CellStatus> grid = generateRectangularGrid(dead);
 
@@ -90,6 +92,8 @@ public class SeedGenerator {
             }
 
         }
+
+        return grid;
 
     }
 
