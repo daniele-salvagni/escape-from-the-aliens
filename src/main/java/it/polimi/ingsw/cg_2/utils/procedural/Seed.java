@@ -11,7 +11,7 @@ import java.util.Random;
  * This class server as a helper for the CellularAutomata, it provides static
  * methods to generate seeds to be passed to the automata.
  **/
-public class SeedGenerator {
+public class Seed {
 
     /* They can be also used as parameters, everything will work with any size. */
     private static final int GRID_WIDTH = 23;
@@ -24,7 +24,7 @@ public class SeedGenerator {
     /**
      * Suppress the default constructor for noninstantiability.
      */
-    private SeedGenerator() {
+    private Seed() {
 
         throw new AssertionError();
     }

@@ -13,13 +13,13 @@ import org.junit.Test;
  * the output is correct, to properly test those methods a statistical analysis
  * should be done instead.
  */
-public class SeedGeneratorTest {
+public class SeedTest {
 
     @Test
     public void shouldGenerateAlteredSeed() {
 
         long noSeed = -1;
-        Map<CubicCoordinate, CellStatus> seed = SeedGenerator
+        Map<CubicCoordinate, CellStatus> seed = Seed
                 .generateAlteredSeed(100, 0, CellStatus.ALIVE, CellStatus.DEAD,
                         noSeed);
 
@@ -37,7 +37,7 @@ public class SeedGeneratorTest {
     public void shouldGenerateUnalteredSeed() {
 
         long noSeed = -1;
-        Map<CubicCoordinate, CellStatus> seed = SeedGenerator
+        Map<CubicCoordinate, CellStatus> seed = Seed
                 .generateAlteredSeed(100, -1, CellStatus.ALIVE,
                         CellStatus.DEAD, noSeed);
 
@@ -49,7 +49,7 @@ public class SeedGeneratorTest {
     @Test
     public void shouldAcceptSeed() {
 
-        assertNotNull(SeedGenerator.generateAlteredSeed(30, 85,
+        assertNotNull(Seed.generateAlteredSeed(30, 85,
                 CellStatus.ALIVE, CellStatus.DEAD, 123));
     }
 }
