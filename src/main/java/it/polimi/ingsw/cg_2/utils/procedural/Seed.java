@@ -8,43 +8,100 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * This class server as a helper for the CellularAutomata, it provides static
- * methods to generate seeds to be passed to the automata.
+ * This class generates evenly distributed Seeds to be used in a
+ * {@link CellularAutomata}.
  **/
 public class Seed {
 
-    /* They can be also used as parameters, everything will work with any size. */
-    private static final int GRID_WIDTH = 23;
-    private static final int GRID_HEIGHT = 14;
+    /* The chance of a cell to be born. */
+    private final int birthChance;
 
-    /* The size of the central altered area for the altered seed. */
-    private static final int INNER_WIDTH = 8;
-    private static final int INNER_HEIGHT = 6;
+    /* The rectangular size of the grid. */
+    private final int gridWidth;
+    private final int gridHeight;
+
+    /* The statuses to be used as alive and dead. */
+    private CellStatus aliveStatus;
+    private CellStatus deadStatus;
 
     /**
-     * Suppress the default constructor for noninstantiability.
+     * Instantiates a new seed generator.
+     *
+     * @param birthChance the chance of a cell of being alive
+     * @param gridWidth the width of the rectangular grid
+     * @param gridHeight the height of the rectangular grid
      */
-    private Seed() {
+    public Seed(int birthChance, int gridWidth, int gridHeight) {
 
-        throw new AssertionError();
+        this.birthChance = birthChance;
+        this.gridWidth = gridWidth; // Standard is 23
+        this.gridHeight = gridHeight; // Standard is 14
+
+        aliveStatus = CellStatus.ALIVE;
+        deadStatus = CellStatus.DEAD;
+
     }
 
     /**
-     * Generates a grid of cells with a rectangular shape.
+     * Returns a pseudo random seed to be used in a {@link CellularAutomata}, it
+     * is generated from the parameters of this Seed generator and the provided
+     * seed used by the internal pseudo random number generator.
      *
-     * @param cellStatus the {@link CellStatus} of the cells
+     * @param randSeed the seed to be used for the internal pseudo random number
+     *            generator
+     * @return a {@link Map} containing a rectangular grid and a status for
+     *         every cell
+     * 
+     * @see Random
+     */
+    public Map<CubicCoordinate, CellStatus> nextGrid(long randSeed) {
+
+        Map<CubicCoordinate, CellStatus> seedGrid;
+        seedGrid = generateRectangularDeadGrid();
+
+        populateGrid(seedGrid, randSeed);
+
+        return seedGrid;
+
+    }
+
+    /**
+     * Pseudo-randomly changes the status of a given grid to the aliveStatus.
+     *
+     * @param grid the grid to be populated
+     * @param randSeed the seed used for the pseudo random number generator
+     * 
+     * @see Random
+     */
+    protected void populateGrid(Map<CubicCoordinate, CellStatus> grid,
+            long randSeed) {
+
+        Random rand = new Random(randSeed);
+
+        for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
+
+            if (rand.nextInt(100) < getBirthChance()) {
+                cell.setValue(getDeadStatus());
+            }
+
+        }
+
+    }
+
+    /**
+     * Generates a grid of dead cells with a rectangular shape.
+     *
      * @return a map containing all the cells and their status
      */
-    private static Map<CubicCoordinate, CellStatus> generateRectangularGrid(
-            CellStatus cellStatus) {
+    protected Map<CubicCoordinate, CellStatus> generateRectangularDeadGrid() {
 
         Map<CubicCoordinate, CellStatus> rectGrid = new LinkedHashMap<>();
 
-        for (int col = 0; col < GRID_WIDTH; col++) {
-            for (int row = 0; row < GRID_HEIGHT; row++) {
-                // It is easy with OddQ coordinates
+        for (int col = 0; col < getGridWidth(); col++) {
+            for (int row = 0; row < getGridHeight(); row++) {
+                // It is easier with OddQ coordinates
                 CubicCoordinate coord = createFromOddQ(col, row);
-                rectGrid.put(coord, cellStatus);
+                rectGrid.put(coord, getDeadStatus());
             }
 
         }
@@ -54,54 +111,82 @@ public class Seed {
     }
 
     /**
-     * Creates the initial seed of cells with a given status, the seed is
-     * altered to have a different distribution in the central part of the grid,
-     * having an higher concentration of cells helps obtaining a more centered
-     * and ordered map.
+     * Gets the grid width.
      *
-     * @param bornChance the chance for a cell to be alive
-     * @param alteredChance the altered chance in the center of the seed, if -1
-     *            the seed will not be altered (0-100)
-     * @param alive the 'alive' status
-     * @param dead the 'dead' status
-     * @param seed the seed used for the generation of pseudo random numbers, if
-     *            -1 the seed will be chosen randomly.
-     * @return the generated seed
+     * @return the grid width
      */
-    public static Map<CubicCoordinate, CellStatus> generateAlteredSeed(
-            int bornChance, int alteredChance, CellStatus alive,
-            CellStatus dead, long seed) {
+    public int getGridWidth() {
 
-        Map<CubicCoordinate, CellStatus> grid = generateRectangularGrid(dead);
+        return gridWidth;
 
-        Random rand = new Random();
-        if (seed != -1) {
-            rand.setSeed(seed);
-        }
+    }
 
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
+    /**
+     * Gets the grid height.
+     *
+     * @return the grid height
+     */
+    public int getGridHeight() {
 
-            if ((alteredChance != -1)
-                    && (Math.abs(GRID_WIDTH / 2 - cell.getKey().getOddQCol()) * 2 < INNER_WIDTH)
-                    && (Math.abs(GRID_HEIGHT / 2 - cell.getKey().getOddQRow()) * 2 < INNER_HEIGHT)) {
+        return gridHeight;
 
-                // Different chance in the middle of the grid
-                if (rand.nextInt(100) < alteredChance) {
-                    cell.setValue(alive);
-                }
+    }
 
-            } else {
+    /**
+     * Gets the birth chance.
+     *
+     * @return the birth chance
+     */
+    protected int getBirthChance() {
 
-                // Default chance elsewhere
-                if (rand.nextInt(100) < bornChance) {
-                    cell.setValue(alive);
-                }
+        return birthChance;
 
-            }
+    }
 
-        }
+    /**
+     * Gets the status to be used as the deadStatus in this Seed generator
+     * (default is DEAD).
+     *
+     * @return the status used as the deadStatus
+     */
+    public CellStatus getDeadStatus() {
 
-        return grid;
+        return deadStatus;
+    }
+
+    /**
+     * Changes the status to be used as the deadStatus in this Seed generator
+     * (default is DEAD).
+     *
+     * @param aliveStatus the status to be used as the deadStatus
+     */
+    public void setDeadStatus(CellStatus deadStatus) {
+
+        this.deadStatus = deadStatus;
+
+    }
+
+    /**
+     * Gets the status to be used as the aliveStatus in this Seed generator
+     * (default is ALIVE).
+     *
+     * @return the status used as the aliveStatus
+     */
+    public CellStatus getAliveStatus() {
+
+        return aliveStatus;
+
+    }
+
+    /**
+     * Changes the status to be used as the aliveStatus in this Seed generator
+     * (default is ALIVE).
+     *
+     * @param aliveStatus the status to be used as the aliveStatus
+     */
+    public void setAliveStatus(CellStatus aliveStatus) {
+
+        this.aliveStatus = aliveStatus;
 
     }
 
