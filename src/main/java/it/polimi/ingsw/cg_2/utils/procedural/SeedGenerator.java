@@ -22,6 +22,14 @@ public class SeedGenerator {
     private static final int INNER_HEIGHT = 6;
 
     /**
+     * Suppress the default constructor for noninstantiability.
+     */
+    private SeedGenerator() {
+
+        throw new AssertionError();
+    }
+
+    /**
      * Generates a grid of cells with a rectangular shape.
      *
      * @param cellStatus the {@link CellStatus} of the cells
