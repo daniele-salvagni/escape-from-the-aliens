@@ -38,6 +38,54 @@ public class GridProcessor {
         return foundCells;
 
     }
+    
+
+
+    /**
+     * Finds the biggest cluster within a certain grid. If there are two
+     * clusters with the same size only the first one found by the algorithm
+     * will be returned (the one with the most top-left cell).
+     *
+     * @param grid the grid where to search for the biggest cluster of cells
+     * @param status the status of the cells of the clusters
+     * @return a set containing the cells of the biggest found cluster
+     */
+    public static Set<CubicCoordinate> findBiggestCluster(
+            Map<CubicCoordinate, CellStatus> grid, CellStatus status) {
+
+        // This set keeps track of the unvisited cells with the given status
+        Set<CubicCoordinate> unvisited = new HashSet<CubicCoordinate>();
+        // This set keeps track of the biggest cluster of cells
+        Set<CubicCoordinate> biggestCluster = new HashSet<CubicCoordinate>();
+
+        // Copy all the cells with the given status into the 'unvisited' Set
+        unvisited = findCellsWithStatus(grid, status);
+
+        // Loop trough each cell of the grid
+        for (Map.Entry<CubicCoordinate, CellStatus> entry : grid.entrySet()) {
+
+            // If this cell has not already been visited
+            if (unvisited.contains(entry.getKey())) {
+
+                // Perform a flood fill to get all the cells of the cluster
+                Set<CubicCoordinate> cluster = performUnlimitedFloodFill(grid,
+                        entry.getKey(), status);
+
+                // Remove all the visited cells
+                unvisited.removeAll(cluster);
+
+                // Check if the new cluster we found is bigger than the previous
+                if (cluster.size() > biggestCluster.size()) {
+                    biggestCluster = cluster;
+                }
+
+            }
+
+        }
+
+        return biggestCluster;
+
+    }
 
     /**
      * Perform an unlimited flood fill, the algorithm will stop only when there
