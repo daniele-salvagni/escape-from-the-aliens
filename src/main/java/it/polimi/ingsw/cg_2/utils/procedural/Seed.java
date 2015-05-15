@@ -22,10 +22,6 @@ public class Seed {
     private final int gridWidth;
     private final int gridHeight;
 
-    /* The statuses to be used as alive and dead. */
-    private CellStatus aliveStatus;
-    private CellStatus deadStatus;
-
     /**
      * Instantiates a new seed generator.
      *
@@ -39,9 +35,6 @@ public class Seed {
         this.gridWidth = gridWidth; // Standard is 23
         this.gridHeight = gridHeight; // Standard is 14
 
-        aliveStatus = CellStatus.ALIVE;
-        deadStatus = CellStatus.DEAD;
-
     }
 
     /**
@@ -49,8 +42,8 @@ public class Seed {
      * is generated from the parameters of this Seed generator and the provided
      * seed used by the internal pseudo random number generator.
      *
-     * @param seedNumber the seed to be used for the internal pseudo random number
-     *            generator
+     * @param seedNumber the seed to be used for the internal pseudo random
+     *            number generator
      * @return a {@link Map} containing a rectangular grid and a status for
      *         every cell
      * 
@@ -68,7 +61,7 @@ public class Seed {
     }
 
     /**
-     * Pseudo-randomly changes the status of a given grid to the aliveStatus.
+     * Pseudo-randomly changes the status of a given grid to ALIVE.
      *
      * @param grid the grid to be populated
      * @param seedNumber the seed used for the pseudo random number generator
@@ -83,7 +76,7 @@ public class Seed {
         for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
 
             if (rand.nextInt(100) < getBirthChance()) {
-                cell.setValue(getDeadStatus());
+                cell.setValue(CellStatus.ALIVE);
             }
 
         }
@@ -104,7 +97,7 @@ public class Seed {
             for (int row = 0; row < getGridHeight(); row++) {
                 // It is easier with OddQ coordinates
                 CubicCoordinate coord = createFromOddQ(col, row);
-                rectGrid.put(coord, getDeadStatus());
+                rectGrid.put(coord, CellStatus.DEAD);
             }
 
         }
@@ -143,53 +136,6 @@ public class Seed {
     protected int getBirthChance() {
 
         return birthChance;
-
-    }
-
-    /**
-     * Gets the status to be used as the deadStatus in this Seed generator
-     * (default is DEAD).
-     *
-     * @return the status used as the deadStatus
-     */
-    public CellStatus getDeadStatus() {
-
-        return deadStatus;
-    }
-
-    /**
-     * Changes the status to be used as the deadStatus in this Seed generator
-     * (default is DEAD).
-     *
-     * @param aliveStatus the status to be used as the deadStatus
-     */
-    public void setDeadStatus(CellStatus deadStatus) {
-
-        this.deadStatus = deadStatus;
-
-    }
-
-    /**
-     * Gets the status to be used as the aliveStatus in this Seed generator
-     * (default is ALIVE).
-     *
-     * @return the status used as the aliveStatus
-     */
-    public CellStatus getAliveStatus() {
-
-        return aliveStatus;
-
-    }
-
-    /**
-     * Changes the status to be used as the aliveStatus in this Seed generator
-     * (default is ALIVE).
-     *
-     * @param aliveStatus the status to be used as the aliveStatus
-     */
-    public void setAliveStatus(CellStatus aliveStatus) {
-
-        this.aliveStatus = aliveStatus;
 
     }
 
