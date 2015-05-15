@@ -1,8 +1,6 @@
 package it.polimi.ingsw.cg_2.utils.procedural;
 
 import static it.polimi.ingsw.cg_2.model.map.CubicCoordinate.createFromOddQ;
-import static it.polimi.ingsw.cg_2.utils.procedural.CellStatus.ALIVE;
-import static it.polimi.ingsw.cg_2.utils.procedural.CellStatus.DEAD;
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 
 import java.util.LinkedHashMap;
@@ -15,6 +13,7 @@ import java.util.Random;
  **/
 public class SeedGenerator {
 
+    /* They can be also used as parameters, everything will work with any size. */
     private static final int CELL_WIDTH = 23;
     private static final int CELL_HEIGHT = 14;
 
@@ -26,7 +25,7 @@ public class SeedGenerator {
      * @param cellStatus the {@link CellStatus} of the cells
      * @return a map containing all the cells and their status
      */
-    private Map<CubicCoordinate, CellStatus> generateRectangularGrid(
+    private static Map<CubicCoordinate, CellStatus> generateRectangularGrid(
             CellStatus cellStatus) {
 
         Map<CubicCoordinate, CellStatus> rectGrid = new LinkedHashMap<>();
