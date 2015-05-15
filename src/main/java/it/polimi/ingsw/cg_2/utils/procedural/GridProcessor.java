@@ -40,6 +40,43 @@ public class GridProcessor {
     }
 
     /**
+     * Perform an unlimited flood fill, the algorithm will stop only when there
+     * are no more cells clustered against the strting point.
+     *
+     * @param grid the grid where to perform the flood fill
+     * @param start the starting point of the algorithm
+     * @param status the status on which to perform the flood fill
+     * @return a set containing all the found cells clustered against the
+     *         starting point
+     */
+    public static Set<CubicCoordinate> performUnlimitedFloodFill(
+            Map<CubicCoordinate, CellStatus> grid, CubicCoordinate start,
+            CellStatus status) {
+
+        return floodFill(grid, start, status, 0);
+
+    }
+
+    /**
+     * Perform a limited flood fill, the algorithm will not go further the given
+     * distance from the starting point.
+     *
+     * @param grid the grid where to perform the flood fill
+     * @param start the starting point of the algorithm
+     * @param status the status on which to perform the flood fill
+     * @param distanceLimit the distance limit of the algorithm
+     * @return a set containing all the found cells clustered against the
+     *         starting point within a certain distance
+     */
+    public static Set<CubicCoordinate> performLimitedFloodFill(
+            Map<CubicCoordinate, CellStatus> grid, CubicCoordinate start,
+            CellStatus status, int distanceLimit) {
+
+        return floodFill(grid, start, status, distanceLimit);
+
+    }
+
+    /**
      * Performs a flood fill algorithm on a grid from a certain starting point.
      * It returns all the cells clustered against the starting one.
      *
