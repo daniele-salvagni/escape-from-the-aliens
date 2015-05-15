@@ -9,7 +9,9 @@ import java.util.Random;
 
 /**
  * This class generates evenly distributed Seeds to be used in a
- * {@link CellularAutomata}.
+ * {@link CellularAutomata}. It contains all the configurations of the seed and
+ * provides a method {@link #nextGrid(long)} to generate a seed grid from a
+ * given seed number.
  **/
 public class Seed {
 
@@ -47,19 +49,19 @@ public class Seed {
      * is generated from the parameters of this Seed generator and the provided
      * seed used by the internal pseudo random number generator.
      *
-     * @param randSeed the seed to be used for the internal pseudo random number
+     * @param seedNumber the seed to be used for the internal pseudo random number
      *            generator
      * @return a {@link Map} containing a rectangular grid and a status for
      *         every cell
      * 
      * @see Random
      */
-    public Map<CubicCoordinate, CellStatus> nextGrid(long randSeed) {
+    public Map<CubicCoordinate, CellStatus> nextGrid(long seedNumber) {
 
         Map<CubicCoordinate, CellStatus> seedGrid;
         seedGrid = generateRectangularDeadGrid();
 
-        populateGrid(seedGrid, randSeed);
+        populateGrid(seedGrid, seedNumber);
 
         return seedGrid;
 
@@ -69,14 +71,14 @@ public class Seed {
      * Pseudo-randomly changes the status of a given grid to the aliveStatus.
      *
      * @param grid the grid to be populated
-     * @param randSeed the seed used for the pseudo random number generator
+     * @param seedNumber the seed used for the pseudo random number generator
      * 
      * @see Random
      */
     protected void populateGrid(Map<CubicCoordinate, CellStatus> grid,
-            long randSeed) {
+            long seedNumber) {
 
-        Random rand = new Random(randSeed);
+        Random rand = new Random(seedNumber);
 
         for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
 
