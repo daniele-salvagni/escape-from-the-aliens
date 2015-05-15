@@ -104,8 +104,9 @@ public class CubicCoordinateTest {
     @Test
     public void testToString() {
 
-        CubicCoordinate coordinate = CubicCoordinate.create(2, -5, 3);
-        assertEquals("CubicCoordinate [x=2, y=-5, z=3]", coordinate.toString());
+        // We want toString to be overridden
+        assertFalse(CubicCoordinate.create(0, 0, 0).toString().contains("@"));
+
     }
 
     @Test
