@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.utils.procedural;
 
 import static it.polimi.ingsw.cg_2.utils.procedural.CellStatus.*;
 import static it.polimi.ingsw.cg_2.model.map.CubicCoordinate.*;
+
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 import it.polimi.ingsw.cg_2.model.map.HexCalculator;
 
