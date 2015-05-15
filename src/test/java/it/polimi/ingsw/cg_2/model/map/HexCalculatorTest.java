@@ -3,11 +3,18 @@ package it.polimi.ingsw.cg_2.model.map;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class HexCalculatorTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void shouldAddCoordinates() {
@@ -106,6 +113,75 @@ public class HexCalculatorTest {
 
         assertEquals(expected,
                 HexCalculator.distanceAsTheCrowFlies(coord1, coord2));
+
+    }
+
+    @Test
+    public void shouldGetReachableCoordinatesWithObstacles() {
+
+        // A section of the FERMI map
+
+        Set<CubicCoordinate> grid = new HashSet<>();
+
+        CubicCoordinate coord1 = CubicCoordinate.createFromOddQ(8, 6);
+        CubicCoordinate coord2 = CubicCoordinate.createFromOddQ(8, 7);
+
+        CubicCoordinate coord3 = CubicCoordinate.createFromOddQ(9, 4);
+        CubicCoordinate coord4 = CubicCoordinate.createFromOddQ(9, 5);
+        CubicCoordinate coord5 = CubicCoordinate.createFromOddQ(9, 7);
+
+        CubicCoordinate coord6 = CubicCoordinate.createFromOddQ(10, 4);
+        CubicCoordinate coord7 = CubicCoordinate.createFromOddQ(10, 8);
+
+        CubicCoordinate coord8 = CubicCoordinate.createFromOddQ(11, 4);
+        CubicCoordinate coord9 = CubicCoordinate.createFromOddQ(11, 5);
+        CubicCoordinate coord10 = CubicCoordinate.createFromOddQ(11, 6);
+        CubicCoordinate coord11 = CubicCoordinate.createFromOddQ(11, 7);
+        CubicCoordinate coord12 = CubicCoordinate.createFromOddQ(11, 8);
+
+        grid.add(coord1);
+        grid.add(coord2);
+        grid.add(coord3);
+        grid.add(coord4);
+        grid.add(coord5);
+        grid.add(coord6);
+        grid.add(coord7);
+        grid.add(coord8);
+        grid.add(coord9);
+        grid.add(coord10);
+        grid.add(coord11);
+        grid.add(coord12);
+
+        Set<CubicCoordinate> range = HexCalculator.reachableCoordinates(grid,
+                coord7, 3);
+
+        assertEquals(8, range.size());
+        assertTrue(range.contains(coord1));
+        assertTrue(range.contains(coord2));
+        assertTrue(range.contains(coord5));
+        assertTrue(range.contains(coord7)); // Obviously itself
+        assertTrue(range.contains(coord9));
+        assertTrue(range.contains(coord10));
+        assertTrue(range.contains(coord11));
+        assertTrue(range.contains(coord12));
+
+    }
+
+    @Test
+    public void shouldThrowExceptionIfDirectionIsMoreThanFive() {
+
+        thrown.expect(IllegalArgumentException.class);
+
+        HexCalculator.getDirection(-1);
+
+    }
+
+    @Test
+    public void shouldThrowExceptionIfDirectionIsLessThanZero() {
+
+        thrown.expect(IllegalArgumentException.class);
+
+        HexCalculator.getDirection(6);
 
     }
 
