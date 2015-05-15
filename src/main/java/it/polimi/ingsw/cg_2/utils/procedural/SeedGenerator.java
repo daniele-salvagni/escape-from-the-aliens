@@ -59,7 +59,7 @@ public class SeedGenerator {
      * having an higher concentration of cells helps obtaining a more centered
      * and ordered map.
      *
-     * @param bornChance the born chance
+     * @param bornChance the chance for a cell to be alive
      * @param alteredChance the altered chance in the center of the seed, if -1
      *            the seed will not be altered (0-100)
      * @param alive the 'alive' status
