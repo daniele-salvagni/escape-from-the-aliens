@@ -58,14 +58,14 @@ public class AlteredSeed extends Seed {
 
                 // Different chance in the middle of the grid
                 if (rand.nextInt(100) < alteredChance) {
-                    cell.setValue(getAliveStatus());
+                    cell.setValue(CellStatus.ALIVE);
                 }
 
             } else {
 
                 // Default chance elsewhere
                 if (rand.nextInt(100) < getBirthChance()) {
-                    cell.setValue(getAliveStatus());
+                    cell.setValue(CellStatus.ALIVE);
                 }
 
             }
