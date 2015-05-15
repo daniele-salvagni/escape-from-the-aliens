@@ -202,7 +202,7 @@ public class GridProcessor {
         // exit the loop. We also exit at a certain distance if the flood fill
         // is limited.
         while (!(fringes.get(fringes.size() - 1).isEmpty())
-                || ((limited == true) && (distance <= distanceLimit))) {
+                || (limited && (distance <= distanceLimit))) {
 
             fringes.add(new ArrayList<CubicCoordinate>());
 
