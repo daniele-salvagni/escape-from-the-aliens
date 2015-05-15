@@ -84,26 +84,28 @@ public class HexCalculatorTest {
     }
 
     @Test
-    public void shouldGetDistance() {
+    public void shouldGetDistanceAsTheCrowFlies() {
 
         int expected = 8;
 
         CubicCoordinate coord1 = CubicCoordinate.create(-2, 4, -2);
         CubicCoordinate coord2 = CubicCoordinate.create(2, -4, 2);
 
-        assertEquals(expected, HexCalculator.distance(coord1, coord2));
+        assertEquals(expected,
+                HexCalculator.distanceAsTheCrowFlies(coord1, coord2));
 
     }
-    
+
     @Test
-    public void shouldGetDistanceSamePosition() {
+    public void shouldGetDistanceAsTheCrowFliesWithSamePosition() {
 
         int expected = 0;
 
         CubicCoordinate coord1 = CubicCoordinate.create(1, -2, 1);
         CubicCoordinate coord2 = CubicCoordinate.create(1, -2, 1);
 
-        assertEquals(expected, HexCalculator.distance(coord1, coord2));
+        assertEquals(expected,
+                HexCalculator.distanceAsTheCrowFlies(coord1, coord2));
 
     }
 
