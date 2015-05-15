@@ -1,87 +1,44 @@
 package it.polimi.ingsw.cg_2.utils.procedural;
 
-import java.io.IOException;
+import java.util.Map;
 
-import it.polimi.ingsw.cg_2.utils.MapHelper;
-
+import org.junit.Ignore;
 import org.junit.Test;
+
+import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 
 public class CellularAutomataTest {
 
-    
+    @Ignore("Manual testing")
+    @Test
     public void testDoThings() throws InterruptedException {
 
-        CellularAutomata automata;
+        /* TODO: At the current state this is just for testing purposes */
 
-        try {
+        // 0,5-20
+        // 10,3-70
+        // 5,2-70
+        // INNER 85!!!
 
-            for (int i = 0; i <= 700; i++) {
-                // 2,5
-                // 7,1
+        Seed seed = new AlteredSeed(70, 23, 14, 85, 8, 6);
 
-                automata = new CellularAutomata(2, 5, 70, 0);
-                automata.doThings();
-                automata.getPixelRepresentation();
-                MapHelper.saveMap(automata.getPixelRepresentation(),
-                        "target/testmap/test-" + i + ".png");
+        CellularAutomata automata = new CellularAutomata(5, 2,
+                seed.nextGrid(321321));
 
-            }
+        automata.applyTicks(3);
 
-            /*
-             * try {
-             * 
-             * for (int i = 0; i <= 12; i++) { for (int j = 0; j <= 12; j++) {
-             * automata = new CellularAutomata(i, j); automata.doThings();
-             * automata.getPixelRepresentation();
-             * MapHelper.saveMap(automata.getPixelRepresentation(), "test-" + i
-             * + "-" + j + ".png"); } }
-             */
+        // We need a mapHelperAdpter so we can pass directly automata.getGrid()
+        // and avoid imports
+        Map<CubicCoordinate, CellStatus> grid = automata.getGrid();
 
-            /*
-             * automata = new CellularAutomata(1, 1); automata.doThings();
-             * automata.getPixelRepresentation();
-             * MapHelper.saveMap(automata.getPixelRepresentation(),
-             * "testtt.png");
-             */
+        // Process it
+        // GridProcessor.replaceSmallerClusters(grid, ALIVE, DEAD);
 
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
-    }
-
-    public void testDoThing2s() {
-
-        CellularAutomata automata;
-
-        try {
-
-            for (int x = 10; x <= 80; x += 10) {
-                for (int i = 0; i <= 12; i++) {
-                    for (int j = 0; j <= 12; j++) {
-                        automata = new CellularAutomata(i, j, x, 0);
-                        automata.doThings();
-                        automata.getPixelRepresentation();
-                        MapHelper.saveMap(automata.getPixelRepresentation(),
-                                "target/testmap2/test-" + x + "-" + i + "-" + j
-                                        + ".png");
-                    }
-                }
-            }
-
-            /*
-             * automata = new CellularAutomata(1, 1); automata.doThings();
-             * automata.getPixelRepresentation();
-             * MapHelper.saveMap(automata.getPixelRepresentation(),
-             * "testtt.png");
-             */
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-
+        /*
+         * try { MapHelper.saveMap(automata.toPixelRepresentation(),
+         * "target/testmapX/test-" + 3 + ".png"); } catch (IOException e) { //
+         * TODO Auto-generated catch block e.printStackTrace(); }
+         */
     }
 
 }

@@ -3,28 +3,35 @@ package it.polimi.ingsw.cg_2.utils.procedural;
 import static it.polimi.ingsw.cg_2.utils.procedural.CellStatus.*;
 import static it.polimi.ingsw.cg_2.model.map.CubicCoordinate.*;
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
-import it.polimi.ingsw.cg_2.model.map.CubicCoordinateTest;
 import it.polimi.ingsw.cg_2.model.map.HexCalculator;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.BitSet;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.Set;
 
+/**
+ * A cellular automata consists of a grid of cells 'G' where each cell 'c' can
+ * be in a finite number of states. For each cell, a set of cells called its
+ * neighborhood is defined relative to the specified cell. An initial state (t =
+ * 0) is selected by assigning a state for each cell, this is generally called
+ * the seed of the automaton. A new generation is created (advancing t by 1),
+ * according to a fixed rule that determines the new state of each cell in terms
+ * of the current state of the cell and the states of the cells in its
+ * neighborhood, a single generation is usually called a tick.
+ * <p>
+ * In this automata we use two statuses: ALIVE and DEAD. A seed grid must be
+ * provided to start the automata, it is possible to set the birth and death
+ * threshold and to apply a certain number of ticks to the automata. This
+ * implementation is specific for hexagonal grids and used a sort of Moore
+ * neighborhood (12 neighbors per cell).
+ */
 public class CellularAutomata {
 
-    /* The colors we use to print our results */
-    private static final int DARK_GREEN = 0x003333; // Dead
-    private static final int LIGHT_GREEN = 0x66CC66; //
-    private static final int MEDIUM_GREEN = 0x009966;
-
-    /* We use a sort of "Moore Neighborhood" extended to hexagons. */
+    /**
+     * We use a sort of "Moore Neighborhood" extended to hexagons, by using
+     * directions and diagonals we have a total of 12 neighbors.
+     */
     private static final List<CubicCoordinate> NEIGHBORHOOD = Arrays.asList(
             create(1, -1, 0), create(1, 0, -1), create(0, 1, -1),
             create(-1, 1, 0), create(-1, 0, 1), create(0, -1, 1),
@@ -32,423 +39,129 @@ public class CellularAutomata {
             create(2, -1, -1), create(1, 1, -2), create(-1, 2, -1),
             create(-2, 1, 1), create(-1, -1, 2), create(1, -2, 1));
 
-    // Pseudo random
-    Random rand;
-    private long seed;
-
-    // Seed
-    private final int INNER_SEED_CHANCE = 85;
-    private final int INNER_WIDTH = 8;
-    private final int INNER_HEIGHT = 6;
-    private final int seedChance; // Default seed
-
     // Tick configuration
     private int birthThreshold;
     private int deathThreshold;
 
-    // Grid size
-    private final int gridWidth;
-    private final int gridHeight;
-
-    private Map<CubicCoordinate, CellStatus> gridState;
+    private final Map<CubicCoordinate, CellStatus> gridState;
 
     /**
-     * Instantiates a new cellular automata.
+     * Instantiates a new cellular automata with given birth and death threshold
+     * and an initial seed.
      *
-     * @param birthThreshold the birth threshold
-     * @param deathThreshold the death threshold
-     * @param seedChance the seed chance
-     * @param seed the seed, 0 for random seed
+     * @param birthThreshold the birth threshold of a cell
+     * @param deathThreshold the death threshold of a cell
+     * @param seed the seed grid of the automata
      */
     public CellularAutomata(int birthThreshold, int deathThreshold,
-            int seedChance, long seed) {
+            Map<CubicCoordinate, CellStatus> seed) {
 
+        // Set automata rules
         this.birthThreshold = birthThreshold;
         this.deathThreshold = deathThreshold;
 
-        this.seed = seed;
-        this.gridWidth = 23;
-        this.gridHeight = 14;
-
-        // Linked, me must preserve order
-        this.gridState = new LinkedHashMap<>();
-
-        this.seedChance = seedChance;
-
-        if (seed != 0) {
-            this.rand = new Random(seed);
-        } else {
-            this.rand = new Random();
-        }
-
-    }
-
-    public void doThings() {
-
-        generateRectangularGrid();
-        generateAlteredSeed();
-
-        applyTick();
-        applyTick();
-        applyTick();
-
-        keepBiggestCluster(ALIVE);
-
-        // createSafeSeed();
-
-        // safeSectors();
-        // safeSectors();
-        // safeSectors();
-
-    }
-
-    // -----------------------------------------------------------------------------
-
-    protected void createSafeSeed() {
-
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : gridState.entrySet()) {
-
-            if (rand.nextInt(100) < 23) {
-                cell.setValue(SAFE);
-            }
-
-            /*
-             * if (rand.nextInt(100) < ALIVE_CHANCE) { cell.setValue(ALIVE); }
-             */
-
-        }
-
-    }
-
-    public void safeSectors() {
-
-        /*
-         * We need to work on a copy of the grid, the next state should depend
-         * only by the previous one, and not the current one during the
-         * iteration.
-         */
-        // Map<CubicCoordinate, CellStatus> newGrid = new LinkedHashMap<>();
-        // newGrid.putAll(grid);
-
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : gridState.entrySet()) {
-
-            CubicCoordinate cellCoord = cell.getKey();
-            CellStatus cellStatus = cell.getValue();
-
-            /* The count is made on the old grid (the previous automaton tick) */
-            int alive = countAliveNeighbors(this.gridState, cellCoord);
-            int safe = countSafeNeighbors(cellCoord);
-
-            if (cellStatus == ALIVE) {
-                if (((alive > 11) && (safe < 1))) {
-                    cell.setValue(SAFE);
-                }
-            } else if (cellStatus == SAFE) {
-                if (((safe > 2) && (alive < 2)) || (safe < 3)) {
-                    cell.setValue(ALIVE);
-                }
-            }
-
-        }
-
-        // Update the grid status
-        // grid = newGrid; // Update the grid status
-    }
-
-    private int countSafeNeighbors(CubicCoordinate cell) {
-
-        int alive = 0;
-
-        // Loop trough each neighbor and check if it is alive:
-        for (CubicCoordinate n : NEIGHBORHOOD) {
-            CubicCoordinate neighbor = HexCalculator.add(cell, n);
-            if (gridState.get(neighbor) == SAFE) {
-                /*
-                 * If the coordinate is outside the grid map.get(..) returns
-                 * null, so it will work as intended. We consider not existing
-                 * cells (outside the rectangular grid) as dead.
-                 */
-                alive++;
-            } else if (gridState.get(neighbor) == null) {
-                alive += 3;
-            }
-        }
-
-        return alive;
-
-    }
-
-    // -----------------------------------------------------------------------------
-
-    public int[][] getPixelRepresentation() {
-
-        int[][] pixelMatirx = new int[gridWidth][gridHeight];
-
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : gridState.entrySet()) {
-
-            if (cell.getValue() == ALIVE) {
-                pixelMatirx[cell.getKey().getOddQCol()][cell.getKey()
-                        .getOddQRow()] = MEDIUM_GREEN;
-            } else if (cell.getValue() == DEAD) {
-                pixelMatirx[cell.getKey().getOddQCol()][cell.getKey()
-                        .getOddQRow()] = DARK_GREEN;
-            } else if (cell.getValue() == SAFE) {
-                pixelMatirx[cell.getKey().getOddQCol()][cell.getKey()
-                        .getOddQRow()] = LIGHT_GREEN;
-            }
-
-        }
-
-        return pixelMatirx;
+        // We want to be sure that we are working with a LinkedHashMap
+        gridState = seed;
 
     }
 
     /**
-     * Generates a grid of dead cells with a rectangular shape.
+     * Apply a certain amount of ticks to the automata.
+     *
+     * @param number the number of ticks to perform
      */
-    private void generateRectangularGrid() {
+    public void applyTicks(int number) {
 
-        for (int col = 0; col < gridWidth; col++) {
-            for (int row = 0; row < gridHeight; row++) {
-                CubicCoordinate coord = createFromOddQ(col, row);
-                gridState.put(coord, DEAD);
-            }
-
+        for (int n = 0; n < number; n++) {
+            applyTick();
         }
+
+        GridProcessor.replaceSmallerClusters(gridState, ALIVE, DEAD);
 
     }
 
     /**
-     * Creates the initial seed of ALIVE cells, the seed is altered to have a
-     * different distribution in the central part of the grid, having an higher
-     * concentration of alive cells helps obtaining a more centered and ordered
-     * map.
+     * Gets the grid of the automata in its current state. A copy of the Map is
+     * returned to reduce mutability.
+     *
+     * @return a copy of the Map containing the grid of the automata in its
+     *         current status
      */
-    private void generateAlteredSeed() {
+    public Map<CubicCoordinate, CellStatus> getGrid() {
 
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : gridState.entrySet()) {
-
-            if ((Math.abs(gridWidth / 2 - cell.getKey().getOddQCol()) * 2 < INNER_WIDTH)
-                    && (Math.abs(gridHeight / 2 - cell.getKey().getOddQRow()) * 2 < INNER_HEIGHT)) {
-
-                // Different chance in the middle of the grid
-                if (rand.nextInt(100) < INNER_SEED_CHANCE) {
-                    cell.setValue(ALIVE);
-                }
-
-            } else {
-
-                // Default chance elsewhere
-                if (rand.nextInt(100) < seedChance) {
-                    cell.setValue(ALIVE);
-                }
-
-            }
-
-        }
+        // We return a copy to keep the original immutable
+        return new LinkedHashMap<>(gridState);
 
     }
 
     /**
      * Executes a single tick of the cellular automata, it is applied to the
      * whole grid simultaneously.
-     * 
      */
     private void applyTick() {
 
         /*
-         * We need to work on a copy of the grid, the next state should depend
-         * only by the previous one, and not the current one during the
-         * iteration.
+         * We need to keep a copy of the grid to apply the rules to each cell
+         * 'simultaneously'. The next state should depend only by the previous
+         * one, and not the current one during the iteration.
          */
-        Map<CubicCoordinate, CellStatus> tempGrid = new LinkedHashMap<>();
-        tempGrid.putAll(gridState);
+        Map<CubicCoordinate, CellStatus> oldState = new LinkedHashMap<>();
+        oldState.putAll(gridState);
 
-        // We loop trough the
-        for (Map.Entry<CubicCoordinate, CellStatus> cell : tempGrid.entrySet()) {
+        // We loop trough the gridState
+        for (Map.Entry<CubicCoordinate, CellStatus> cell : gridState.entrySet()) {
 
             CubicCoordinate cellCoord = cell.getKey();
             CellStatus cellStatus = cell.getValue();
 
-            /* The count is made on the old grid (the previous automaton tick) */
-            int alive = countAliveNeighbors(this.gridState, cellCoord);
+            /* The count is made on the oldState (the previous automaton tick) */
+            int alive = countNeighborsWithStatus(oldState, cellCoord, ALIVE);
 
             if (cellStatus == DEAD) {
-                if ((alive < birthThreshold)) {
+                if (alive < birthThreshold) {
                     cell.setValue(ALIVE);
                 }
             } else if (cellStatus == ALIVE) {
-                if ((alive < deathThreshold)) {
+                if (alive < deathThreshold) {
                     cell.setValue(DEAD);
                 }
             }
 
         }
 
-        gridState = tempGrid; // Update the grid status
-
     }
 
     /**
-     * Count the number of alive neighbors of a given cell in a given grid.
+     * Count the number of neighbors of a given cell in a certain grid with a
+     * given status.
      *
      * @param grid the grid on which to do the count
      * @param cell the cell of the grid
+     * @param status the status to search for
      * @return the number of alive neighbors
      */
-    private int countAliveNeighbors(Map<CubicCoordinate, CellStatus> grid,
-            CubicCoordinate cell) {
+    private int countNeighborsWithStatus(Map<CubicCoordinate, CellStatus> grid,
+            CubicCoordinate cell, CellStatus status) {
 
-        int alive = 0;
+        int count = 0;
 
         // Loop trough each neighbor and check if it is alive:
         for (CubicCoordinate shift : NEIGHBORHOOD) {
             CubicCoordinate neighbor = HexCalculator.add(cell, shift);
-            if (grid.get(neighbor) == ALIVE) {
+            if (grid.get(neighbor) == status) {
                 /*
                  * If the coordinate is outside the grid map.get(..) returns
                  * null, so it will work as intended. We consider not existing
                  * cells (outside the rectangular grid) as dead.
                  */
-                alive++;
+                count++;
             } else if (grid.get(neighbor) == null) {
-                alive += 3;
+                // alive += 3;
+                // TODO: Should do some tests
             }
         }
 
-        return alive;
-
-    }
-
-    /**
-     * Finds the biggest cluster of cells with a given status, it does use a
-     * flood fill algorithm. Everything else is discarded.
-     */
-    private void keepBiggestCluster(CellStatus status) {
-
-        // This set keeps track of the unvisited cells with the given status
-        Set<CubicCoordinate> unvisited = new HashSet<CubicCoordinate>();
-        // This set keeps track of the biggest cluster of cells
-        Set<CubicCoordinate> biggestCluster = new HashSet<CubicCoordinate>();
-
-        // Copy all the cells with the given status into the 'unvisited' Set
-        unvisited = getCellsWithStatus(status);
-
-        // Loop trough each cell of the automata's grid
-        for (Map.Entry<CubicCoordinate, CellStatus> entry : gridState
-                .entrySet()) {
-
-            // If this cell has not already been visited
-            if (unvisited.contains(entry.getKey())) {
-
-                // // Here we perform a flood fill // //
-
-                // A temporary set of coordinates, it will contain all the cells
-                // of this cluster
-                Set<CubicCoordinate> cluster = new HashSet<>();
-
-                // We add the starting cell to the cluster
-                cluster.add(entry.getKey());
-
-                // This list will contain lists of cells with a certain distance
-                // from the starting cell
-                List<List<CubicCoordinate>> fringes = new ArrayList<List<CubicCoordinate>>();
-
-                // We initialize the first element that will contain the cells
-                // with distance 0 (the starting point)
-                fringes.add(new ArrayList<CubicCoordinate>());
-
-                // We add the starting cell also to the list of cells with
-                // distance 0
-                fringes.get(0).add(entry.getKey());
-                unvisited.remove(entry.getKey());
-
-                int distance = 1;
-                // We loop until we filled an entire cluster, if the previous
-                // iteration did not found any neighbor with the given status we
-                // exit the loop
-                while (!(fringes.get(fringes.size() - 1).isEmpty())) {
-                    fringes.add(new ArrayList<CubicCoordinate>());
-
-                    // For each coordinate found in the previous iteration we
-                    // check if it has neighbors with the given status
-                    for (CubicCoordinate coord : fringes.get(distance - 1)) {
-
-                        // We try the 6 possible directions
-                        for (int d = 0; d < 6; d++) {
-
-                            // We get the neighbor coordinate in the given
-                            // direction
-                            CubicCoordinate neighbor = HexCalculator.neighbor(
-                                    coord, d);
-
-                            // We check if the neighbor has the given status and
-                            // if we did not already visited it
-                            if (gridState.get(neighbor) == status
-                                    && !cluster.contains(neighbor)) {
-
-                                // Add it to the cluster
-                                cluster.add(neighbor);
-                                // Add it to the cells with a certain distance
-                                // from the starting point
-                                fringes.get(distance).add(neighbor);
-                                // Remove it from the unvisited cells
-                                unvisited.remove(neighbor);
-
-                            }
-                        }
-
-                    }
-
-                    // Increase the distance for the next loop
-                    distance++;
-
-                }
-
-                // Check if the new cluster we found is bigger than the previous
-                if (cluster.size() > biggestCluster.size()) {
-                    biggestCluster = cluster;
-                }
-
-            }
-
-        }
-
-        // Remove everything but the biggest cluster from the grid state of this
-        // automata
-        for (Map.Entry<CubicCoordinate, CellStatus> entry : gridState
-                .entrySet()) {
-
-            // If the cell of the grid state is not in the biggest cluster then
-            // we set it to dead
-            if (!biggestCluster.contains(entry.getValue())) {
-                entry.setValue(DEAD);
-            }
-
-        }
-
-    }
-
-    /**
-     * Gets all the cells of the automata's grid with a given status.
-     *
-     * @param status the status to search for
-     * @return the cells with the given status
-     */
-    private Set<CubicCoordinate> getCellsWithStatus(CellStatus status) {
-
-        Set<CubicCoordinate> cells = new HashSet<CubicCoordinate>();
-
-        for (Map.Entry<CubicCoordinate, CellStatus> entry : gridState
-                .entrySet()) {
-
-            if (entry.getValue() == status) {
-                cells.add(entry.getKey());
-            }
-
-        }
-
-        return cells;
+        return count;
 
     }
 
