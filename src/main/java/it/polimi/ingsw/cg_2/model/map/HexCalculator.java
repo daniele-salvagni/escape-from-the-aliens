@@ -121,11 +121,9 @@ public class HexCalculator {
          * Manhattan distances are abs(dx) + abs(dy) + abs(dz). The distance on
          * a hex grid is half that.
          */
-        int distance = (Math.abs(coord1.getX() - coord2.getX())
+        return (Math.abs(coord1.getX() - coord2.getX())
                 + Math.abs(coord1.getY() - coord2.getY()) + Math.abs(coord1
                 .getZ() - coord2.getZ())) / 2;
-
-        return distance;
 
     }
 
@@ -155,8 +153,6 @@ public class HexCalculator {
         }
 
         return fringes;
-
-        // TODO: Double-Check
 
     }
 
