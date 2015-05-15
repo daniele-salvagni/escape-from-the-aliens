@@ -15,6 +15,14 @@ import java.util.Set;
 public class GridProcessor {
 
     /**
+     * Suppress the default constructor for noninstantiability.
+     */
+    private GridProcessor() {
+
+        throw new AssertionError();
+    }
+
+    /**
      * Gets all the cells of the grid with a given status.
      *
      * @param status the status to search for
