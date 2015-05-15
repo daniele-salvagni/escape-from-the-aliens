@@ -41,7 +41,7 @@ public class GridProcessor {
 
     /**
      * Perform an unlimited flood fill, the algorithm will stop only when there
-     * are no more cells clustered against the strting point.
+     * are no more cells clustered against the starting point.
      *
      * @param grid the grid where to perform the flood fill
      * @param start the starting point of the algorithm
