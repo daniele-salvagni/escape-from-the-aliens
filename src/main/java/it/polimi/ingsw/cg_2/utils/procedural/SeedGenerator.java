@@ -14,10 +14,12 @@ import java.util.Random;
 public class SeedGenerator {
 
     /* They can be also used as parameters, everything will work with any size. */
-    private static final int CELL_WIDTH = 23;
-    private static final int CELL_HEIGHT = 14;
+    private static final int GRID_WIDTH = 23;
+    private static final int GRID_HEIGHT = 14;
 
-    private Random rand;
+    /* The size of the central altered area for the altered seed. */
+    private static final int INNER_WIDTH = 8;
+    private static final int INNER_HEIGHT = 6;
 
     /**
      * Generates a grid of cells with a rectangular shape.
@@ -30,8 +32,8 @@ public class SeedGenerator {
 
         Map<CubicCoordinate, CellStatus> rectGrid = new LinkedHashMap<>();
 
-        for (int col = 0; col < CELL_WIDTH; col++) {
-            for (int row = 0; row < CELL_HEIGHT; row++) {
+        for (int col = 0; col < GRID_WIDTH; col++) {
+            for (int row = 0; row < GRID_HEIGHT; row++) {
                 // It is easy with OddQ coordinates
                 CubicCoordinate coord = createFromOddQ(col, row);
                 rectGrid.put(coord, cellStatus);
@@ -40,6 +42,54 @@ public class SeedGenerator {
         }
 
         return rectGrid;
+
+    }
+
+    /**
+     * Creates the initial seed of cells with a given status, the seed is
+     * altered to have a different distribution in the central part of the grid,
+     * having an higher concentration of cells helps obtaining a more centered
+     * and ordered map.
+     *
+     * @param aliveChance the chance for a cell to be born
+     * @param alteredChance the altered chance in the center of the seed, if -1
+     *            the seed will not be altered
+     * @param alive the 'alive' status
+     * @param dead the 'dead' status
+     * @param seed the seed used for the generation of pseudo random numbers, if
+     *            -1 the seed will be chosen randomly.
+     */
+    public static void generateAlteredSeed(int bornChance, int alteredChance,
+            CellStatus alive, CellStatus dead, long seed) {
+
+        Map<CubicCoordinate, CellStatus> grid = generateRectangularGrid(dead);
+
+        Random rand = new Random();
+        if (seed != -1) {
+            rand.setSeed(seed);
+        }
+
+        for (Map.Entry<CubicCoordinate, CellStatus> cell : grid.entrySet()) {
+
+            if ((alteredChance != -1)
+                    && (Math.abs(GRID_WIDTH / 2 - cell.getKey().getOddQCol()) * 2 < INNER_WIDTH)
+                    && (Math.abs(GRID_HEIGHT / 2 - cell.getKey().getOddQRow()) * 2 < INNER_HEIGHT)) {
+
+                // Different chance in the middle of the grid
+                if (rand.nextInt(100) < alteredChance) {
+                    cell.setValue(alive);
+                }
+
+            } else {
+
+                // Default chance elsewhere
+                if (rand.nextInt(100) < bornChance) {
+                    cell.setValue(alive);
+                }
+
+            }
+
+        }
 
     }
 
