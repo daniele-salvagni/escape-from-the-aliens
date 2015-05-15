@@ -1,7 +1,10 @@
 package it.polimi.ingsw.cg_2.model.map;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * This class models the constraints of an <b>hexagonal map</b>, the algorithms
@@ -27,12 +30,13 @@ public class HexCalculator {
     CubicCoordinate.create(1, -1, 0), CubicCoordinate.create(1, 0, -1),
             CubicCoordinate.create(0, 1, -1), CubicCoordinate.create(-1, 1, 0),
             CubicCoordinate.create(-1, 0, 1), CubicCoordinate.create(0, -1, 1));
-    
+
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
     private HexCalculator() {
+
         throw new AssertionError();
     }
 
@@ -101,13 +105,15 @@ public class HexCalculator {
     }
 
     /**
-     * Returns the distance between two CubicCoordinate (no obstacles).
+     * Returns the distance "as the crow flies" between two CubicCoordinate (no
+     * obstacles).
      *
      * @param coord1 the first coordinate
      * @param coord2 the second coordinate
      * @return the distance between the two coordinates
      */
-    public static int distance(CubicCoordinate coord1, CubicCoordinate coord2) {
+    public static int distanceAsTheCrowFlies(CubicCoordinate coord1,
+            CubicCoordinate coord2) {
 
         /*
          * In the cube coordinate system, each hexagon is a cube in 3d space.
@@ -117,11 +123,48 @@ public class HexCalculator {
          * Manhattan distances are abs(dx) + abs(dy) + abs(dz). The distance on
          * a hex grid is half that.
          */
-        int distance = (Math.abs(coord1.getX() - coord2.getX())
+        return (Math.abs(coord1.getX() - coord2.getX())
                 + Math.abs(coord1.getY() - coord2.getY()) + Math.abs(coord1
                 .getZ() - coord2.getZ())) / 2;
 
-        return distance;
+    }
+
+    /**
+     * Perform a distance limited flood fill to search for all the reachable
+     * cubic coordinates with a certain number of steps in a grid with obstacles
+     * (missing coordinates).
+     *
+     * @param grid the grid with obstacles (missing coordinates)
+     * @param from the starting CubicCoordinate
+     * @param steps the number of allowed steps from the starting point
+     * @return a Set containing all the reachable coordinates
+     */
+    public static Set<CubicCoordinate> reachableCoordinates(
+            Set<CubicCoordinate> grid, CubicCoordinate from, int steps) {
+
+        Set<CubicCoordinate> coords = new HashSet<CubicCoordinate>();
+        coords.add(from);
+
+        List<List<CubicCoordinate>> fringes = new ArrayList<List<CubicCoordinate>>();
+        fringes.add(new ArrayList<CubicCoordinate>());
+        fringes.get(0).add(from);
+
+        for (int i = 1; i <= steps; i++) {
+            fringes.add(new ArrayList<CubicCoordinate>());
+
+            for (CubicCoordinate c : fringes.get(i - 1)) {
+                for (CubicCoordinate direction : DIRECTIONS) {
+                    CubicCoordinate neighbor = add(c, direction);
+
+                    if (!coords.contains(neighbor) && grid.contains(neighbor)) {
+                        coords.add(neighbor);
+                        fringes.get(i).add(neighbor);
+                    }
+                }
+            }
+        }
+
+        return coords;
 
     }
 
