@@ -156,7 +156,7 @@ public class HexCalculator {
                 for (CubicCoordinate direction : DIRECTIONS) {
                     CubicCoordinate neighbor = add(c, direction);
 
-                    if (!grid.contains(c)) {
+                    if (!coords.contains(neighbor) && grid.contains(neighbor)) {
                         coords.add(neighbor);
                         fringes.get(i).add(neighbor);
                     }
