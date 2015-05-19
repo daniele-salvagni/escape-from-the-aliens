@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.model.map;
 
 import static org.junit.Assert.*;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -182,6 +183,18 @@ public class HexCalculatorTest {
         thrown.expect(IllegalArgumentException.class);
 
         HexCalculator.getDirection(6);
+
+    }
+
+    @Test
+    public void constructorShouldBeUnaccessible() throws Exception {
+
+        thrown.expect(Exception.class);
+
+        final Constructor<?>[] constructors = HexCalculator.class
+                .getDeclaredConstructors();
+        constructors[0].setAccessible(true);
+        constructors[0].newInstance((Object[]) null);
 
     }
 
