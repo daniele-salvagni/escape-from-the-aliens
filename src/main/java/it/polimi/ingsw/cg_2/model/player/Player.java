@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -68,7 +69,8 @@ public class Player {
      */
     public List<Sector> getMovementHistory() {
 
-        return history;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(history);
 
     }
 
@@ -123,7 +125,8 @@ public class Player {
      */
     public List<Character> getKills() {
 
-        return kills;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(kills);
 
     }
 
@@ -139,13 +142,17 @@ public class Player {
     }
 
     /**
-     * Gets the {@link ItemCard}s held by the player.
+     * Gets the {@link ItemCard}s held by the player. An unmodifiable view of
+     * the list is reurned.
      *
-     * @return the held items
+     * @return the held items (unmodificabeList)
+     * 
+     * @see Collections#unmodifiableList(List)
      */
     public List<ItemCard> getHeldItems() {
 
-        return heldItems;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(heldItems);
 
     }
 
