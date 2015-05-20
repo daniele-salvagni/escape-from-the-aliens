@@ -1,29 +1,31 @@
 package it.polimi.ingsw.cg_2.model.deck;
 
 /**
- * An abstract factory for creating Decks, it can be implemented to create decks
- * with a certain number of cards depending on the game mode.
+ * This interface is for creating the three decks of cards for this game, it
+ * delegates the responsibility to its subclasses to properly populate the
+ * Decks.
  */
 public interface DecksFactory {
 
     /**
-     * Creates a populated (@link DeckManager) of (@link ItemCard).
+     * Creates a populated (@link Deck) of (@link ItemCard).
      *
-     * @return a new (@link DeckManager) of (@link ItemCard).
+     * @return a new (@link Deck) of (@link ItemCard).
      */
-    DeckManager<ItemCard> createItemDeck();
+    public abstract Deck<ItemCard> createItemDeck();
 
     /**
-     * Creates a populated (@link DeckManager) of (@link SectorCard).
+     * Creates a populated (@link Deck) of (@link SectorCard).
      *
-     * @return a new (@link DeckManager) of (@link SectorCard).
+     * @return a new (@link Deck) of (@link SectorCard).
      */
-    DeckManager<SectorCard> createSectorDeck();
+    public abstract Deck<SectorCard> createSectorDeck();
 
     /**
-     * Creates a populated (@link DeckManager) of (@link HatchCard).
+     * Creates a populated (@link Deck) of (@link HatchCard).
      *
-     * @return a new (@link DeckManager) of (@link HatchCard).
+     * @return a new (@link Deck) of (@link HatchCard).
      */
-    DeckManager<HatchCard> createHatchDeck();
+    public abstract Deck<HatchCard> createHatchDeck();
+
 }

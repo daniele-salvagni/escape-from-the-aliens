@@ -10,7 +10,8 @@ public class HatchCard implements Card {
      * CardType so the type can be accessed polymorphically.
      */
     public enum HatchCardType implements CardType {
-        RED, GREEN;
+        RED,
+        GREEN;
     }
 
     private final HatchCardType type;
@@ -21,12 +22,16 @@ public class HatchCard implements Card {
      * @param type the type of the new card
      */
     public HatchCard(HatchCardType type) {
+
         this.type = type;
+
     }
 
     @Override
     public HatchCardType getType() {
+
         return type;
+
     }
 
 }

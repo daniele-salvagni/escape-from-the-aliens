@@ -10,7 +10,12 @@ public class ItemCard implements Card {
      * CardType so the type can be accessed polymorphically.
      */
     public enum ItemCardType implements CardType {
-        ATTACK, TELEPORT, SEDATIVES, SPOTLIGHT, DEFENSE, ADRENALINE;
+        ATTACK,
+        TELEPORT,
+        SEDATIVES,
+        SPOTLIGHT,
+        DEFENSE,
+        ADRENALINE;
     }
 
     private final ItemCardType type;
@@ -21,12 +26,16 @@ public class ItemCard implements Card {
      * @param type the type of the new card
      */
     public ItemCard(ItemCardType type) {
+
         this.type = type;
+
     }
 
     @Override
     public ItemCardType getType() {
+
         return type;
+
     }
 
 }

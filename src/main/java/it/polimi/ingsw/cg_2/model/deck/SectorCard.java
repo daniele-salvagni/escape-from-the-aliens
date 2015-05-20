@@ -10,7 +10,9 @@ public class SectorCard implements Card {
      * CardType so the type can be accessed polymorphically.
      */
     public enum SectorCardType implements CardType {
-        NOISE, DECEPTION, SILENCE;
+        NOISE,
+        DECEPTION,
+        SILENCE;
     }
 
     private final SectorCardType type;
@@ -22,8 +24,10 @@ public class SectorCard implements Card {
      * @param type the type of the new card
      */
     public SectorCard(SectorCardType type) {
+
         this.type = type;
         this.containsItem = false;
+
     }
 
     /**
@@ -33,8 +37,10 @@ public class SectorCard implements Card {
      * @param containsItem true if this card should contain an item
      */
     public SectorCard(SectorCardType type, boolean containsItem) {
+
         this.type = type;
         this.containsItem = containsItem;
+
     }
 
     /**
@@ -43,12 +49,16 @@ public class SectorCard implements Card {
      * @return true, if this card contains an item
      */
     public boolean containsItem() {
+
         return containsItem;
+
     }
 
     @Override
     public SectorCardType getType() {
+
         return type;
+
     }
 
 }
