@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model.map;
 
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
+import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 
 import java.util.Map;
 
@@ -41,7 +42,8 @@ public abstract class ZoneFactory {
      * @param type the type of the Zone to be created
      * @return a new Map of Sectors
      */
-    public abstract Map<CubicCoordinate, Sector> getZone();
+    public abstract Map<CubicCoordinate, Sector> createZone()
+            throws InvalidZoneException;
 
     /**
      * Creates a new {@link Sector}.
@@ -50,7 +52,7 @@ public abstract class ZoneFactory {
      * @param coord the CubicCoordinate of the Sector
      * @return the new Sector
      */
-    protected abstract Sector createSector(SectorType type,
-            CubicCoordinate coord);
+    protected abstract Sector createSector(CubicCoordinate coord,
+            SectorType type);
 
 }
