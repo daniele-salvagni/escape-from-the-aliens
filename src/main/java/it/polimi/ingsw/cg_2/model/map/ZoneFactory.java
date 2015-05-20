@@ -1,9 +1,6 @@
 package it.polimi.ingsw.cg_2.model.map;
 
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
-import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
-
-import java.util.Map;
 
 /**
  * An abstract factory for creating Zones, it can be implemented to create them
