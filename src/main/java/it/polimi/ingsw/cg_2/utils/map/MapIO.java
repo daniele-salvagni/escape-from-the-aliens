@@ -27,14 +27,16 @@ import javax.imageio.ImageIO;
  */
 public class MapIO {
 
-    private static final int ARGB_BLACK = 0x00000000;
+    private static final int ARGB_BLACK = 0xFF000000;
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
     private MapIO() {
+
         throw new AssertionError();
+
     }
 
     // // PUBLIC METHODS // //
@@ -68,6 +70,7 @@ public class MapIO {
 
         int[][] imageWithoutMargins = removeMargins(image);
         return samplePixels(imageWithoutMargins);
+
     }
 
     /**
@@ -93,6 +96,7 @@ public class MapIO {
         int[][] expandedImage = expandPixels(pixelMatrix);
         int[][] imageWithMargins = addMargins(expandedImage);
         writeImage(imageWithMargins, filePath);
+
     }
 
     // // IMAGE I/O // //
@@ -128,6 +132,7 @@ public class MapIO {
         }
 
         return pixelMatrix;
+
     }
 
     /**
@@ -158,6 +163,7 @@ public class MapIO {
 
         File outputFile = new File(filePath);
         ImageIO.write(bufferImage, "png", outputFile);
+
     }
 
     // // IMAGE PROCESSING // //
@@ -205,6 +211,7 @@ public class MapIO {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -253,6 +260,7 @@ public class MapIO {
         }
 
         return newPixelMatrix;
+
     }
 
     // // NORMALIZATION <-> DENORMALIZATION // //
@@ -284,6 +292,7 @@ public class MapIO {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -310,6 +319,7 @@ public class MapIO {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -328,6 +338,7 @@ public class MapIO {
         }
 
         return true;
+
     }
 
 }

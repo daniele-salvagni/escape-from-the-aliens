@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model.map;
 
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
+import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -36,7 +37,7 @@ public class Zone {
 
         for (Sector sector : sectors) {
             if (sectorMap.containsKey(sector.getCooridnate())) {
-                throw new IllegalArgumentException(
+                throw new InvalidZoneException(
                         "A Zone cannot contain two sectors in the same position.");
             } else {
                 sectorMap.put(sector.getCooridnate(), sector);
