@@ -160,4 +160,16 @@ public class Player {
 
     }
 
+    /**
+     * Removes the item from the items held by the player.
+     *
+     * @param item the item to remove from the player
+     * @return true, the player contained that item
+     */
+    public boolean removeItem(ItemCard item) {
+
+        return heldItems.remove(item);
+
+    }
+
 }
