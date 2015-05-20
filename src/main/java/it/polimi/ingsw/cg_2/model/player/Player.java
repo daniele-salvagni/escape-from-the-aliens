@@ -14,6 +14,7 @@ import java.util.List;
 public class Player {
 
     private final Character character;
+
     private boolean connected;
     private boolean suspended;
 
@@ -29,8 +30,10 @@ public class Player {
     public Player(Character character) {
 
         this.character = character;
+
         connected = true;
         suspended = false;
+
         kills = new ArrayList<>();
         heldItems = new ArrayList<>();
         history = new ArrayList<>();
@@ -57,6 +60,7 @@ public class Player {
     public void moveCharacter(Sector position) {
 
         character.setPosition(position);
+
         // Add the new position to the movement history
         history.add(position);
 
