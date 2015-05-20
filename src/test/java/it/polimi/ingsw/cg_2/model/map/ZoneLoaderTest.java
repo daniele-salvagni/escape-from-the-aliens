@@ -15,11 +15,15 @@ public class ZoneLoaderTest {
     private static final CubicCoordinate ALIEN_SECTOR = CubicCoordinate
             .createFromOddQ(13, 5);
 
+    private static CubicCoordinate genericCoord;
+
     @BeforeClass
     public static void initClass() {
 
         zoneLoader = new ZoneLoader(ZoneName.DILEMMA);
         zone = zoneLoader.createZone();
+
+        genericCoord = CubicCoordinate.create(1, -3, 2);
 
     }
 
@@ -33,50 +37,65 @@ public class ZoneLoaderTest {
     @Test
     public void shouldCreateSafeSector() {
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.SAFE);
+        SectorType type = SectorType.SAFE;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertNotNull(sector);
+        assertEquals(type, sector.getType());
+        assertEquals(genericCoord, sector.getCooridnate());
 
     }
 
     @Test
     public void shouldCreateDangerousSector() {
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.DANGEROUS);
+        SectorType type = SectorType.DANGEROUS;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertNotNull(sector);
+        assertEquals(type, sector.getType());
+        assertEquals(genericCoord, sector.getCooridnate());
 
     }
 
     @Test
     public void shouldCreateHatchSector() {
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.HATCH);
+        SectorType type = SectorType.HATCH;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertNotNull(sector);
+        assertEquals(type, sector.getType());
+        assertEquals(genericCoord, sector.getCooridnate());
 
     }
 
     @Test
     public void shouldCreateHumanSector() {
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.HUMAN);
+        SectorType type = SectorType.HUMAN;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertNotNull(sector);
+        assertEquals(type, sector.getType());
+        assertEquals(genericCoord, sector.getCooridnate());
 
     }
 
     @Test
     public void shouldCreateAlienSector() {
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.ALIEN);
+        SectorType type = SectorType.ALIEN;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertNotNull(sector);
+        assertEquals(type, sector.getType());
+        assertEquals(genericCoord, sector.getCooridnate());
 
     }
 
@@ -85,8 +104,9 @@ public class ZoneLoaderTest {
 
         /* Every hatch should be created of the subclass CloseableSector. */
 
-        Sector sector = zoneLoader.createSector(
-                CubicCoordinate.create(0, 0, 0), SectorType.HATCH);
+        SectorType type = SectorType.HATCH;
+
+        Sector sector = zoneLoader.createSector(genericCoord, type);
 
         assertTrue(sector instanceof CloseableSector);
 
