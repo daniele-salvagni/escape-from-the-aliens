@@ -4,19 +4,19 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class ZoneTypeTest {
+public class ZoneNameTest {
 
     @Test
     public void shouldContainLiterals() {
 
-        assertNotNull(ZoneType.values().length > 0);
+        assertNotNull(ZoneName.values().length > 0);
 
     }
 
     @Test
     public void shouldContainPNGFileNames() {
 
-        for (ZoneType type : ZoneType.values()) {
+        for (ZoneName type : ZoneName.values()) {
             assertTrue(type.getFileName().contains(".png")
                     || type.getFileName().contains(".PNG"));
         }

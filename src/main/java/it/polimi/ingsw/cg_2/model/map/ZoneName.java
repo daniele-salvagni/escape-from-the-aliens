@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_2.model.map;
  * This class enumarates the premade {@link Zone}s for this game, for each map
  * it is possible to get the name of the file on disk containing the map.
  */
-public enum ZoneType {
+public enum ZoneName {
 
     ASCESA("map-ascesa.png"),
     BALENA("map-balena.png"),
@@ -24,7 +24,7 @@ public enum ZoneType {
 
     private final String fileName;
 
-    ZoneType(String fileName) {
+    ZoneName(String fileName) {
 
         this.fileName = fileName;
     }
