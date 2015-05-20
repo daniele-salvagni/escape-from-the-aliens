@@ -42,8 +42,7 @@ public abstract class ZoneFactory {
      * @param type the type of the Zone to be created
      * @return a new Map of Sectors
      */
-    public abstract Map<CubicCoordinate, Sector> createZone()
-            throws InvalidZoneException;
+    public abstract Zone createZone();
 
     /**
      * Creates a new {@link Sector}.
