@@ -26,7 +26,6 @@ import java.util.logging.Logger;
  */
 public class ZoneLoader extends ZoneFactory {
 
-    /** The Constant log. */
     private static final Logger log = Logger.getLogger(ZoneLoader.class
             .getName());
 
@@ -84,7 +83,7 @@ public class ZoneLoader extends ZoneFactory {
              * them from an enumeration. If there is an IOException then that
              * ZoneName is invalid and the user must select another one.
              */
-            log.log(Level.SEVERE, e.toString(), e);
+            log.log(Level.SEVERE, "Error loading Zone: " + e.toString(), e);
             throw new InvalidZoneException(
                     "IO Exception while loading the Zone from file.");
 
