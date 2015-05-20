@@ -5,36 +5,38 @@ import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 import it.polimi.ingsw.cg_2.utils.map.MapIO;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/* A concrete factory for creating a new Zone by loading it form file,  */
+/**
+ * A concrete factory for creating a new Zone by loading it form file, the
+ * following is the valid color schema for this implementation, an invalid color
+ * in the Zone file will throw an InvalidZoneException.
+ * 
+ * <ul>
+ * <li>66CC66 (Light Green) - Secure Sector</li>
+ * <li>009966 (Medium Green) - Dangerous Sector</li>
+ * <li>993333 (Red) - Escape Hatch</li>
+ * <li>993399 (Purple) - Alien Sector</li>
+ * <li>0099CC (Cyan) - Human Sector</li>
+ * <li>003333 (Dark Green) - EMPTY, no sectors</li>
+ * </ul>
+ */
 public class ZoneLoader extends ZoneFactory {
 
+    /** The Constant log. */
     private static final Logger log = Logger.getLogger(ZoneLoader.class
             .getName());
 
-    /*-
-     * Valid color schema for this ZoneFactory implementation.
-     * 
-     * | Color                   | Sector             |
-     * | ----------------------- | ------------------ |
-     * | 66CC66 (Light Green)    | Secure Sector      |
-     * | 009966 (Medium Green)   | Dangerous Sector   |
-     * | 993333 (Red)            | Escape Hatch       |
-     * | 993399 (Purple)         | Alien Sector       |
-     * | 0099CC (Cyan)           | Human Sector       |
-     * | 003333 (Dark Green)     | EMPTY, no sectors  |
-     */
-
-    private static final int C_SAFE = 0x0066CC66;
-    private static final int C_DANGEROUS = 0x00009966;
-    private static final int C_HATCH = 0x00993333;
-    private static final int C_ALIEN = 0x00993399;
-    private static final int C_HUMAN = 0x000099CC;
-    private static final int C_EMPTY = 0x00003333;
+    private static final int C_SAFE = 0xFF66CC66;
+    private static final int C_DANGEROUS = 0xFF009966;
+    private static final int C_HATCH = 0xFF993333;
+    private static final int C_ALIEN = 0xFF993399;
+    private static final int C_HUMAN = 0xFF0099CC;
+    private static final int C_EMPTY = 0xFF003333;
 
     private final ZoneName zoneName;
     private final Set<Sector> sectors;
@@ -51,11 +53,6 @@ public class ZoneLoader extends ZoneFactory {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see it.polimi.ingsw.cg_2.model.map.ZoneFactory#createZone()
-     */
     @Override
     public Zone createZone() {
 
@@ -64,9 +61,9 @@ public class ZoneLoader extends ZoneFactory {
     }
 
     /**
-     * Creates the sectors.
+     * Creates all the sectors of the Zone.
      *
-     * @return the sets the
+     * @return the sets of Sectors
      */
     private Set<Sector> createSectors() {
 
@@ -74,8 +71,11 @@ public class ZoneLoader extends ZoneFactory {
 
         try {
 
+            String filePath = ZoneLoader.class.getResource(
+                    "/maps/" + zoneName.getFileName()).getFile();
+
             /* We try to load a Zone from file. It could throw an IOException. */
-            colorGrid = MapIO.loadMap("maps/" + zoneName.getFileName());
+            colorGrid = MapIO.loadMap(filePath.toString());
 
         } catch (IOException e) {
 
@@ -92,13 +92,14 @@ public class ZoneLoader extends ZoneFactory {
         }
 
         /* The size of the colorGrid */
-        int gridHeight = colorGrid.length;
-        int gridWidth = colorGrid[0].length;
+        int gridWidth = colorGrid.length;
+        int gridHeight = colorGrid[0].length;
 
         for (int col = 0; col < gridWidth; col++) {
             for (int row = 0; row < gridHeight; row++) {
 
                 // Create a new CubicCoordinate
+                // // !IMPORTANT! we start form (0, 0) // //
                 CubicCoordinate coord = CubicCoordinate
                         .createFromOddQ(col, row);
 
@@ -113,11 +114,10 @@ public class ZoneLoader extends ZoneFactory {
     }
 
     /**
-     * Creates the sector from color.
+     * Adds a new Sector to the sectors Set from a color (INT_ARGB).
      *
-     * @param color the color
-     * @param coord the coord
-     * @return the sector
+     * @param color the color representing the Sector Type
+     * @param coord the coordinate of the Sector
      */
     private void addSectorFromColor(int color, CubicCoordinate coord) {
 
