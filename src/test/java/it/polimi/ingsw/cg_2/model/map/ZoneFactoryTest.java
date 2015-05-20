@@ -10,62 +10,62 @@ import org.junit.Test;
 
 public class ZoneFactoryTest {
 
-    private static ZoneFactory zoneFactory;
-    private static Zone zone;
+	private static ZoneFactory zoneFactory;
+	private static Zone zone;
 
-    @BeforeClass
-    public static void initClass() {
+	@BeforeClass
+	public static void initClass() {
 
-        zoneFactory = new ZoneLoader(ZoneName.DILEMMA);
-        zone = zoneFactory.createZone();
+		zoneFactory = ZoneFactory.newLoader(ZoneName.DILEMMA);
+		zone = zoneFactory.createZone();
 
-    }
+	}
 
-    @Test
-    public void shouldCreateFactory() throws Exception {
+	@Test
+	public void shouldCreateFactory() throws Exception {
 
-        assertNotNull(zoneFactory);
+		assertNotNull(zoneFactory);
 
-    }
+	}
 
-    @Test
-    public void shouldCreateZone() {
+	@Test
+	public void shouldCreateZone() {
 
-        assertNotNull(zone);
-    }
+		assertNotNull(zone);
+	}
 
-    @Test
-    public void shouldCreateInstanceOfZoneLoader() {
+	@Test
+	public void shouldCreateInstanceOfZoneLoader() {
 
-        ZoneFactory zoneLoader = new ZoneLoader(ZoneName.DILEMMA);
-        assertTrue(zoneLoader instanceof ZoneLoader);
+		ZoneFactory zoneLoader = new ZoneLoader(ZoneName.DILEMMA);
+		assertTrue(zoneLoader instanceof ZoneLoader);
 
-    }
+	}
 
-    @Test
-    public void shouldCreateSector() {
+	@Test
+	public void shouldCreateSector() {
 
-        SectorType type = SectorType.ALIEN;
-        Sector sector = zoneFactory.createSector(
-                CubicCoordinate.create(0, 0, 0), type);
+		SectorType type = SectorType.ALIEN;
+		Sector sector = zoneFactory.createSector(
+				CubicCoordinate.create(0, 0, 0), type);
 
-        assertNotNull(sector);
-        assertEquals(type, sector.getType());
-        assertEquals(CubicCoordinate.create(0, 0, 0), sector.getCooridnate());
+		assertNotNull(sector);
+		assertEquals(type, sector.getType());
+		assertEquals(CubicCoordinate.create(0, 0, 0), sector.getCooridnate());
 
-    }
+	}
 
-    @Test
-    public void hatchSectorShouldBeCloseable() {
+	@Test
+	public void hatchSectorShouldBeCloseable() {
 
-        /* Every hatch should be created of the subclass CloseableSector. */
+		/* Every hatch should be created of the subclass CloseableSector. */
 
-        SectorType type = SectorType.HATCH;
-        Sector sector = zoneFactory.createSector(
-                CubicCoordinate.create(0, 0, 0), type);
+		SectorType type = SectorType.HATCH;
+		Sector sector = zoneFactory.createSector(
+				CubicCoordinate.create(0, 0, 0), type);
 
-        assertTrue(sector instanceof CloseableSector);
+		assertTrue(sector instanceof CloseableSector);
 
-    }
+	}
 
 }
