@@ -12,7 +12,7 @@ public class InvalidZoneExceptionTest {
 	@Test
 	public void shouldBeThrown() {
 
-		thrown.expect(IllegalArgumentException.class);
+		thrown.expect(InvalidZoneException.class);
 
 		throw new InvalidZoneException();
 
@@ -23,7 +23,7 @@ public class InvalidZoneExceptionTest {
 
 		String exceptionMessage = "Test Message 1";
 
-		thrown.expect(IllegalArgumentException.class);
+		thrown.expect(InvalidZoneException.class);
 		thrown.expectMessage(exceptionMessage);
 
 		throw new InvalidZoneException(exceptionMessage);
