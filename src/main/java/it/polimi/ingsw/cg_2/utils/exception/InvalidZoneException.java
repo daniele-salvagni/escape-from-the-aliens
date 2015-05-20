@@ -1,10 +1,10 @@
 package it.polimi.ingsw.cg_2.utils.exception;
 
 /**
- * This exception is thrown when we detect problems while creating a
- * {@link Zone}.
+ * This exception is thrown when we detect problems with a {@link Zone}, we use
+ * this to add a layer of abstraction over the lower level exceptions.
  */
-public class InvalidZoneException extends Exception {
+public class InvalidZoneException extends RuntimeException {
 
     private static final long serialVersionUID = 3743959861630849966L;
 
