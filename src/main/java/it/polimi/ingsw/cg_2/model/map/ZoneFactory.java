@@ -48,7 +48,22 @@ public abstract class ZoneFactory {
      * @param coord the CubicCoordinate of the Sector
      * @return the new Sector
      */
-    protected abstract Sector createSector(CubicCoordinate coord,
-            SectorType type);
+    protected Sector createSector(CubicCoordinate coord, SectorType type) {
+
+        if (type == SectorType.HATCH) {
+
+            /*
+             * Currently in all the existing implementations every HATCH sector
+             * must be a CloseableSector.
+             */
+            return new CloseableSector(coord, type);
+
+        } else {
+
+            return new Sector(coord, type);
+
+        }
+
+    }
 
 }
