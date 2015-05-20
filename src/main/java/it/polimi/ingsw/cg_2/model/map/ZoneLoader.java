@@ -5,7 +5,6 @@ import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 import it.polimi.ingsw.cg_2.utils.map.MapIO;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
