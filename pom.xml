@@ -84,9 +84,6 @@
 											<goal>prepare-agent</goal>
 										</goals>
 									</pluginExecutionFilter>
-									<action>
-										<ignore></ignore>
-									</action>
 								</pluginExecution>
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
@@ -95,6 +92,4 @@
 			</plugins>
 		</pluginManagement>
 	</build>
-</project>
-
 </project>
