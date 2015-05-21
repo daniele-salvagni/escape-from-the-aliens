@@ -151,6 +151,7 @@ public final class CubicCoordinate {
 
     @Override
     public int hashCode() {
+
         final int prime = 31;
         int result = 1;
         result = prime * result + x;
@@ -160,6 +161,7 @@ public final class CubicCoordinate {
 
     @Override
     public boolean equals(Object obj) {
+
         if (this == obj)
             return true;
         if (obj == null)
@@ -183,7 +185,9 @@ public final class CubicCoordinate {
      */
     @Override
     public String toString() {
-        return "CubicCoordinate [x=" + x + ", y=" + (-x - z) + ", z=" + z + "]";
+
+        return "CubicCoordinate [x=" + x + ", y=" + (-x - z) + ", z=" + z
+                + " | col=" + getOddQCol() + ", row=" + getOddQRow() + "]";
     }
 
 }

@@ -105,13 +105,15 @@ public class HexCalculator {
     }
 
     /**
-     * Returns the distance between two CubicCoordinate (no obstacles).
+     * Returns the distance "as the crow flies" between two CubicCoordinate (no
+     * obstacles).
      *
      * @param coord1 the first coordinate
      * @param coord2 the second coordinate
      * @return the distance between the two coordinates
      */
-    public static int distance(CubicCoordinate coord1, CubicCoordinate coord2) {
+    public static int distanceAsTheCrowFlies(CubicCoordinate coord1,
+            CubicCoordinate coord2) {
 
         /*
          * In the cube coordinate system, each hexagon is a cube in 3d space.
@@ -121,15 +123,23 @@ public class HexCalculator {
          * Manhattan distances are abs(dx) + abs(dy) + abs(dz). The distance on
          * a hex grid is half that.
          */
-        int distance = (Math.abs(coord1.getX() - coord2.getX())
+        return (Math.abs(coord1.getX() - coord2.getX())
                 + Math.abs(coord1.getY() - coord2.getY()) + Math.abs(coord1
                 .getZ() - coord2.getZ())) / 2;
 
-        return distance;
-
     }
 
-    public static List<List<CubicCoordinate>> distanceLimitedFloodFill(
+    /**
+     * Perform a distance limited flood fill to search for all the reachable
+     * cubic coordinates with a certain number of steps in a grid with obstacles
+     * (missing coordinates).
+     *
+     * @param grid the grid with obstacles (missing coordinates)
+     * @param from the starting CubicCoordinate
+     * @param steps the number of allowed steps from the starting point
+     * @return a Set containing all the reachable coordinates
+     */
+    public static Set<CubicCoordinate> reachableCoordinates(
             Set<CubicCoordinate> grid, CubicCoordinate from, int steps) {
 
         Set<CubicCoordinate> coords = new HashSet<CubicCoordinate>();
@@ -146,7 +156,7 @@ public class HexCalculator {
                 for (CubicCoordinate direction : DIRECTIONS) {
                     CubicCoordinate neighbor = add(c, direction);
 
-                    if (!grid.contains(c)) {
+                    if (!coords.contains(neighbor) && grid.contains(neighbor)) {
                         coords.add(neighbor);
                         fringes.get(i).add(neighbor);
                     }
@@ -154,9 +164,7 @@ public class HexCalculator {
             }
         }
 
-        return fringes;
-
-        // TODO: Double-Check
+        return coords;
 
     }
 

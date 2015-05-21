@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Set;
 
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
+import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -154,7 +155,7 @@ public class ZoneTest {
         sectors.add(sector3);
         sectors.add(sector4);
 
-        thrown.expect(IllegalArgumentException.class);
+        thrown.expect(InvalidZoneException.class);
 
         new Zone(sectors);
 
