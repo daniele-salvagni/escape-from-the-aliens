@@ -10,19 +10,19 @@ import javax.imageio.ImageIO;
  * This class provides static methods to load or save generated maps from/to a
  * .PNG file. To avoid unexpected behavior it is mandatory, if compression is
  * used, to provide only files using lossless compression.
- * <p>
+ * <p/>
  * The saved maps are in a format <b>easy to understand and edit</b> with the
  * most basic image processing software. Each sector is represented by a 2x2px
  * color square and each sector on an even column (counting from one) is shifted
  * down by 1px.
- * <p>
+ * <p/>
  * Any standard RGB color can be used, however it is recommended not to use
  * Black (#000000) which could be mistaken (by someone editing maps by hand)
  * with margins, but the way it would still be functioning perfectly). In this
  * class it is used the default RGB color model (TYPE_INT_ARGB).
- * 
+ *
  * @see <a href="http://i.imgur.com/lYzt2cx.png">Image transformation
- *      process</a>
+ * process</a>
  * @see BufferedImage#TYPE_INT_ARGB
  */
 public class MapIO {
@@ -79,8 +79,8 @@ public class MapIO {
      * (every sub-array must have the same length).
      *
      * @param pixelMatrix a 2D array representing the map in offset coordinate
-     *            system
-     * @param filePath the file path where to save the image
+     *                    system
+     * @param filePath    the file path where to save the image
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static void saveMap(int[][] pixelMatrix, String filePath)
@@ -108,7 +108,6 @@ public class MapIO {
      * @param filePath the path of the file to be loaded
      * @return a bidimensional array representing the image
      * @throws IOException Signals that an I/O exception has occurred.
-     * 
      * @see BufferedImage#TYPE_INT_ARGB
      */
     private static int[][] loadImage(String filePath) throws IOException {
@@ -140,10 +139,9 @@ public class MapIO {
      * the default RGB color model (TYPE_INT_ARGB).
      *
      * @param pixelMatrix an integer bidimensional array representing the image
-     *            in the default RGB color model
-     * @param filePath the path and the name of the file to be created
+     *                    in the default RGB color model
+     * @param filePath    the path and the name of the file to be created
      * @throws IOException Signals that an I/O exception has occurred.
-     * 
      * @see BufferedImage#TYPE_INT_ARGB
      */
     private static void writeImage(int[][] pixelMatrix, String filePath)
@@ -331,8 +329,8 @@ public class MapIO {
      */
     private static boolean isMatrixRectangular(int[][] pixelMatrix) {
 
-        for (int i = 0; i < pixelMatrix.length; i++) {
-            if (pixelMatrix[0].length != pixelMatrix[i].length) {
+        for (int[] column : pixelMatrix) {
+            if (pixelMatrix[0].length != column.length) {
                 return false;
             }
         }
