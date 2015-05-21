@@ -4,6 +4,7 @@ import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -13,6 +14,7 @@ import java.util.List;
 public class Player {
 
     private final Character character;
+
     private boolean connected;
     private boolean suspended;
 
@@ -28,8 +30,10 @@ public class Player {
     public Player(Character character) {
 
         this.character = character;
+
         connected = true;
         suspended = false;
+
         kills = new ArrayList<>();
         heldItems = new ArrayList<>();
         history = new ArrayList<>();
@@ -56,6 +60,7 @@ public class Player {
     public void moveCharacter(Sector position) {
 
         character.setPosition(position);
+
         // Add the new position to the movement history
         history.add(position);
 
@@ -68,7 +73,8 @@ public class Player {
      */
     public List<Sector> getMovementHistory() {
 
-        return history;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(history);
 
     }
 
@@ -123,7 +129,8 @@ public class Player {
      */
     public List<Character> getKills() {
 
-        return kills;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(kills);
 
     }
 
@@ -139,13 +146,17 @@ public class Player {
     }
 
     /**
-     * Gets the {@link ItemCard}s held by the player.
+     * Gets the {@link ItemCard}s held by the player. An unmodifiable view of
+     * the list is reurned.
      *
-     * @return the held items
+     * @return the held items (unmodificabeList)
+     * 
+     * @see Collections#unmodifiableList(List)
      */
     public List<ItemCard> getHeldItems() {
 
-        return heldItems;
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(heldItems);
 
     }
 
@@ -157,6 +168,18 @@ public class Player {
     public void giveItem(ItemCard item) {
 
         heldItems.add(item);
+
+    }
+
+    /**
+     * Removes the item from the items held by the player.
+     *
+     * @param item the item to remove from the player
+     * @return true, the player contained that item
+     */
+    public boolean removeItem(ItemCard item) {
+
+        return heldItems.remove(item);
 
     }
 
