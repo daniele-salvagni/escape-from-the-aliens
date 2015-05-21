@@ -1,11 +1,16 @@
 package it.polimi.ingsw.cg_2.model.player;
 
+import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -17,6 +22,9 @@ public class PlayerTest {
     private Character character;
 
     private Player player;
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     @Before
     public void init() {
@@ -55,6 +63,36 @@ public class PlayerTest {
     public void shouldUpdateMovementHistory() {
 
         // TODO
+
+    }
+
+    @Test
+    public void shouldGetUnmodifiableMovementHistory() {
+
+        List<Sector> movHistory = player.getMovementHistory();
+
+        thrown.expect(UnsupportedOperationException.class);
+        movHistory.add(null);
+
+    }
+
+    @Test
+    public void shouldGetUnmodifiableHeldItems() {
+
+        List<ItemCard> heldItems = player.getHeldItems();
+
+        thrown.expect(UnsupportedOperationException.class);
+        heldItems.add(null);
+
+    }
+
+    @Test
+    public void shouldGetUnmodifiableKills() {
+
+        List<Character> kills = player.getKills();
+
+        thrown.expect(UnsupportedOperationException.class);
+        kills.add(null);
 
     }
 
