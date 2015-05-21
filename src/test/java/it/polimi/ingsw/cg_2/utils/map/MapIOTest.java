@@ -1,6 +1,7 @@
-package it.polimi.ingsw.cg_2.utils;
+package it.polimi.ingsw.cg_2.utils.map;
 
 import static org.junit.Assert.*;
+import it.polimi.ingsw.cg_2.utils.map.MapIO;
 
 import java.io.File;
 import java.util.Arrays;
@@ -10,7 +11,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-public class MapHelperTest {
+public class MapIOTest {
 
     @Rule
     public TemporaryFolder tempFolder = new TemporaryFolder();
@@ -30,7 +31,7 @@ public class MapHelperTest {
         /* Load the testing image into a matrix. */
         String filePath = getClass().getResource(
                 "/map/map-test-load-normal.png").getFile();
-        int[][] loadedMatrix = MapHelper.loadMap(filePath);
+        int[][] loadedMatrix = MapIO.loadMap(filePath);
 
         /* The expected matrix of pixels. */
         int[][] expectedMatrix = new int[][] { { 0xFF66CC66, 0xFF009966 },
@@ -54,13 +55,13 @@ public class MapHelperTest {
         File outputFile = tempFolder.newFile("map-test-save-normal.png");
         String filePath = outputFile.getPath();
 
-        MapHelper.saveMap(inputMatrix, filePath);
+        MapIO.saveMap(inputMatrix, filePath);
 
         /*
          * Use the already tested method loadMap on the created file and check
          * if it equals the input matrix.
          */
-        int[][] savedMatrix = MapHelper.loadMap(filePath);
+        int[][] savedMatrix = MapIO.loadMap(filePath);
 
         assertTrue(Arrays.deepEquals(inputMatrix, savedMatrix));
     }
@@ -68,21 +69,21 @@ public class MapHelperTest {
     // // NULL ARGUMENTS // //
 
     /**
-     * Test the (@link MapHelper) loadMap method with a null argument.
+     * Test the (@link MapIO) loadMap method with a null argument.
      */
     @Test
     public void shouldFailToLoadNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        MapHelper.loadMap(null);
+        MapIO.loadMap(null);
     }
 
     /**
-     * Test the (@link MapHelper) saveMap method with null arguments.
+     * Test the (@link MapIO) saveMap method with null arguments.
      */
     @Test
     public void shouldFailToWriteNull() throws Exception {
         thrown.expect(IllegalArgumentException.class);
-        MapHelper.saveMap(null, null);
+        MapIO.saveMap(null, null);
     }
 
     // // NOT WELL FORMED ARGUMENTS // //
@@ -103,7 +104,7 @@ public class MapHelperTest {
         File outputFile = tempFolder.newFile("map-not-well-formed.png");
         String filePath = outputFile.getPath();
 
-        MapHelper.saveMap(inputMatrix, filePath);
+        MapIO.saveMap(inputMatrix, filePath);
     }
 
     /**
@@ -117,7 +118,7 @@ public class MapHelperTest {
         String filePath = getClass().getResource(
                 "/map/map-test-error-oddwidth.png").getFile();
 
-        MapHelper.loadMap(filePath);
+        MapIO.loadMap(filePath);
     }
 
     /**
@@ -131,7 +132,7 @@ public class MapHelperTest {
         String filePath = getClass().getResource(
                 "/map/map-test-error-evenheight.png").getFile();
 
-        MapHelper.loadMap(filePath);
+        MapIO.loadMap(filePath);
     }
 
     /**
@@ -144,7 +145,7 @@ public class MapHelperTest {
         /* This image is not valid (it is not an image). */
         String filePath = getClass().getResource("/map/map-invalid.png")
                 .getFile();
-        MapHelper.loadMap(filePath);
+        MapIO.loadMap(filePath);
     }
 
 }

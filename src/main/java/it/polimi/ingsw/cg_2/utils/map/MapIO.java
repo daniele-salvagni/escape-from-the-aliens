@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.utils;
+package it.polimi.ingsw.cg_2.utils.map;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,16 +25,18 @@ import javax.imageio.ImageIO;
  *      process</a>
  * @see BufferedImage#TYPE_INT_ARGB
  */
-public class MapHelper {
+public class MapIO {
 
-    private static final int ARGB_BLACK = 0x00000000;
+    private static final int ARGB_BLACK = 0xFF000000;
 
     /**
      * Suppress the default constructor for noninstantiability (Effective Java -
      * Item 4).
      */
-    private MapHelper() {
+    private MapIO() {
+
         throw new AssertionError();
+
     }
 
     // // PUBLIC METHODS // //
@@ -67,8 +69,8 @@ public class MapHelper {
         }
 
         int[][] imageWithoutMargins = removeMargins(image);
-        int[][] sampledImage = samplePixels(imageWithoutMargins);
-        return sampledImage;
+        return samplePixels(imageWithoutMargins);
+
     }
 
     /**
@@ -94,6 +96,7 @@ public class MapHelper {
         int[][] expandedImage = expandPixels(pixelMatrix);
         int[][] imageWithMargins = addMargins(expandedImage);
         writeImage(imageWithMargins, filePath);
+
     }
 
     // // IMAGE I/O // //
@@ -129,6 +132,7 @@ public class MapHelper {
         }
 
         return pixelMatrix;
+
     }
 
     /**
@@ -159,6 +163,7 @@ public class MapHelper {
 
         File outputFile = new File(filePath);
         ImageIO.write(bufferImage, "png", outputFile);
+
     }
 
     // // IMAGE PROCESSING // //
@@ -206,6 +211,7 @@ public class MapHelper {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -254,6 +260,7 @@ public class MapHelper {
         }
 
         return newPixelMatrix;
+
     }
 
     // // NORMALIZATION <-> DENORMALIZATION // //
@@ -285,6 +292,7 @@ public class MapHelper {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -311,6 +319,7 @@ public class MapHelper {
         }
 
         return newPixelMatrix;
+
     }
 
     /**
@@ -329,6 +338,7 @@ public class MapHelper {
         }
 
         return true;
+
     }
 
 }
