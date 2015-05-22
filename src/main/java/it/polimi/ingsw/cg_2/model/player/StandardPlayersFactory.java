@@ -40,9 +40,9 @@ public class StandardPlayersFactory implements PlayersFactory {
     public List<Player> createPlayers(int number, Sector humanSector, Sector
             alienSector) {
 
-        if (number > 8 || number < 1) {
-            throw new IllegalArgumentException("The maximum allowed number of" +
-                    " players is 8.");
+        if (number > 8 || number < 2) {
+            throw new IllegalArgumentException("Number of players should be " +
+                    "between 2 and 8");
         }
 
         this.humanSector = humanSector;
