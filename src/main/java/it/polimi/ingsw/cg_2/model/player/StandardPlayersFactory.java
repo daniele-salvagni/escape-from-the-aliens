@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.model.player;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -12,6 +13,8 @@ import java.util.Random;
  * of players, half with an alien character and half with an human one, if the
  * number of players is odd there will be one more aliens than humans. The
  * characters will be placed in the appropriate spawn sector (alien or human).
+ * <p/>
+ * The list of players is <b>Shuffled</b>.
  */
 public class StandardPlayersFactory implements PlayersFactory {
 
@@ -84,6 +87,9 @@ public class StandardPlayersFactory implements PlayersFactory {
             players.add(createPlayer(rank));
 
         }
+
+        // Shuffle the list of players before returning it.
+        Collections.shuffle(players);
 
         return players;
 
