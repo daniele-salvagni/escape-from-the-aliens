@@ -1,13 +1,12 @@
 package it.polimi.ingsw.cg_2.model;
 
-import it.polimi.ingsw.cg_2.model.deck.Deck;
-import it.polimi.ingsw.cg_2.model.deck.HatchCard;
-import it.polimi.ingsw.cg_2.model.deck.ItemCard;
-import it.polimi.ingsw.cg_2.model.deck.SectorCard;
+import it.polimi.ingsw.cg_2.model.deck.*;
 import it.polimi.ingsw.cg_2.model.map.Zone;
+import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.noise.Noise;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,25 +17,35 @@ import java.util.List;
 public class Game {
 
     private final Zone zone;
+
     private final Deck<ItemCard> itemDeck;
     private final Deck<SectorCard> sectorDeck;
     private final Deck<HatchCard> hatchDeck;
+
     private final List<Player> players;
     private final List<Noise> noises;
 
     private int turnNumber;
     private Player currentPlayer;
 
-    public Game() {
+    public Game(ZoneFactory zone, DecksFactory decks) {
 
-        zone = null;
-        itemDeck = null;
-        sectorDeck = null;
-        hatchDeck = null;
-        players = null;
-        noises = null;
+        this.zone = zone.createZone();
+
+        this.itemDeck = decks.createItemDeck();
+        this.sectorDeck = decks.createSectorDeck();
+        this.hatchDeck = decks.createHatchDeck();
+
+        players = new ArrayList<>();
+        noises = new ArrayList<>();
 
     }
 
+    public static Game create(ZoneFactory zone, DecksFactory decks, int
+            playersNumber) {
+
+        return new Game(zone, decks);
+
+    }
 
 }
