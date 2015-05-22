@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * This class represents a Player of a game which uses a {@link Character}.
- *
  */
 public class Player {
 
@@ -147,10 +146,10 @@ public class Player {
 
     /**
      * Gets the {@link ItemCard}s held by the player. An unmodifiable view of
-     * the list is reurned.
+     * the list is returned.
      *
-     * @return the held items (unmodificabeList)
-     * 
+     * @return the held items (unmodifiableList)
+     *
      * @see Collections#unmodifiableList(List)
      */
     public List<ItemCard> getHeldItems() {
