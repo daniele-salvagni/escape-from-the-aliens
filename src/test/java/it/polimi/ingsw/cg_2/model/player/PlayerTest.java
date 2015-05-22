@@ -81,6 +81,90 @@ public class PlayerTest {
     }
 
     @Test
+    public void shouldSetConnected() {
+
+        player.setConnected(true);
+        assertTrue(player.isConnected());
+
+    }
+
+    @Test
+    public void shouldSetDisconnected() {
+
+        player.setConnected(false);
+        assertFalse(player.isConnected());
+
+    }
+
+    @Test
+    public void shouldSetSuspended() {
+
+        player.setSuspended(true);
+        assertTrue(player.isSuspended());
+
+    }
+
+    @Test
+    public void shouldSetNotSuspended() {
+
+        player.setSuspended(false);
+        assertFalse(player.isSuspended());
+
+    }
+
+    @Test
+    public void shouldHaveEmptyKillsList() {
+
+        assertTrue(player.getKills().isEmpty());
+
+    }
+
+    @Test
+    public void shouldSetKills() {
+
+        SectorType sectorType2 = SectorType.DANGEROUS;
+        CubicCoordinate coordinate2 = CubicCoordinate.create(2, -1, -1);
+        Sector sector2 = new Sector(coordinate2, sectorType2);
+        Character character2 = new Character(sector2, CharacterRank.PSYCHOLOGIST);
+
+        player.addKill(character2);
+        assertEquals(1, player.getKills().size());
+        assertTrue(player.getKills().contains(character2));
+
+    }
+
+    @Test
+    public void shouldHaveEmptyItemsList() {
+
+        assertTrue(player.getHeldItems().isEmpty());
+
+    }
+
+    @Test
+    public void shouldAddItem() {
+
+        ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
+        player.giveItem(card);
+
+        assertEquals(1, player.getHeldItems().size());
+        assertTrue(player.getHeldItems().contains(card));
+
+    }
+
+    @Test
+    public void shouldRemoveItem() {
+
+        ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
+
+        player.giveItem(card);
+        player.removeItem(card);
+
+        assertTrue(player.getHeldItems().isEmpty());
+
+    }
+
+
+    @Test
     public void shouldGetUnmodifiableMovementHistory() {
 
         List<Sector> movHistory = player.getMovementHistory();
