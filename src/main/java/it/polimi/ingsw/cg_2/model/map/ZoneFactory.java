@@ -16,7 +16,7 @@ public abstract class ZoneFactory {
      * @param zoneName the name of the zone to be loaded
      * @return a new ZoneFactory (ZoneLoader)
      */
-    public static final ZoneFactory newLoader(ZoneName zoneName) {
+    public static ZoneFactory newLoader(ZoneName zoneName) {
 
         return new ZoneLoader(zoneName);
 
@@ -33,18 +33,16 @@ public abstract class ZoneFactory {
      */
 
     /**
-     * Creates a Zone provided in the form of a Map of Sectors indexed by their
-     * CubicCooridnate.
+     * Creates a Zone based on the parameters given when creating the factory.
      *
-     * @param type the type of the Zone to be created
-     * @return a new Map of Sectors
+     * @return a new Zone
      */
     public abstract Zone createZone();
 
     /**
      * Creates a new {@link Sector}.
      *
-     * @param type the type of the Sector
+     * @param type  the type of the Sector
      * @param coord the CubicCoordinate of the Sector
      * @return the new Sector
      */
