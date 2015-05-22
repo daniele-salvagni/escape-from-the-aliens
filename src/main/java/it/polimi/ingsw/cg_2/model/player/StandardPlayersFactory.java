@@ -7,12 +7,17 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * C
+ * This concrete factory implementation of {@link PlayersFactory} creates a
+ * List
+ * of players, half with an alien character and half with an human one, if the
+ * number of players is odd there will be one more aliens than humans. The
+ * characters will be placed in the appropriate spawn sector (alien or human).
  */
 public class StandardPlayersFactory implements PlayersFactory {
 
     Random rand;
 
+    // The human and alien sectors relative to a Zone
     Sector humanSector;
     Sector alienSector;
 
