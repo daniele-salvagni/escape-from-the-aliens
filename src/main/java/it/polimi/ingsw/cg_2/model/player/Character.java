@@ -18,9 +18,9 @@ public class Character {
      * Instantiates a new character in a given position and with a given rank
      * and race.
      *
-     * @param position the position relative to a {@Zone}
-     * @param rank the rank of the character
-     * @param race the race of the character
+     * @param position the position relative to a {@link it.polimi.ingsw.cg_2.model.map.Zone}
+     * @param rank     the rank of the character
+     * @param race     the race of the character
      */
     public Character(Sector position, CharacterRank rank, CharacterRace race) {
 
@@ -35,8 +35,8 @@ public class Character {
      * Instantiates a new character in a given position and with a given rank,
      * the type will be the default one based on the rank.
      *
-     * @param position the position relative to a {@Zone}
-     * @param rank the rank of the character
+     * @param position the position relative to a {@link it.polimi.ingsw.cg_2.model.map.Zone}
+     * @param rank     the rank of the character
      */
     public Character(Sector position, CharacterRank rank) {
 
@@ -45,7 +45,7 @@ public class Character {
     }
 
     /**
-     * Gets the position of the character relative to a {@Zone}.
+     * Gets the position of the character relative to a {@link it.polimi.ingsw.cg_2.model.map.Zone}.
      *
      * @return the position of the character
      */
@@ -56,7 +56,7 @@ public class Character {
     }
 
     /**
-     * Sets the position of the character relative to a {@Zone}.
+     * Sets the position of the character relative to a {@link it.polimi.ingsw.cg_2.model.map.Zone}.
      *
      * @param position the new position of the character
      */
