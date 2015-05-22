@@ -5,16 +5,16 @@ import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 import it.polimi.ingsw.cg_2.utils.map.MapIO;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * A concrete factory for creating a new Zone by loading it form file, the
- * following is the valid color schema for this implementation, an invalid color
+ * following is the valid color schema for this implementation, an invalid
+ * color
  * in the Zone file will throw an InvalidZoneException.
- * 
+ * <p/>
  * <ul>
  * <li>66CC66 (Light Green) - Secure Sector</li>
  * <li>009966 (Medium Green) - Dangerous Sector</li>
@@ -35,6 +35,22 @@ public class ZoneLoader extends ZoneFactory {
     private static final int C_ALIEN = 0xFF993399;
     private static final int C_HUMAN = 0xFF0099CC;
     private static final int C_EMPTY = 0xFF003333;
+
+    private static final Map<Integer, SectorType> colorMap;
+
+    /**
+     * A Static Initializer to map the colors with sector types. We want to
+     * use an unmodifiableMap to keep it immutable.
+     */
+    static {
+        Map<Integer, SectorType> modifiableMap = new HashMap<>();
+        modifiableMap.put(C_SAFE, SectorType.SAFE);
+        modifiableMap.put(C_DANGEROUS, SectorType.DANGEROUS);
+        modifiableMap.put(C_HATCH, SectorType.HATCH);
+        modifiableMap.put(C_ALIEN, SectorType.ALIEN);
+        modifiableMap.put(C_HUMAN, SectorType.HUMAN);
+        colorMap = Collections.unmodifiableMap(modifiableMap);
+    }
 
     private final ZoneName zoneName;
     private final Set<Sector> sectors;
@@ -72,7 +88,8 @@ public class ZoneLoader extends ZoneFactory {
             String filePath = ZoneLoader.class.getResource(
                     "/maps/" + zoneName.getFileName()).getFile();
 
-            /* We try to load a Zone from file. It could throw an IOException. */
+            /* We try to load a Zone from file. It could throw an IOException
+            . */
             colorGrid = MapIO.loadMap(filePath);
 
         } catch (IOException e) {
@@ -120,43 +137,23 @@ public class ZoneLoader extends ZoneFactory {
     private void addSectorFromColor(int color, CubicCoordinate coord) {
 
         switch (color) {
+            case C_EMPTY:
+                // Empty, we don't create any sector
+                break;
+            default:
+                if (colorMap.containsKey(color)) {
+                    sectors.add(createSector(coord, colorMap.get(color)));
+                } else {
+                    /* Invalid color, we could simply not create a sector but
+                    this could lead to the creation of invalid maps: we
+                    DON'T check the validity of a map loaded from file since
+                    we presume it is correct, however if severe problems
+                    are found based on the game rules the instantiation
+                    will fail (at an higher level). */
+                    throw new InvalidZoneException(
+                            "An invalid cell has been found in the zone File.");
 
-        case C_SAFE:
-            sectors.add(createSector(coord, SectorType.SAFE));
-            break;
-
-        case C_DANGEROUS:
-            sectors.add(createSector(coord, SectorType.DANGEROUS));
-            break;
-
-        case C_HATCH:
-            sectors.add(createSector(coord, SectorType.HATCH));
-            break;
-
-        case C_ALIEN:
-            sectors.add(createSector(coord, SectorType.ALIEN));
-            break;
-
-        case C_HUMAN:
-            sectors.add(createSector(coord, SectorType.HUMAN));
-            break;
-
-        case C_EMPTY:
-            // Empty, we don't create any sector
-            break;
-
-        default:
-
-            /*
-             * Invalid color, we could simply not create a sector but this could
-             * lead to the creation of invalid maps: we DON'T check the validity
-             * of a map loaded from file since we presume it is correct, however
-             * if severe problems are found based on the game rules the
-             * instantiation will fail (at an higher level).
-             */
-            throw new InvalidZoneException(
-                    "An invalid cell has been found in the zone File.");
-
+                }
         }
 
     }
