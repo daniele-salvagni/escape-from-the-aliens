@@ -55,14 +55,28 @@ public class PlayerTest {
     @Test
     public void shouldMoveCharacter() {
 
-        // TODO
+        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1), SectorType.HUMAN);
+        player.moveCharacter(newPosition);
+        assertEquals(newPosition, player.getCharacter().getPosition());
+
+    }
+
+    @Test
+    public void shouldHaveEmptyMovementHistoryAtTheBeginning() {
+
+        assertTrue(player.getMovementHistory().isEmpty());
 
     }
 
     @Test
     public void shouldUpdateMovementHistory() {
 
-        // TODO
+        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1), SectorType.HUMAN);
+        player.moveCharacter(newPosition);
+
+        List<Sector> movHistory = player.getMovementHistory();
+        assertEquals(1, movHistory.size());
+        assertTrue(movHistory.contains(newPosition));
 
     }
 
