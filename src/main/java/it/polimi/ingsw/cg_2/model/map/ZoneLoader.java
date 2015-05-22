@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  */
 public class ZoneLoader extends ZoneFactory {
 
-    private static final Logger log = Logger.getLogger(ZoneLoader.class
+    private static final Logger LOG = Logger.getLogger(ZoneLoader.class
             .getName());
 
     private static final int C_SAFE = 0xFF66CC66;
@@ -73,7 +73,7 @@ public class ZoneLoader extends ZoneFactory {
                     "/maps/" + zoneName.getFileName()).getFile();
 
             /* We try to load a Zone from file. It could throw an IOException. */
-            colorGrid = MapIO.loadMap(filePath.toString());
+            colorGrid = MapIO.loadMap(filePath);
 
         } catch (IOException e) {
 
@@ -83,7 +83,7 @@ public class ZoneLoader extends ZoneFactory {
              * them from an enumeration. If there is an IOException then that
              * ZoneName is invalid and the user must select another one.
              */
-            log.log(Level.SEVERE, "Error loading Zone: " + e.toString(), e);
+            LOG.log(Level.SEVERE, "Error loading Zone: " + e.toString(), e);
             throw new InvalidZoneException(
                     "IO Exception while loading the Zone from file.");
 
