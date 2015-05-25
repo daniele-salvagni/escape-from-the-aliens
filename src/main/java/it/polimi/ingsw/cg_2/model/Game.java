@@ -43,8 +43,11 @@ public class Game {
     public static Game create(ZoneFactory zone, DecksFactory decks, int
             playersNumber) {
 
-        return new Game(zone, decks);
+        Game game = new Game(zone, decks);
+        return null;
+        // TODO
 
     }
+
 
 }
