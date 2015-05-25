@@ -11,8 +11,7 @@ import java.util.List;
 
 /**
  * This class represents the complete status of a Game, from here it is
- * possible
- * to access the whole model of the application.
+ * possible to access the whole model of the application.
  */
 public class Game {
 
