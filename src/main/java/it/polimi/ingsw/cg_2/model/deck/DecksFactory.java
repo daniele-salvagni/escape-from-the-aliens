@@ -12,20 +12,20 @@ public interface DecksFactory {
      *
      * @return a new (@link Deck) of (@link ItemCard).
      */
-    public abstract Deck<ItemCard> createItemDeck();
+    Deck<ItemCard> createItemDeck();
 
     /**
      * Creates a populated (@link Deck) of (@link SectorCard).
      *
      * @return a new (@link Deck) of (@link SectorCard).
      */
-    public abstract Deck<SectorCard> createSectorDeck();
+    Deck<SectorCard> createSectorDeck();
 
     /**
      * Creates a populated (@link Deck) of (@link HatchCard).
      *
      * @return a new (@link Deck) of (@link HatchCard).
      */
-    public abstract Deck<HatchCard> createHatchDeck();
+    Deck<HatchCard> createHatchDeck();
 
 }
