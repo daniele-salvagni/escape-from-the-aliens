@@ -149,6 +149,11 @@ public class Game {
         return noises;
     }
 
+    /**
+     * Add a new {@link Noise} to the list of Noises
+     *
+     * @param noise the noise to add
+     */
     public void addNoise(Noise noise) {
 
         noises.add(noise);
