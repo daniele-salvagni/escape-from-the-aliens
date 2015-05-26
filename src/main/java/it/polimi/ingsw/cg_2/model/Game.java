@@ -6,7 +6,6 @@ import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.noise.Noise;
 import it.polimi.ingsw.cg_2.model.player.Player;
 import it.polimi.ingsw.cg_2.model.player.PlayersFactory;
-import it.polimi.ingsw.cg_2.model.player.StandardPlayersFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +29,8 @@ public class Game {
     private Player currentPlayer;
 
     /**
-     * The private constructor of the game, it does instantiate instantiates all
+     * The private constructor of the game, it does instantiate instantiates
+     * all
      * the class attributes.
      *
      * @param zFactory an object implementation of a {@link ZoneFactory} used
@@ -89,5 +89,105 @@ public class Game {
 
     }
 
+    /**
+     * Gets the {@link Zone} of the Game
+     *
+     * @return the {@link Zone} of the Game
+     */
+    public Zone getZone() {
+
+        return zone;
+    }
+
+    /**
+     * Gets the {@link Deck} of {@link ItemCard}
+     *
+     * @return the {@link Deck} of {@link ItemCard}
+     */
+    public Deck<ItemCard> getItemDeck() {
+
+        return itemDeck;
+    }
+
+    /**
+     * Gets the {@link Deck} of {@link SectorCard}
+     *
+     * @return the {@link Deck} of {@link SectorCard}
+     */
+    public Deck<SectorCard> getSectorDeck() {
+
+        return sectorDeck;
+    }
+
+    /**
+     * Gets the {@link Deck} of {@link HatchCard}
+     *
+     * @return the {@link Deck} of {@link HatchCard}
+     */
+    public Deck<HatchCard> getHatchDeck() {
+
+        return hatchDeck;
+    }
+
+    /**
+     * Gets the list of {@link Player}s of the Game
+     *
+     * @return the list of {@link Player}s of the Game
+     */
+    public List<Player> getPlayers() {
+
+        return players;
+    }
+
+    /**
+     * Gets the list of {@link Noise}s of the Game
+     *
+     * @return the list of {@link Noise}s of the Game
+     */
+    public List<Noise> getNoises() {
+
+        return noises;
+    }
+
+    /**
+     * Gets the current turn number of the Game
+     *
+     * @return the current turn number
+     */
+    public int getTurnNumber() {
+
+        return turnNumber;
+    }
+
+    /**
+     * Gets the current {@link Player} of the Game
+     *
+     * @return the current {@link Player} of the Game
+     */
+    public Player getCurrentPlayer() {
+
+        return currentPlayer;
+    }
+
+    /**
+     * Sets the turn number of the Game
+     *
+     * @param turnNumber the turn number to set
+     */
+    public void setTurnNumber(int turnNumber) {
+
+        this.turnNumber = turnNumber;
+    }
+
+    /**
+     * Sets the current {@link Player} of the game
+     *
+     * @param currentPlayer the current player
+     */
+    public void setCurrentPlayer(Player currentPlayer) {
+
+        this.currentPlayer = currentPlayer;
+    }
 
 }
+
