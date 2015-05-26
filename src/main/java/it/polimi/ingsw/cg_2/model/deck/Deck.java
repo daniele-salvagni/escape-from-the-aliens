@@ -8,15 +8,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * This class models and manages a Deck of (@link Card)s (deck and discarded
+ * This class models and manages a Deck of {@link Card}s (deck and discarded
  * pile). Once a deck is created it is possible to draw cards, shuffle the deck,
  * discard used cards in a discard pile, etc. When there are no more cards in a
  * deck the discard pile (if not empty) is automatically shuffled and used.
  * <p>
- * Elements of type (@link Card) can be handled polymorphically and it is
+ * Elements of type {@link Card} can be handled polymorphically and it is
  * possible to create decks of mixed card types. In this case it does not make
  * sense to handle different decks polymorphically as they are just a data
- * structure similar to a (@link Stack) with additional behavior and different
+ * structure similar to a link Stack with additional behavior and different
  * decks must be used in different situations but with the <b>same behavior</b>,
  * so it is better to use a class with genetic parameters.
  *
@@ -29,19 +29,19 @@ public class Deck<E extends Card> {
     private final List<E> discardPile;
 
     /**
-     * Instantiates a new Deck populated with a (@link Collection) of (@link
-     * Card)s. The cards are <b>not shuffled</b> when the deck is created, so
+     * Instantiates a new Deck populated with a {@link Collection} of {@link
+     * Card}s. The cards are <b>not shuffled</b> when the deck is created, so
      * they will be dealt from the last to the first one.
      *
-     * @param cards a (@link Collection) of cards to put inside the deck
+     * @param cards a {@link Collection} of cards to put inside the deck
      */
     public Deck(Collection<E> cards) {
 
         // We use a LinkedList as it implements both Deque and List interfaces
         // (so we can also use Collections methods).
-        drawPile = new LinkedList<E>();
+        drawPile = new LinkedList<>();
         drawPile.addAll(cards);
-        discardPile = new ArrayList<E>();
+        discardPile = new ArrayList<>();
 
     }
 

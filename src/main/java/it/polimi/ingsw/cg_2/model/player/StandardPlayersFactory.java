@@ -28,7 +28,7 @@ public class StandardPlayersFactory implements PlayersFactory {
     List<CharacterRank> humanRanks;
     List<CharacterRank> alienRanks;
 
-    protected StandardPlayersFactory() {
+    public StandardPlayersFactory() {
 
         rand = new Random();
 
@@ -37,6 +37,7 @@ public class StandardPlayersFactory implements PlayersFactory {
 
     }
 
+    @Override
     public List<Player> createPlayers(int number, Sector humanSector, Sector
             alienSector) {
 
