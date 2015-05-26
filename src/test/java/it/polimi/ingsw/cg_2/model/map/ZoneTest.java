@@ -29,7 +29,7 @@ public class ZoneTest {
     @Before
     public void init() {
 
-        sectors = new HashSet<Sector>();
+        sectors = new HashSet<>();
 
         coord1 = CubicCoordinate.createFromAxial(1, 1);
         coord2 = CubicCoordinate.createFromAxial(1, 2);
@@ -209,5 +209,26 @@ public class ZoneTest {
         zone.getHatchSectors();
 
     }
+
+    @Test
+    public void shouldGetUnmodifiableSetOfSectors() {
+
+        Set<CubicCoordinate> coordinates = zone.getCoordinates();
+
+        thrown.expect(UnsupportedOperationException.class);
+        coordinates.add(null);
+
+    }
+
+    @Test
+    public void shouldGetUnmodifiableMapOfSectors() {
+
+        Map<CubicCoordinate, Sector> sectorMap = zone.getSectorsMap();
+
+        thrown.expect(UnsupportedOperationException.class);
+        sectorMap.put(null, null);
+
+    }
+
 
 }
