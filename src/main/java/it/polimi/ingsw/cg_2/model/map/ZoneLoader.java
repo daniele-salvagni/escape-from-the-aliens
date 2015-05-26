@@ -53,7 +53,6 @@ public class ZoneLoader extends ZoneFactory {
     }
 
     private final ZoneName zoneName;
-    private final Set<Sector> sectors;
 
     /**
      * Instantiates a new ZoneLoader.
@@ -63,7 +62,6 @@ public class ZoneLoader extends ZoneFactory {
     protected ZoneLoader(ZoneName zoneName) {
 
         this.zoneName = zoneName;
-        sectors = new HashSet<>();
 
     }
 
@@ -80,6 +78,9 @@ public class ZoneLoader extends ZoneFactory {
      * @return the sets of Sectors
      */
     private Set<Sector> createSectors() {
+
+        // This will contain all the loaded sectors
+        Set<Sector> sectors = new HashSet<>();
 
         int[][] colorGrid;
 
@@ -119,7 +120,7 @@ public class ZoneLoader extends ZoneFactory {
                         .createFromOddQ(col, row);
 
                 // And use it to create a new Sector
-                addSectorFromColor(colorGrid[col][row], coord);
+                addSectorFromColor(sectors, colorGrid[col][row], coord);
 
             }
         }
@@ -129,12 +130,14 @@ public class ZoneLoader extends ZoneFactory {
     }
 
     /**
-     * Adds a new Sector to the sectors Set from a color (INT_ARGB).
+     * Adds a new Sector to a sectors Set from a color (INT_ARGB).
      *
-     * @param color the color representing the Sector Type
-     * @param coord the coordinate of the Sector
+     * @param sectors the set where to add the new sector
+     * @param color   the color representing the Sector Type
+     * @param coord   the coordinate of the Sector
      */
-    private void addSectorFromColor(int color, CubicCoordinate coord) {
+    private void addSectorFromColor(Set<Sector> sectors, int color,
+                                    CubicCoordinate coord) {
 
         switch (color) {
             case C_EMPTY:
