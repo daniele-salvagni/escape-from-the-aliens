@@ -3,10 +3,7 @@ package it.polimi.ingsw.cg_2.model.map;
 import it.polimi.ingsw.cg_2.model.map.Sector.SectorType;
 import it.polimi.ingsw.cg_2.utils.exception.InvalidZoneException;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * This class represents a Zone (the map of this game), this zone should
@@ -26,19 +23,21 @@ public class Zone {
     private final Map<CubicCoordinate, Sector> sectorMap;
 
     /**
-     * Instantiates a new zone with a {@link Collection} of {@link Sector}s that
+     * Instantiates a new zone with a {@link Collection} of {@link Sector}s
+     * that
      * will be mapped by {@link CubicCoordinate}.
      *
      * @param sectors the sectors to add to this zone
      */
     protected Zone(Set<Sector> sectors) {
 
-        sectorMap = new HashMap<CubicCoordinate, Sector>();
+        sectorMap = new HashMap<>();
 
         for (Sector sector : sectors) {
             if (sectorMap.containsKey(sector.getCooridnate())) {
                 throw new InvalidZoneException(
-                        "A Zone cannot contain two sectors in the same position.");
+                        "A Zone cannot contain two sectors in the same " +
+                                "position.");
             } else {
                 sectorMap.put(sector.getCooridnate(), sector);
             }
@@ -48,20 +47,13 @@ public class Zone {
 
     /**
      * Gets all the sectors of the Zone mapped by CubicCoordinate. We return a
-     * copy of the Map to minimize mutability.
+     * {@link Collections#unmodifiableMap(Map)} to reduce mutability.
      *
      * @return a new Map containing all the sectors of the zone
      */
     public Map<CubicCoordinate, Sector> getSectorsMap() {
 
-        /*
-         * Effective Java - Item 11: it is better not to use clone(). The copy
-         * constructor, however, is not defined for the Map interface but only
-         * for some implementations.
-         */
-        Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
-        newSectorsMap.putAll(sectorMap);
-        return newSectorsMap;
+        return Collections.unmodifiableMap(sectorMap);
 
     }
 
@@ -78,9 +70,9 @@ public class Zone {
     }
 
     /**
-     * Gets a set containing all the coordinates of the sectors (of any kind) in
-     * this Zone. We return a copy of the Set used in the Map implementation to
-     * minimize mutability.
+     * Gets a set containing all the coordinates of the sectors (of any kind)
+     * in this Zone. It is returned a {@link Collections#unmodifiableSet(Set)}
+     * to reduce mutability.
      *
      * @return the coordinates of this zone
      */
@@ -89,11 +81,9 @@ public class Zone {
         /*
          * The set returned by the keySet() method is backed by the map, so
          * changes to the map are reflected in the set, and vice-versa. For this
-         * reason we return a copy of the set to reduce mutability.
+         * reason we return an unmodifiableSet reduce mutability.
          */
-        Set<CubicCoordinate> newCoordSet = new HashSet<>();
-        newCoordSet.addAll(sectorMap.keySet());
-        return newCoordSet;
+        return Collections.unmodifiableSet(sectorMap.keySet());
 
     }
 
@@ -138,7 +128,8 @@ public class Zone {
     }
 
     /**
-     * Gets all the hatch sectors contained in this zone. (A Zone should contain
+     * Gets all the hatch sectors contained in this zone. (A Zone should
+     * contain
      * at least one HATCH sector).
      *
      * @return the hatch sectors
@@ -164,7 +155,7 @@ public class Zone {
      */
     private Set<Sector> findSectorsFromType(SectorType sectorType) {
 
-        Set<Sector> foundSectors = new HashSet<Sector>();
+        Set<Sector> foundSectors = new HashSet<>();
 
         for (Sector s : sectorMap.values()) {
             if (s.getType() == sectorType) {

@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg_2.model.player.Player;
 import it.polimi.ingsw.cg_2.model.player.PlayersFactory;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -90,63 +91,82 @@ public class Game {
     }
 
     /**
-     * Gets the {@link Zone} of the Game
+     * Gets the {@link Zone} of the Game.
      *
      * @return the {@link Zone} of the Game
      */
     public Zone getZone() {
 
         return zone;
+
     }
 
     /**
-     * Gets the {@link Deck} of {@link ItemCard}
+     * Gets the {@link Deck} of {@link ItemCard}.
      *
      * @return the {@link Deck} of {@link ItemCard}
      */
     public Deck<ItemCard> getItemDeck() {
 
         return itemDeck;
+
     }
 
     /**
-     * Gets the {@link Deck} of {@link SectorCard}
+     * Gets the {@link Deck} of {@link SectorCard}.
      *
      * @return the {@link Deck} of {@link SectorCard}
      */
     public Deck<SectorCard> getSectorDeck() {
 
         return sectorDeck;
+
     }
 
     /**
-     * Gets the {@link Deck} of {@link HatchCard}
+     * Gets the {@link Deck} of {@link HatchCard}.
      *
      * @return the {@link Deck} of {@link HatchCard}
      */
     public Deck<HatchCard> getHatchDeck() {
 
         return hatchDeck;
+
     }
 
     /**
-     * Gets the list of {@link Player}s of the Game
+     * Gets the list of {@link Player}s of the Game. A {@link
+     * Collections#unmodifiableList(List)} is returned to reduce mutability.
      *
      * @return the list of {@link Player}s of the Game
      */
     public List<Player> getPlayers() {
 
-        return players;
+        return Collections.unmodifiableList(players);
+
     }
 
     /**
-     * Gets the list of {@link Noise}s of the Game
+     * Gets the list of {@link Noise}s of the Game. A {@link
+     * Collections#unmodifiableList(List)} is returned to reduce mutability.
      *
      * @return the list of {@link Noise}s of the Game
      */
     public List<Noise> getNoises() {
 
-        return noises;
+        return Collections.unmodifiableList(noises);
+
+    }
+
+    /**
+     * Add a new {@link Noise} to the list of Noises
+     *
+     * @param noise the noise to add
+     */
+    public void addNoise(Noise noise) {
+
+        noises.add(noise);
+
     }
 
     /**
@@ -157,6 +177,7 @@ public class Game {
     public int getTurnNumber() {
 
         return turnNumber;
+
     }
 
     /**
@@ -167,6 +188,7 @@ public class Game {
     public Player getCurrentPlayer() {
 
         return currentPlayer;
+
     }
 
     /**
@@ -177,6 +199,7 @@ public class Game {
     public void setTurnNumber(int turnNumber) {
 
         this.turnNumber = turnNumber;
+
     }
 
     /**
@@ -187,6 +210,7 @@ public class Game {
     public void setCurrentPlayer(Player currentPlayer) {
 
         this.currentPlayer = currentPlayer;
+
     }
 
 }

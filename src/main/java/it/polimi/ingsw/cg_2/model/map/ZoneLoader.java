@@ -36,7 +36,7 @@ public class ZoneLoader extends ZoneFactory {
     private static final int C_HUMAN = 0xFF0099CC;
     private static final int C_EMPTY = 0xFF003333;
 
-    private static final Map<Integer, SectorType> colorMap;
+    private static final Map<Integer, SectorType> COLOR_MAP;
 
     /**
      * A Static Initializer to map the colors with sector types. We want to
@@ -49,11 +49,10 @@ public class ZoneLoader extends ZoneFactory {
         modifiableMap.put(C_HATCH, SectorType.HATCH);
         modifiableMap.put(C_ALIEN, SectorType.ALIEN);
         modifiableMap.put(C_HUMAN, SectorType.HUMAN);
-        colorMap = Collections.unmodifiableMap(modifiableMap);
+        COLOR_MAP = Collections.unmodifiableMap(modifiableMap);
     }
 
     private final ZoneName zoneName;
-    private final Set<Sector> sectors;
 
     /**
      * Instantiates a new ZoneLoader.
@@ -63,7 +62,6 @@ public class ZoneLoader extends ZoneFactory {
     protected ZoneLoader(ZoneName zoneName) {
 
         this.zoneName = zoneName;
-        sectors = new HashSet<>();
 
     }
 
@@ -80,6 +78,9 @@ public class ZoneLoader extends ZoneFactory {
      * @return the sets of Sectors
      */
     private Set<Sector> createSectors() {
+
+        // This will contain all the loaded sectors
+        Set<Sector> sectors = new HashSet<>();
 
         int[][] colorGrid;
 
@@ -119,7 +120,7 @@ public class ZoneLoader extends ZoneFactory {
                         .createFromOddQ(col, row);
 
                 // And use it to create a new Sector
-                addSectorFromColor(colorGrid[col][row], coord);
+                addSectorFromColor(sectors, colorGrid[col][row], coord);
 
             }
         }
@@ -129,31 +130,28 @@ public class ZoneLoader extends ZoneFactory {
     }
 
     /**
-     * Adds a new Sector to the sectors Set from a color (INT_ARGB).
+     * Adds a new Sector to a sectors Set from a color (INT_ARGB).
      *
-     * @param color the color representing the Sector Type
-     * @param coord the coordinate of the Sector
+     * @param sectors the set where to add the new sector
+     * @param color   the color representing the Sector Type
+     * @param coord   the coordinate of the Sector
      */
-    private void addSectorFromColor(int color, CubicCoordinate coord) {
+    private void addSectorFromColor(Set<Sector> sectors, int color,
+                                    CubicCoordinate coord) {
 
-        switch (color) {
-            case C_EMPTY:
-                // Empty, we don't create any sector
-                break;
-            default:
-                if (colorMap.containsKey(color)) {
-                    sectors.add(createSector(coord, colorMap.get(color)));
-                } else {
+        if (color != C_EMPTY) { // If empty, we don't add any sector to the set
+            if (COLOR_MAP.containsKey(color)) {
+                sectors.add(createSector(coord, COLOR_MAP.get(color)));
+            } else {
                     /* Invalid color, we could simply not create a sector but
                     this could lead to the creation of invalid maps: we
                     DON'T check the validity of a map loaded from file since
                     we presume it is correct, however if severe problems
                     are found based on the game rules the instantiation
                     will fail (at an higher level). */
-                    throw new InvalidZoneException(
-                            "An invalid cell has been found in the zone File.");
-
-                }
+                throw new InvalidZoneException(
+                        "An invalid cell has been found in the zone File.");
+            }
         }
 
     }
