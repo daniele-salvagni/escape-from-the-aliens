@@ -149,6 +149,12 @@ public class Game {
         return noises;
     }
 
+    public void addNoise(Noise noise) {
+
+        noises.add(noise);
+
+    }
+
     /**
      * Gets the current turn number of the Game
      *
