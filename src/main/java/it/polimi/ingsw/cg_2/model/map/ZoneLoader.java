@@ -139,24 +139,19 @@ public class ZoneLoader extends ZoneFactory {
     private void addSectorFromColor(Set<Sector> sectors, int color,
                                     CubicCoordinate coord) {
 
-        switch (color) {
-            case C_EMPTY:
-                // Empty, we don't create any sector
-                break;
-            default:
-                if (COLOR_MAP.containsKey(color)) {
-                    sectors.add(createSector(coord, COLOR_MAP.get(color)));
-                } else {
+        if (color != C_EMPTY) { // If empty, we don't add any sector to the set
+            if (COLOR_MAP.containsKey(color)) {
+                sectors.add(createSector(coord, COLOR_MAP.get(color)));
+            } else {
                     /* Invalid color, we could simply not create a sector but
                     this could lead to the creation of invalid maps: we
                     DON'T check the validity of a map loaded from file since
                     we presume it is correct, however if severe problems
                     are found based on the game rules the instantiation
                     will fail (at an higher level). */
-                    throw new InvalidZoneException(
-                            "An invalid cell has been found in the zone File.");
-
-                }
+                throw new InvalidZoneException(
+                        "An invalid cell has been found in the zone File.");
+            }
         }
 
     }
