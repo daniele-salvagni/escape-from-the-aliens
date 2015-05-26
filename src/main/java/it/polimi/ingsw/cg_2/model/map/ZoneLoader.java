@@ -36,7 +36,7 @@ public class ZoneLoader extends ZoneFactory {
     private static final int C_HUMAN = 0xFF0099CC;
     private static final int C_EMPTY = 0xFF003333;
 
-    private static final Map<Integer, SectorType> colorMap;
+    private static final Map<Integer, SectorType> COLOR_MAP;
 
     /**
      * A Static Initializer to map the colors with sector types. We want to
@@ -49,7 +49,7 @@ public class ZoneLoader extends ZoneFactory {
         modifiableMap.put(C_HATCH, SectorType.HATCH);
         modifiableMap.put(C_ALIEN, SectorType.ALIEN);
         modifiableMap.put(C_HUMAN, SectorType.HUMAN);
-        colorMap = Collections.unmodifiableMap(modifiableMap);
+        COLOR_MAP = Collections.unmodifiableMap(modifiableMap);
     }
 
     private final ZoneName zoneName;
@@ -144,8 +144,8 @@ public class ZoneLoader extends ZoneFactory {
                 // Empty, we don't create any sector
                 break;
             default:
-                if (colorMap.containsKey(color)) {
-                    sectors.add(createSector(coord, colorMap.get(color)));
+                if (COLOR_MAP.containsKey(color)) {
+                    sectors.add(createSector(coord, COLOR_MAP.get(color)));
                 } else {
                     /* Invalid color, we could simply not create a sector but
                     this could lead to the creation of invalid maps: we
