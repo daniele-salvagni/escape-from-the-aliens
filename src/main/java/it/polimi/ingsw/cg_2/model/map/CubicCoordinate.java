@@ -20,7 +20,6 @@ package it.polimi.ingsw.cg_2.model.map;
  * This class must remain immutable, it is also used as an {@link HashMap} key
  * inside a {@link Zone}.
  * */
-
 public final class CubicCoordinate {
 
     /*
