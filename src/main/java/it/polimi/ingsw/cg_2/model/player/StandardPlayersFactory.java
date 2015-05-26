@@ -28,7 +28,7 @@ public class StandardPlayersFactory implements PlayersFactory {
     List<CharacterRank> humanRanks;
     List<CharacterRank> alienRanks;
 
-    protected StandardPlayersFactory() {
+    public StandardPlayersFactory() {
 
         rand = new Random();
 
