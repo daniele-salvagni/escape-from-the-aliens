@@ -47,20 +47,13 @@ public class Zone {
 
     /**
      * Gets all the sectors of the Zone mapped by CubicCoordinate. We return a
-     * copy of the Map to minimize mutability.
+     * {@link Collections#unmodifiableMap(Map)} to reduce mutability.
      *
      * @return a new Map containing all the sectors of the zone
      */
     public Map<CubicCoordinate, Sector> getSectorsMap() {
 
-        /*
-         * Effective Java - Item 11: it is better not to use clone(). The copy
-         * constructor, however, is not defined for the Map interface but only
-         * for some implementations.
-         */
-        Map<CubicCoordinate, Sector> newSectorsMap = new HashMap<>();
-        newSectorsMap.putAll(sectorMap);
-        return newSectorsMap;
+        return Collections.unmodifiableMap(sectorMap);
 
     }
 
