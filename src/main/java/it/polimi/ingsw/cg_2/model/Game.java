@@ -177,6 +177,7 @@ public class Game {
     public int getTurnNumber() {
 
         return turnNumber;
+
     }
 
     /**
@@ -187,6 +188,7 @@ public class Game {
     public Player getCurrentPlayer() {
 
         return currentPlayer;
+
     }
 
     /**
@@ -197,6 +199,7 @@ public class Game {
     public void setTurnNumber(int turnNumber) {
 
         this.turnNumber = turnNumber;
+
     }
 
     /**
@@ -207,6 +210,7 @@ public class Game {
     public void setCurrentPlayer(Player currentPlayer) {
 
         this.currentPlayer = currentPlayer;
+
     }
 
 }
