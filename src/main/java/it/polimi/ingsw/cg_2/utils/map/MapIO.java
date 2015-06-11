@@ -166,7 +166,7 @@ public class MapIO {
             }
         }
 
-        File outputFile = new File(filePath);
+        File outputFile = new File(URLDecoder.decode(filePath, "UTF-8"));
         ImageIO.write(bufferImage, "png", outputFile);
 
     }
