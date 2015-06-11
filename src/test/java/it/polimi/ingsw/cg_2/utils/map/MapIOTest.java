@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_2.utils.map;
 
 import static org.junit.Assert.*;
-import it.polimi.ingsw.cg_2.utils.map.MapIO;
 
 import java.io.File;
 import java.util.Arrays;
