@@ -118,8 +118,8 @@ public class MapIO {
      */
     private static int[][] loadImage(String filePath) throws IOException {
 
-        BufferedImage bufferImage = ImageIO.read(new FileInputStream
-                (URLDecoder.decode(filePath)));
+        BufferedImage bufferImage = ImageIO.read(new File(URLDecoder.decode
+                (filePath, "UTF-8")));
 
         /* ImageIO returns null if the provided file is not a valid image. */
         if (bufferImage == null) {
