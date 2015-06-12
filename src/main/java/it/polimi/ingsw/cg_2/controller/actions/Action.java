@@ -50,7 +50,7 @@ public interface Action {
      *
      * @return the private response message for the client
      */
-    ResponseMsg getRespondeMesage();
+    ResponseMsg getResponseMessage();
 
     /**
      * Generates a message to be broadcasted to all the clients of the game
