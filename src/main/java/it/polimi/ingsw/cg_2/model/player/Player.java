@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model.player;
 
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
+import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 
 import java.util.ArrayList;
@@ -21,6 +22,9 @@ public class Player {
     private final List<ItemCard> heldItems;
     private final List<Sector> history;
 
+    // Items activated by the player
+    private final List<ItemCardType> activeItems;
+
     /**
      * Instantiates a new player and give him a character to play with.
      *
@@ -36,6 +40,8 @@ public class Player {
         kills = new ArrayList<>();
         heldItems = new ArrayList<>();
         history = new ArrayList<>();
+
+        activeItems = new ArrayList<>();
 
     }
 
@@ -179,6 +185,39 @@ public class Player {
     public boolean removeItem(ItemCard item) {
 
         return heldItems.remove(item);
+
+    }
+
+    /**
+     * Get a list of the kinds of active items for this player, an
+     * unmodifiableList is returned to reduce mutability.
+     *
+     * @return the active items for this player
+     */
+    public List<ItemCardType> getActiveItems() {
+
+        return Collections.unmodifiableList(activeItems);
+
+    }
+
+    /**
+     * Activates an item of a certain kind for this player.
+     *
+     * @param item the item to activate
+     */
+    public void activateItem(ItemCardType item) {
+
+        activeItems.add(item);
+
+    }
+
+    /**
+     * Removes all the active items for this player, tipically this would be
+     * executed after the end of a player turn.
+     */
+    public void clearActiveItems() {
+
+        activeItems.clear();
 
     }
 

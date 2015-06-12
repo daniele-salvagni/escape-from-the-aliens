@@ -194,4 +194,42 @@ public class PlayerTest {
 
     }
 
+    @Test
+    public void shouldGetUnmodifiableActiveItems() {
+
+        List<ItemCard.ItemCardType> activeItems = player.getActiveItems();
+
+        thrown.expect(UnsupportedOperationException.class);
+        activeItems.add(null);
+
+    }
+
+    @Test
+    public void shouldInitiallyGetEmptyActiveItemsList() {
+
+        assertTrue(player.getActiveItems().isEmpty());
+
+    }
+
+    @Test
+    public void shouldActivateItems() {
+
+        ItemCard.ItemCardType expectedItem = ItemCard.ItemCardType.ADRENALINE;
+
+        player.activateItem(expectedItem);
+
+        assertTrue(player.getActiveItems().contains(expectedItem));
+
+    }
+
+    @Test
+    public void shouldClearItems() {
+
+        player.activateItem(ItemCard.ItemCardType.ADRENALINE);
+        player.clearActiveItems();
+
+        assertTrue(player.getActiveItems().isEmpty());
+
+    }
+
 }
