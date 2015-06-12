@@ -8,8 +8,8 @@ import it.polimi.ingsw.cg_2.model.Game;
  */
 public interface TurnState {
 
-    boolean isActionValid(Action action, Game game, Context context);
+    boolean isActionValid(Action action, Game game);
 
-    TurnState executeAction(Action action, Game game, Context context);
+    TurnState executeAction(Action action, Game game);
 
 }

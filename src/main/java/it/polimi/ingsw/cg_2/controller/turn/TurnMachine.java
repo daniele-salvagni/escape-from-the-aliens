@@ -10,17 +10,15 @@ public class TurnMachine implements TurnState {
 
     TurnState currentState;
 
-    Context context;
-
     @Override
-    public boolean isActionValid(Action action, Game game, Context context) {
+    public boolean isActionValid(Action action, Game game) {
 
         return false;
 
     }
 
     @Override
-    public TurnState executeAction(Action action, Game game, Context context) {
+    public TurnState executeAction(Action action, Game game) {
 
         return null;
 
