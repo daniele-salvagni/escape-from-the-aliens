@@ -6,15 +6,8 @@ import it.polimi.ingsw.cg_2.controller.actions.UseItemAction;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
- * This is the initial state of the state machine that manages player turns.
- * Actions act as transitions, the execution of an action provides the
- * following state or null if it should not change (this allows to keep the
- * state machine as simple as possible and avoids the necessity to carry around
- * the payload of the current state).
- * <p/>
- * At this level we check if the <b>sequence<b/> of actions is valid, the
- * validity of the single atomic action is also checked by calling isValid on
- * the action itself.
+ * This is the initial state of the state machine that manages a Game. It
+ * represents the beginning of the turn of a player.
  */
 public enum TurnStartedState implements TurnState {
 
@@ -28,6 +21,7 @@ public enum TurnStartedState implements TurnState {
      * actions:
      *
      * + MoveAction
+     * + UseItemAction (Always valid, does not change the FSM state)
      */
 
     @Override
@@ -37,16 +31,10 @@ public enum TurnStartedState implements TurnState {
         // a multitude of objects to their correct type it is considered a
         // bad practice, it is not for checking the equality to a certain type.
 
-        if ((action instanceof MoveAction) || (action instanceof
-                UseItemAction)) {
-
-            return action.isValid(game);
-
-        } else {
-
-            return false;
-
-        }
+        // Check if the the action sequence is valid and then if the action
+        // itself is valid.
+        return ((action instanceof MoveAction) || (action instanceof
+                UseItemAction)) && action.isValid(game);
 
     }
 
@@ -55,6 +43,8 @@ public enum TurnStartedState implements TurnState {
      *
      * + MovedToSafeState
      * + MovedToDangerState
+     * + FinishedState (Player escaped & Game finished)
+     * + TurnStarted (Player escaped & Game not finished)
      */
 
     @Override
@@ -63,4 +53,5 @@ public enum TurnStartedState implements TurnState {
         return (TurnState) action.execute(game);
 
     }
+
 }
