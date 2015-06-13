@@ -221,4 +221,38 @@ public class Player {
 
     }
 
+    /**
+     * Gets the number of humans killed by this player.
+     *
+     * @return the number of killed humans
+     */
+    public int getNumberOfKilledHumans() {
+
+        int count = 0;
+
+        for (Character character : kills) {
+            count += (character.getRace() == CharacterRace.HUMAN) ? 1 : 0;
+        }
+
+        return count;
+
+    }
+
+    /**
+     * Gets the number of aliens killed by this player.
+     *
+     * @return the number of killed aliens
+     */
+    public int getNumberOfKilledAliens() {
+
+        int count = 0;
+
+        for (Character character : kills) {
+            count += (character.getRace() == CharacterRace.ALIEN) ? 1 : 0;
+        }
+
+        return count;
+
+    }
+
 }
