@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
-import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
-import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
@@ -46,19 +45,11 @@ public interface Action {
     Object execute();
 
     /**
-     * Generates the response message to be sent to the client after the
-     * execution of the action.
+     * Returns both the private (response) and public (broadcast) result
+     * message pair after the execution of the action.
      *
-     * @return the private response message for the client
+     * @return the private and public result message pair
      */
-    ResponseMsg getResponseMessage();
-
-    /**
-     * Generates a message to be broadcasted to all the clients of the game
-     * after the execution of the action.
-     *
-     * @return the public broadcast message for all the clients
-     */
-    BroadcastMsg getBroadcastMessage();
+    ResultMsgPair getResult();
 
 }
