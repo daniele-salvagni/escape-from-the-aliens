@@ -11,7 +11,7 @@ import it.polimi.ingsw.cg_2.model.Game;
  */
 public class TurnMachine {
 
-    TurnState currentState;
+    TurnState state;
     Game game;
 
     /**
@@ -24,15 +24,15 @@ public class TurnMachine {
      */
     public ResultMsgPair executeAction(Action action) {
 
-        if (currentState.isActionValid(action, game)) {
+        if (state.isActionValid(action, game)) {
 
             // The next state of this FSM, if null the status should not change
             // (this keeps the FSM much more simple!)
-            TurnState nextState = currentState.executeAction(action, game);
+            TurnState nextState = state.executeAction(action, game);
 
             if (nextState != null) {
 
-                currentState = nextState;
+                state = nextState;
 
             }
 
@@ -43,8 +43,9 @@ public class TurnMachine {
         } else {
 
             // The action is NOT valid, inform the client and don't broadcast
-            // any message
-            return new ResultMsgPair(new InvalidRequestMsg(), null);
+            // any message. We inform that the problem is with the game rules
+            // (invalid sequence of actions or action parameters not allowed).
+            return new ResultMsgPair(new InvalidRequestMsg("RULE"), null);
 
         }
 
