@@ -11,8 +11,20 @@ import it.polimi.ingsw.cg_2.model.Game;
  */
 public class TurnMachine {
 
-    TurnState state;
-    Game game;
+    private TurnState state;
+    private final Game game;
+
+    /**
+     * Create a new TurnMachine that manages a certain Game.
+     *
+     * @param game the Game managed by this machine
+     */
+    public TurnMachine(Game game) {
+
+        this.game = game;
+        state = TurnStartedState.INSTANCE;
+
+    }
 
     /**
      * Execute an action on this FSM, the action acts like a transition and
