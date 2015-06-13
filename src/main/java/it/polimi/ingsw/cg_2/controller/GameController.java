@@ -5,7 +5,9 @@ import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg;
+import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.model.Game;
+import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 
 /**
  *
@@ -28,12 +30,24 @@ public class GameController {
      */
     public ResultMsgPair handleRequest(ActionRequestMsg request) {
 
-        // Create the appropriate action using the Visitor Pattern
-        Action action = request.createAction(actionFactory);
+        Action action;
 
-        // Execute the action and return a result message pair (private
-        // response + public broadcast)
-        return turnMachine.executeAction(action);
+        try {
+
+            // Create the appropriate action using the Visitor Pattern
+            action = request.createAction(actionFactory);
+
+            // Execute the action and return a result message pair (private
+            // response + public broadcast)
+            return turnMachine.executeAction(action);
+
+        } catch (InvalidMsgException e) {
+
+            // Notify the client that the message is not valid
+            return new ResultMsgPair(new InvalidRequestMsg("INVALID"), null);
+
+        }
+
 
     }
 
