@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.model.Game;
 
 /**
  * This class represents an atomic Action (like a command pattern) to be
@@ -21,7 +22,7 @@ public interface Action {
      *
      * @return true, if the atomic action is valid
      */
-    boolean isValid();
+    boolean isValid(Game game);
 
     /**
      * Executes the action. After the execution it does return the following

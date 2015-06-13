@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.model.Game;
 
 /**
  *
@@ -9,7 +10,7 @@ import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 public class MoveAction implements Action {
 
     @Override
-    public boolean isValid() {
+    public boolean isValid(Game game) {
 
         return false;
     }
