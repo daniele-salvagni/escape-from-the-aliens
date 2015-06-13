@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_2.controller.turn;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
-import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.model.Game;
@@ -43,7 +42,7 @@ public class TurnMachine {
 
         } else {
 
-            // The action is NOT valid, inform the clien and don't broadcast
+            // The action is NOT valid, inform the client and don't broadcast
             // any message
             return new ResultMsgPair(new InvalidRequestMsg(), null);
 
