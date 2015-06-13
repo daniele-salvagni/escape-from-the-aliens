@@ -15,7 +15,7 @@ public class UseItemAction implements Action {
     }
 
     @Override
-    public Object execute() {
+    public Object execute(Game game) {
 
         return null;
     }

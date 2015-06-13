@@ -5,7 +5,8 @@ import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 
 /**
  * This class contains both the private response and the public broadcast
- * message pair subsequent to a certain request.
+ * message pair subsequent to a certain request. (Implementation is similar to a
+ * Struct in other languages)
  */
 public class ResultMsgPair {
 

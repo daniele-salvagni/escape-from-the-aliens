@@ -17,8 +17,7 @@ public class TurnMachine {
 
     /**
      * Execute an action on this FSM, the action acts like a transition and
-     * will
-     * change its status.
+     * will change its status.
      *
      * @param action the action to execute
      * @return a pair of public and private messages containing the result of
@@ -44,7 +43,8 @@ public class TurnMachine {
 
         } else {
 
-            // The action is invalid, don't broadcast any message
+            // The action is NOT valid, inform the clien and don't broadcast
+            // any message
             return new ResultMsgPair(new InvalidRequestMsg(), null);
 
         }

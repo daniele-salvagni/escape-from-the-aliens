@@ -42,7 +42,7 @@ public interface Action {
      * @return the next TurnState of the state machine controlling the sequence
      * of actions
      */
-    Object execute();
+    Object execute(Game game);
 
     /**
      * Returns both the private (response) and public (broadcast) result

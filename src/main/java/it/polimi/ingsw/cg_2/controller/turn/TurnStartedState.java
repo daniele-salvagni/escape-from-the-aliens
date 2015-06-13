@@ -60,7 +60,7 @@ public enum TurnStartedState implements TurnState {
     @Override
     public TurnState executeAction(Action action, Game game) {
 
-        return (TurnState) action.execute();
+        return (TurnState) action.execute(game);
 
     }
 }
