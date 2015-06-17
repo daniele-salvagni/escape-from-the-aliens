@@ -5,7 +5,8 @@ import it.polimi.ingsw.cg_2.model.Game;
 
 /**
  * This is a state of the state machine that manages a game. It represents
- * the state where a Player did try to escape while being inside an hatch sector
+ * the state where a Player did try to escape while being inside an hatch
+ * sector
  * without success.
  */
 public class TriedToEscapeState extends TurnState {
@@ -26,7 +27,16 @@ public class TriedToEscapeState extends TurnState {
     @Override
     public boolean isActionValid(Action action, Game game) {
 
-        return false;
+        // Note: This is the correct usage of 'instanceof', using it to cast
+        // a multitude of objects to their correct type it is considered a
+        // bad practice, it is not for checking the equality to a certain type.
+
+        // Check if the the action sequence is valid and then if the action
+        // itself is valid.
+        return ((action instanceof PassAction) || (action instanceof
+                UseItemAction)) && action
+                .isValid();
+
     }
 
 }
