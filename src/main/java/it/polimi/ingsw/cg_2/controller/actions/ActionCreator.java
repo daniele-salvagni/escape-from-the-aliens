@@ -2,9 +2,12 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 /**
  * This interface must be implemented by every request message that involves
- * creating a new action to be performed on the game on the server side. This
- * allows an action factory to create the appropriate action from a message
- * without knowing the exact type of the message by using a visitor pattern.
+ * creating a new action
+ * ({@link it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg}) to
+ * be performed on the game on the server side.
+ * This allows an action factory to create the appropriate action from a
+ * message without knowing the exact type of the message by using a visitor
+ * pattern.
  */
 public interface ActionCreator {
 
