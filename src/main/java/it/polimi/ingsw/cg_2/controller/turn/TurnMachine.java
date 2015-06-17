@@ -5,11 +5,17 @@ import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.model.Game;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * This FSM manages the turns of a game (state pattern), Actions act as
  * transitions. Action validity should be checked before execution.
  */
 public class TurnMachine {
+
+    private static final Logger LOG = Logger.getLogger(TurnMachine.class
+            .getName());
 
     private TurnState state;
     private final Game game;
@@ -45,6 +51,9 @@ public class TurnMachine {
             if (nextState != null) {
 
                 state = nextState;
+                LOG.log(Level.INFO, "State changed to: " + state.getClass()
+                        .getSimpleName());
+
 
             }
 
