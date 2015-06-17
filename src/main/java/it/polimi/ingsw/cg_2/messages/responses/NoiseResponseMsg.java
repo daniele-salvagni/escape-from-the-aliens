@@ -1,7 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
 /**
- * A response message for the noiseAction. Contains only a confirmation about
+ * A response message for the NoiseAction. Contains only a confirmation about
  * the location of the noise.
  */
 public class NoiseResponseMsg implements ResponseMsg {
