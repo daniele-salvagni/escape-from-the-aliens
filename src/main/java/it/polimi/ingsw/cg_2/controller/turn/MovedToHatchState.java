@@ -31,7 +31,9 @@ public class MovedToHatchState extends TurnState {
 
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
-        return (action instanceof EscapeAction) && action.isValid();
+        return ((action instanceof PassAction) || (action instanceof
+                AttackAction) || (action instanceof UseItemAction)) && action
+                .isValid();
 
     }
 
