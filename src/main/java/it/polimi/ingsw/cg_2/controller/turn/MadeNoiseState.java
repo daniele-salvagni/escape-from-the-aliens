@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_2.controller.turn;
 import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.model.Game;
 
-public enum MadeNoise implements TurnState {
+public enum MadeNoiseState implements TurnState {
 
     INSTANCE;
 
