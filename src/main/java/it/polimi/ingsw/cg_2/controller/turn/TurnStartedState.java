@@ -9,12 +9,20 @@ import it.polimi.ingsw.cg_2.model.Game;
  * This is the initial state of the state machine that manages a Game. It
  * represents the beginning of the turn of a player.
  */
-public enum TurnStartedState implements TurnState {
+public class TurnStartedState extends TurnState {
 
-    INSTANCE;
+    private static final TurnStartedState INSTANCE = new TurnStartedState();
 
-    // Note: ENUM enforces the singleton property and it is better for
-    // serialization (if needed) over the classic singletons.
+    /**
+     * Get the instance of the TurnStartedState singleton class.
+     *
+     * @return the instance of the singleton
+     */
+    public TurnStartedState getInstance() {
+
+        return INSTANCE;
+
+    }
 
     /* From this state, it is possible to go to perform the following
      * transition
@@ -22,6 +30,13 @@ public enum TurnStartedState implements TurnState {
      *
      * + MoveAction
      * + UseItemAction (Always valid, does not change the FSM state)
+     *
+     * The possible subsequent states (determined by the execution of the
+     * transition action) could be:
+     *
+     * + MovedToSafeState
+     * + MovedToDangerState
+     * + MovedToHatchState
      */
 
     @Override
@@ -35,21 +50,6 @@ public enum TurnStartedState implements TurnState {
         // itself is valid.
         return ((action instanceof MoveAction) || (action instanceof
                 UseItemAction)) && action.isValid();
-
-    }
-
-    /* From this state, the possible subsequent states (determined by the
-     * execution of the transition action) could be:
-     *
-     * + MovedToSafeState
-     * + MovedToDangerState
-     * + MovedToHatchState
-     */
-
-    @Override
-    public TurnState executeAction(Action action, Game game) {
-
-        return (TurnState) action.execute();
 
     }
 

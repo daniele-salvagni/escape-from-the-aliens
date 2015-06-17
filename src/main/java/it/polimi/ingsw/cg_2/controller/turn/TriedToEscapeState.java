@@ -8,20 +8,25 @@ import it.polimi.ingsw.cg_2.model.Game;
  * the state where a Player did try to escape while being inside an hatch sector
  * without success.
  */
-public enum TriedToEscapeState implements TurnState {
+public class TriedToEscapeState extends TurnState {
 
-    INSTANCE;
+    public static final TriedToEscapeState INSTANCE = new TriedToEscapeState();
+
+    /**
+     * Get the instance of the TriedToEscapeState singleton class.
+     *
+     * @return the instance of the singleton
+     */
+    public TriedToEscapeState getInstance() {
+
+        return INSTANCE;
+
+    }
 
     @Override
     public boolean isActionValid(Action action, Game game) {
 
         return false;
-    }
-
-    @Override
-    public TurnState executeAction(Action action, Game game) {
-
-        return null;
     }
 
 }

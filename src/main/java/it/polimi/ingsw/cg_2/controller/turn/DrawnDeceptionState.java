@@ -8,20 +8,26 @@ import it.polimi.ingsw.cg_2.model.Game;
  * the state where a Player drawn a Deception card (so he must chose the
  * position where to make the noise).
  */
-public enum DrawnDeceptionState implements TurnState {
+public class DrawnDeceptionState extends TurnState {
 
-    INSTANCE;
+    private static final DrawnDeceptionState INSTANCE = new
+            DrawnDeceptionState();
+
+    /**
+     * Get the instance of the DrawnDeceptionState singleton class.
+     *
+     * @return the instance of the singleton
+     */
+    public DrawnDeceptionState getInstance() {
+
+        return INSTANCE;
+
+    }
 
     @Override
     public boolean isActionValid(Action action, Game game) {
 
         return false;
-    }
-
-    @Override
-    public TurnState executeAction(Action action, Game game) {
-
-        return null;
     }
 
 }

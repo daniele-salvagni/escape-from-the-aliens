@@ -7,20 +7,25 @@ import it.polimi.ingsw.cg_2.model.Game;
  * This is a state of the state machine that manages a game. It represents
  * the state where a Player performed an attack (successful or not).
  */
-public enum AttackedState implements TurnState {
+public class AttackedState extends TurnState {
 
-    INSTANCE;
+    public static final AttackedState INSTANCE = new AttackedState();
+
+    /**
+     * Get the instance of the AttackedState singleton class.
+     *
+     * @return the instance of the singleton
+     */
+    public AttackedState getInstance() {
+
+        return INSTANCE;
+
+    }
 
     @Override
     public boolean isActionValid(Action action, Game game) {
 
         return false;
-    }
-
-    @Override
-    public TurnState executeAction(Action action, Game game) {
-
-        return null;
     }
 
 }

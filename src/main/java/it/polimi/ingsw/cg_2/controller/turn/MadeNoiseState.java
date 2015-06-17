@@ -8,20 +8,25 @@ import it.polimi.ingsw.cg_2.model.Game;
  * the state where a Player has satisfied his Noise constraints after drawing a
  * card.
  */
-public enum MadeNoiseState implements TurnState {
+public class MadeNoiseState extends TurnState {
 
-    INSTANCE;
+    private static final MadeNoiseState INSTANCE = new MadeNoiseState();
+
+    /**
+     * Get the instance of the MadeNoiseState singleton class.
+     *
+     * @return the instance of the singleton
+     */
+    public MadeNoiseState getInstance() {
+
+        return INSTANCE;
+
+    }
 
     @Override
     public boolean isActionValid(Action action, Game game) {
 
         return false;
-    }
-
-    @Override
-    public TurnState executeAction(Action action, Game game) {
-
-        return null;
     }
 
 }
