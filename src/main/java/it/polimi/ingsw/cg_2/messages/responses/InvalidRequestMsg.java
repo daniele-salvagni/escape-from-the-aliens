@@ -37,4 +37,5 @@ public class InvalidRequestMsg implements ResponseMsg {
 
         return reason;
     }
+
 }
