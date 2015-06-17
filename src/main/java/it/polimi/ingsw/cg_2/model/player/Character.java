@@ -13,6 +13,7 @@ public class Character {
     private CharacterRace race;
     private Sector position;
     private boolean alive;
+    private boolean escaped;
 
     /**
      * Instantiates a new character in a given position and with a given rank
@@ -80,9 +81,31 @@ public class Character {
     /**
      * Sets the status of the character, true if alive or false if dead.
      *
-     * @param alive the new alive
+     * @param alive the new alive status
      */
     public void setAlive(boolean alive) {
+
+        this.alive = alive;
+
+    }
+
+    /**
+     * Checks if the character is escaped.
+     *
+     * @return true, if the character is escaped
+     */
+    public boolean isEscaped() {
+
+        return alive;
+
+    }
+
+    /**
+     * Sets the status of the character, true if escaped or false if not.
+     *
+     * @param alive the new escaped status
+     */
+    public void setEscaped(boolean alive) {
 
         this.alive = alive;
 
@@ -120,5 +143,7 @@ public class Character {
         return rank;
 
     }
+
+
 
 }
