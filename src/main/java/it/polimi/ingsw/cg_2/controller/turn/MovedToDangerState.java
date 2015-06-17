@@ -32,8 +32,7 @@ public class MovedToDangerState extends TurnState {
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
         return ((action instanceof DrawAction) || (action instanceof
-                AttackAction) || (action instanceof UseItemAction)) && action
-                .isValid();
+                UseItemAction)) && action.isValid();
 
     }
 
