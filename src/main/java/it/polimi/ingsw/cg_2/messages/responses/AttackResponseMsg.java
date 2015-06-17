@@ -19,6 +19,10 @@ public class AttackResponseMsg implements ResponseMsg {
      */
     public AttackResponseMsg(String coordinate, int[] kills) {
 
+        if (coordinate == null) {
+            throw new IllegalArgumentException("coordinate cannot be null.");
+        }
+
         this.coordinate = coordinate;
         this.kills = kills;
 
