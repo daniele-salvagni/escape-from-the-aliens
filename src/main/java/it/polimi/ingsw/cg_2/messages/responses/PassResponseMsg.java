@@ -1,23 +1,33 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
-import it.polimi.ingsw.cg_2.controller.actions.Action;
-import it.polimi.ingsw.cg_2.controller.turn.TurnState;
-import it.polimi.ingsw.cg_2.model.Game;
+/**
+ * A response message for the PassAction. Contains only a confirmation by
+ * sending the new turn number.
+ */
+public class PassResponseMsg implements ResponseMsg {
 
-public enum PassResponseMsg implements TurnState {
+    private final int newTurn;
 
-    INSTANCE;
+    /**
+     * Create a new PassResponseMsg.
+     *
+     * @param newTurn the new turn number
+     */
+    public PassResponseMsg(int newTurn) {
 
-    @Override
-    public boolean isActionValid(Action action, Game game) {
+        this.newTurn = newTurn;
 
-        return false;
     }
 
-    @Override
-    public TurnState executeAction(Action action, Game game) {
+    /**
+     * Get the new turn number
+     *
+     * @return the new turn number
+     */
+    public int getNewTurn() {
 
-        return null;
+        return newTurn;
+
     }
 
 }
