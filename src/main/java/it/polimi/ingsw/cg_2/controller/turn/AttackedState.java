@@ -7,7 +7,7 @@ import it.polimi.ingsw.cg_2.model.Game;
  * This is a state of the state machine that manages a game. It represents
  * the state where a Player performed an attack (successful or not).
  */
-public enum AttackedStatus implements TurnState {
+public enum AttackedState implements TurnState {
 
     INSTANCE;
 
