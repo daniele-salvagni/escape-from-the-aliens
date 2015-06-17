@@ -9,6 +9,14 @@ public class AttackResponseMsg implements ResponseMsg {
     private final String coordinate;
     private final int[] kills;
 
+    /**
+     * Create a new AttackResponseMsg. Coordinates are encoded in a string in
+     * the COL:ROW format, players by a number based on their turn order (from
+     * 0).
+     *
+     * @param coordinate the coordinate of the attack
+     * @param kills      the list of killed players
+     */
     public AttackResponseMsg(String coordinate, int[] kills) {
 
         this.coordinate = coordinate;
