@@ -8,6 +8,11 @@ public class NoiseResponseMsg implements ResponseMsg {
 
     private final String coordinate;
 
+    /**
+     * Create a nwe noiseRepsonseMsg.
+     *
+     * @param coordinate the position of the made noise
+     */
     public NoiseResponseMsg(String coordinate) {
 
         if (coordinate == null) {
@@ -20,6 +25,11 @@ public class NoiseResponseMsg implements ResponseMsg {
 
     }
 
+    /**
+     * Get the position of the made noise
+     *
+     * @return the position of the made noise
+     */
     public String getCoordinate() {
 
         return coordinate;
