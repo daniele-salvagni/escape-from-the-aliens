@@ -25,7 +25,14 @@ public class MovedToSafeState extends TurnState {
     @Override
     public boolean isActionValid(Action action, Game game) {
 
-        return false;
+        // Note: This is the correct usage of 'instanceof', using it to cast
+        // a multitude of objects to their correct type it is considered a
+        // bad practice, it is not for checking the equality to a certain type.
+
+        // Check if the the action sequence is valid and then if the action
+        // itself is valid.
+        return (action instanceof PassAction) && action.isValid();
+
     }
 
 }
