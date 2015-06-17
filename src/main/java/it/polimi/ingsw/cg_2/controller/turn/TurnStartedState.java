@@ -34,7 +34,7 @@ public enum TurnStartedState implements TurnState {
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
         return ((action instanceof MoveAction) || (action instanceof
-                UseItemAction)) && action.isValid(game);
+                UseItemAction)) && action.isValid();
 
     }
 
@@ -43,14 +43,13 @@ public enum TurnStartedState implements TurnState {
      *
      * + MovedToSafeState
      * + MovedToDangerState
-     * + FinishedState (Player escaped & Game finished)
-     * + TurnStarted (Player escaped & Game not finished)
+     * + MovedToHatchState
      */
 
     @Override
     public TurnState executeAction(Action action, Game game) {
 
-        return (TurnState) action.execute(game);
+        return (TurnState) action.execute();
 
     }
 
