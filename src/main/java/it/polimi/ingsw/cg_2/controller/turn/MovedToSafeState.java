@@ -4,7 +4,7 @@ import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
- * This is the state of the state machine that manages a game. It represents
+ * This is a state of the state machine that manages a game. It represents
  * the state where a Player has moved to a Safe Sector.
  */
 public enum MovedToSafeState implements TurnState {
