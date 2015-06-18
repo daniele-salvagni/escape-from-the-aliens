@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.model;
 
 import it.polimi.ingsw.cg_2.model.deck.*;
+import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.map.Zone;
 import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.noise.Noise;
@@ -210,6 +211,29 @@ public class Game {
     public void setCurrentPlayer(Player currentPlayer) {
 
         this.currentPlayer = currentPlayer;
+
+    }
+
+    /**
+     * Search for players in a specific coordinate.
+     *
+     * @param sector the sector where to search players
+     * @return a list of the players in that sector (could be empty)
+     */
+    public List<Player> getPlayersInSector(Sector sector) {
+
+        List<Player> playersFound = new ArrayList<>();
+
+        for (Player player : players) {
+
+            if (player.getCharacter().getPosition().getCooridnate().equals
+                    (sector.getCooridnate())) {
+                playersFound.add(player);
+            }
+
+        }
+
+        return playersFound;
 
     }
 
