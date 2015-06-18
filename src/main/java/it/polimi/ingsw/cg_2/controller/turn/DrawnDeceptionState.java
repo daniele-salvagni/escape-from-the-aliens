@@ -5,7 +5,7 @@ import it.polimi.ingsw.cg_2.model.Game;
 
 /**
  * This is a state of the state machine that manages a game. It represents
- * the state where a Player drawn a Deception card (so he must chose the
+ * the state where a Player drawn a Deception card (so he must choose the
  * position where to make the noise).
  */
 public class DrawnDeceptionState extends TurnState {
