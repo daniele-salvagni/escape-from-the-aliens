@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
+import it.polimi.ingsw.cg_2.controller.turn.MovedToDangerState;
+import it.polimi.ingsw.cg_2.controller.turn.MovedToHatchState;
 import it.polimi.ingsw.cg_2.controller.turn.MovedToSafeState;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
@@ -137,7 +139,7 @@ public class MoveAction extends Action {
         if (newSector.getType() == Sector.SectorType.SAFE) {
 
             // Safe sector, nothing happens, just change state
-            return MovedToSafeState.INSTANCE;
+            return MovedToSafeState.getInstance();
 
         } else if (newSector.getType() == Sector.SectorType.DANGEROUS) {
 
@@ -145,15 +147,20 @@ public class MoveAction extends Action {
             // - If no Sedatives item go to MovedToSafeState
             // - Otherwise go to MovedToDangerState
 
-            if (player.getActiveItems().contains()) // IMPLEMENTARE METODO
-            // CHE DICE SE UN PLAYER HA UNA CARTA DI UN CERTO TIPO
+            if (player.haveActiveItem(ItemCard.ItemCardType.SEDATIVES)) {
 
-                return MovedToDangerState.INSTANCE;
+                return MovedToSafeState.getInstance();
+
+            } else {
+
+                return MovedToDangerState.getInstance();
+
+            }
 
         } else {
 
             // Hatch sector, nothing happens, just change state
-            return MovedToHatchState.INSTANCE;
+            return MovedToHatchState.getInstance();
 
         }
 
