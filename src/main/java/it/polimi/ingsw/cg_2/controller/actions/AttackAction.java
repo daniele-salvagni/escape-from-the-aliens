@@ -14,7 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This action represents an attack of the player in his sector, it is created
+ * from a ActionFactoryVisitor when an AttackRequestMsg is received.
  */
 public class AttackAction extends Action {
 
@@ -24,6 +25,12 @@ public class AttackAction extends Action {
     private final Game game;
     private final Player player;
 
+    /**
+     * Creates a new AttackAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that attacks
+     */
     public AttackAction(Game game, Player player) {
 
         this.game = game;
