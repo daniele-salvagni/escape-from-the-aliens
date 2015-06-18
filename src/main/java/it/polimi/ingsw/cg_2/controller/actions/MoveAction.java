@@ -149,6 +149,8 @@ public class MoveAction extends Action {
 
             if (player.haveActiveItem(ItemCard.ItemCardType.SEDATIVES)) {
 
+                // Deactivate sedatives after moving
+                player.deactivateItem(ItemCard.ItemCardType.SEDATIVES);
                 return MovedToSafeState.getInstance();
 
             } else {
