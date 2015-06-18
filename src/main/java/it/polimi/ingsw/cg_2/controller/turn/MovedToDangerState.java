@@ -16,7 +16,7 @@ public class MovedToDangerState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public MovedToDangerState getInstance() {
+    public MovedToDangerState static getInstance() {
 
         return INSTANCE;
 

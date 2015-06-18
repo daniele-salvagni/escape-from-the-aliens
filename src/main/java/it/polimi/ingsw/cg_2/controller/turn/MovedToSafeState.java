@@ -16,7 +16,7 @@ public class MovedToSafeState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public MovedToSafeState getInstance() {
+    public static MovedToSafeState getInstance() {
 
         return INSTANCE;
 

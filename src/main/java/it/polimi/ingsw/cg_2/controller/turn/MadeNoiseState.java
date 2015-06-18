@@ -17,7 +17,7 @@ public class MadeNoiseState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public MadeNoiseState getInstance() {
+    public static MadeNoiseState getInstance() {
 
         return INSTANCE;
 

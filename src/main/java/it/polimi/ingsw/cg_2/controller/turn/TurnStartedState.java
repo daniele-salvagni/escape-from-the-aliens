@@ -18,7 +18,7 @@ public class TurnStartedState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public TurnStartedState getInstance() {
+    public static TurnStartedState getInstance() {
 
         return INSTANCE;
 

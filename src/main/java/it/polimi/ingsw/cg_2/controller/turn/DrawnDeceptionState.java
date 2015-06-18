@@ -18,7 +18,7 @@ public class DrawnDeceptionState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public DrawnDeceptionState getInstance() {
+    public static DrawnDeceptionState getInstance() {
 
         return INSTANCE;
 

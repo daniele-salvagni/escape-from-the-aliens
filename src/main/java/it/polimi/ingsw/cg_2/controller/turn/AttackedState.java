@@ -16,7 +16,7 @@ public class AttackedState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public AttackedState getInstance() {
+    public static AttackedState getInstance() {
 
         return INSTANCE;
 

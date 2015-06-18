@@ -18,7 +18,7 @@ public class TriedToEscapeState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public TriedToEscapeState getInstance() {
+    public static TriedToEscapeState getInstance() {
 
         return INSTANCE;
 

@@ -16,7 +16,7 @@ public class MovedToHatchState extends TurnState {
      *
      * @return the instance of the singleton
      */
-    public MovedToHatchState getInstance() {
+    public MovedToHatchState static getInstance() {
 
         return INSTANCE;
 
