@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.Deck;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard;
+import it.polimi.ingsw.cg_2.model.noise.Noise;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
 import java.util.logging.Logger;
@@ -56,8 +57,10 @@ public class DrawAction extends Action {
         Deck<SectorCard> sectorDeck = game.getSectorDeck();
         Deck<ItemCard> itemDeck = game.getItemDeck();
 
-        // Draw a Sector Card
+        // Draw a Sector Card, store it...
         SectorCard sectorCard = sectorDeck.drawCard();
+        // ... and put it back in the deck
+        sectorDeck.discardCard(sectorCard);
         ItemCard itemCard;
 
         // Check if the sector card contains an item
@@ -87,6 +90,10 @@ public class DrawAction extends Action {
 
         } else {
 
+            // Add the Noise to the list of noises
+            Noise noise = new Noise(player, player.getCharacter().getPosition
+                    (), game.getTurnNumber());
+            game.addNoise(noise);
             return MadeNoiseState.getInstance();
 
         }
