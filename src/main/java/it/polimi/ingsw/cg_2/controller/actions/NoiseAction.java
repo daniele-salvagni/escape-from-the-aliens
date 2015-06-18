@@ -9,7 +9,8 @@ import it.polimi.ingsw.cg_2.model.player.Player;
 import java.util.logging.Logger;
 
 /**
- *
+ * This action represents a noise made by the player in a certain sector, it is
+ * created from a ActionFactoryVisitor when a NoiseRequestMsg is received.
  */
 public class NoiseAction extends Action {
 
