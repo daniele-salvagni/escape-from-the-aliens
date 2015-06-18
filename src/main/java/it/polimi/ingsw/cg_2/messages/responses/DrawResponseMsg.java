@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  * A response message for the DrawAction. Contains information about the
  * type of the sector card and the item found (if any).
  */
-public class DrawResponseMsg {
+public class DrawResponseMsg implements ResponseMsg {
 
     private final String cardType;
     private final String itemType;
