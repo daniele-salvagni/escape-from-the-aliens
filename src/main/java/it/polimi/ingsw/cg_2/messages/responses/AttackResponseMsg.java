@@ -16,12 +16,17 @@ public class AttackResponseMsg implements ResponseMsg {
      * 0).
      *
      * @param coordinate the coordinate of the attack
-     * @param kills      the list of killed players
+     * @param kills      the list of killed players (can be empty)
+     * @param survivors  the list of survived player (can be empty)
      */
     public AttackResponseMsg(String coordinate, int[] kills, int[] survivors) {
 
         if (coordinate == null) {
             throw new IllegalArgumentException("coordinate cannot be null.");
+        } else if (kills == null) {
+            throw new IllegalArgumentException("kills cannot be null.");
+        } else if (survivors == null) {
+            throw new IllegalArgumentException("survivors cannot be null.");
         }
 
         this.coordinate = coordinate;
@@ -38,6 +43,7 @@ public class AttackResponseMsg implements ResponseMsg {
     public String getCoordinate() {
 
         return coordinate;
+
     }
 
     /**
@@ -48,6 +54,7 @@ public class AttackResponseMsg implements ResponseMsg {
     public int[] getKills() {
 
         return kills;
+
     }
 
     /**
@@ -59,5 +66,7 @@ public class AttackResponseMsg implements ResponseMsg {
     public int[] getSurvivors() {
 
         return survivors;
+
     }
+
 }
