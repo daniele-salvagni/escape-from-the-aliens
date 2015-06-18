@@ -204,4 +204,22 @@ public class GameTest {
 
     }
 
+    @Test
+    public void shouldGetEmptyPlayersInSector() {
+
+        // Get a generic safe sector from the Zone, it should be empty
+        Sector safeSector = game.getZone().getHatchSectors().iterator().next();
+
+        assertTrue(game.getPlayersInSector(safeSector).isEmpty());
+
+    }
+
+    @Test
+    public void shouldGetPlayersInSector() {
+
+        Sector humanSector = game.getZone().getHumanSector();
+        assertFalse(game.getPlayersInSector(humanSector).isEmpty());
+
+    }
+
 }
