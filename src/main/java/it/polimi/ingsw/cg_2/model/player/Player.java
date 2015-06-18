@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg_2.model.player;
 
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
+import it.polimi.ingsw.cg_2.model.deck.ItemCard.ItemCardType;
 import it.polimi.ingsw.cg_2.model.map.Sector;
+import sun.plugin.dom.exception.InvalidStateException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,6 +23,9 @@ public class Player {
     private final List<ItemCard> heldItems;
     private final List<Sector> history;
 
+    // Items activated by the player
+    private final List<ItemCardType> activeItems;
+
     /**
      * Instantiates a new player and give him a character to play with.
      *
@@ -36,6 +41,8 @@ public class Player {
         kills = new ArrayList<>();
         heldItems = new ArrayList<>();
         history = new ArrayList<>();
+
+        activeItems = new ArrayList<>();
 
     }
 
@@ -160,7 +167,7 @@ public class Player {
     }
 
     /**
-     * Give an {@link ItemCard} to the player.
+     * Gives an {@link ItemCard} to the player.
      *
      * @param item the new item
      */
@@ -171,14 +178,97 @@ public class Player {
     }
 
     /**
-     * Removes the item from the items held by the player.
+     * Checks if the player has an item of a certain type
      *
-     * @param item the item to remove from the player
-     * @return true, the player contained that item
+     * @param itemType the type of item to search for
+     * @return true, if the player has at least one item of that type
      */
-    public boolean removeItem(ItemCard item) {
+    public boolean haveItem(ItemCardType itemType) {
 
-        return heldItems.remove(item);
+        for (ItemCard card : heldItems) {
+            if (card.getType() == itemType) {
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Removes an item of a certain type from the items held by the player.
+     *
+     * @param itemType the type of the item to remove from the player
+     * @return the removed item, null if the player did not have the item
+     */
+    public ItemCard removeItem(ItemCardType itemType) {
+
+        for (ItemCard card : heldItems) {
+            if (card.getType() == itemType) {
+                heldItems.remove(card);
+                return card;
+            }
+        }
+
+        return null;
+
+    }
+
+    /**
+     * Get a list of the kinds of active items for this player, an
+     * unmodifiableList is returned to reduce mutability.
+     *
+     * @return the active items for this player
+     */
+    public List<ItemCardType> getActiveItems() {
+
+        /* Return an unmodifiable view of the list to reduce mutability. */
+        return Collections.unmodifiableList(activeItems);
+
+    }
+
+    /**
+     * Activates an item of a certain kind for this player.
+     *
+     * @param itemType the type of the item to activate
+     */
+    public void activateItem(ItemCardType itemType) {
+
+        activeItems.add(itemType);
+
+    }
+
+    /**
+     * Check if the player activated a certain item
+     *
+     * @param itemType the item type to check
+     * @return true, if the player activated the item
+     */
+    public boolean haveActiveItem(ItemCardType itemType) {
+
+        return activeItems.contains(itemType);
+
+    }
+
+    /**
+     * Deactivates an item of a certain kind for this player.
+     *
+     * @param itemType the type of the active item to activate
+     * @return true, if there was an active item of that type
+     */
+    public boolean deactivateItem(ItemCardType itemType) {
+
+        return activeItems.remove(itemType);
+
+    }
+
+    /**
+     * Removes all the active items for this player, typically this would be
+     * executed after the end of a player turn.
+     */
+    public void clearActiveItems() {
+
+        activeItems.clear();
 
     }
 

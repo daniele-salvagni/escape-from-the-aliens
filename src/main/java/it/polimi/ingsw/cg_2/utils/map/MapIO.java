@@ -2,7 +2,9 @@ package it.polimi.ingsw.cg_2.utils.map;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLDecoder;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +15,8 @@ import javax.imageio.ImageIO;
  * <p/>
  * The saved maps are in a format <b>easy to understand and edit</b> with the
  * most basic image processing software. Each sector is represented by a 2x2px
- * color square and each sector on an even column (counting from one) is shifted
+ * color square and each sector on an even column (counting from one) is
+ * shifted
  * down by 1px.
  * <p/>
  * Any standard RGB color can be used, however it is recommended not to use
@@ -30,7 +33,8 @@ public class MapIO {
     private static final int ARGB_BLACK = 0xFF000000;
 
     /**
-     * Suppress the default constructor for noninstantiability (Effective Java -
+     * Suppress the default constructor for noninstantiability (Effective Java
+     * -
      * Item 4).
      */
     private MapIO() {
@@ -47,6 +51,7 @@ public class MapIO {
      *
      * @param filePath the file path of the image map
      * @return a 2D array representing the map in offset coordinate system
+     *
      * @throws IOException Signals that an I/O exception has occurred.
      */
     public static int[][] loadMap(String filePath) throws IOException {
@@ -107,12 +112,14 @@ public class MapIO {
      *
      * @param filePath the path of the file to be loaded
      * @return a bidimensional array representing the image
+     *
      * @throws IOException Signals that an I/O exception has occurred.
      * @see BufferedImage#TYPE_INT_ARGB
      */
     private static int[][] loadImage(String filePath) throws IOException {
 
-        BufferedImage bufferImage = ImageIO.read(new File(filePath));
+        BufferedImage bufferImage = ImageIO.read(new File(URLDecoder.decode
+                (filePath, "UTF-8")));
 
         /* ImageIO returns null if the provided file is not a valid image. */
         if (bufferImage == null) {
@@ -159,7 +166,7 @@ public class MapIO {
             }
         }
 
-        File outputFile = new File(filePath);
+        File outputFile = new File(URLDecoder.decode(filePath, "UTF-8"));
         ImageIO.write(bufferImage, "png", outputFile);
 
     }
@@ -168,7 +175,8 @@ public class MapIO {
 
     /**
      * This method shifts up even columns of the hexagonal grid representation
-     * to remove the margins produced for better human understanding of possible
+     * to remove the margins produced for better human understanding of
+     * possible
      * movements. The returned pixel matrix is 1px less high than the one in
      * input.
      *
@@ -197,7 +205,8 @@ public class MapIO {
 
                 } else {
 
-                    /* Else, just copy the whole column except the last pixel. */
+                    /* Else, just copy the whole column except the last pixel
+                    . */
 
                     if (y != imageHeight - 1) {
                         newPixelMatrix[x][y] = pixelMatrix[x][y];
@@ -213,7 +222,8 @@ public class MapIO {
     }
 
     /**
-     * This method shifts down even columns of the hexagonal grid representation
+     * This method shifts down even columns of the hexagonal grid
+     * representation
      * to produce a human readable and modifiable image with a better
      * understanding of possible movements. The returned pixel matrix is 1px
      * higher than the one in input, margins are filled in black color.
