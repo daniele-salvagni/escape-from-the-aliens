@@ -24,6 +24,12 @@ public class DrawAction extends Action {
     private final Game game;
     private final Player player;
 
+    /**
+     * Creates a new DrawAction.
+     *
+     * @param game the game where to perform the action
+     * @param player the player that performs the action
+     */
     public DrawAction(Game game, Player player) {
 
         this.game = game;
