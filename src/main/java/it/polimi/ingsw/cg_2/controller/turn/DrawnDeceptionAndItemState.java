@@ -8,17 +8,17 @@ import it.polimi.ingsw.cg_2.model.Game;
  * the state where a Player drawn a Deception card and an Item card (so he must
  * choose the position where to make the noise).
  */
-public class DrawDeceptionAndItemState extends TurnState {
+public class DrawnDeceptionAndItemState extends TurnState {
 
-    private static final DrawDeceptionAndItemState INSTANCE = new
-            DrawDeceptionAndItemState();
+    private static final DrawnDeceptionAndItemState INSTANCE = new
+            DrawnDeceptionAndItemState();
 
     /**
-     * Get the instance of the DrawDeceptionAndItemState singleton class.
+     * Get the instance of the DrawnDeceptionAndItemState singleton class.
      *
      * @return the instance of the singleton
      */
-    public static DrawDeceptionAndItemState getInstance() {
+    public static DrawnDeceptionAndItemState getInstance() {
 
         return INSTANCE;
 
