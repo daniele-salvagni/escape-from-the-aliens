@@ -30,6 +30,13 @@ public class MoveAction extends Action {
     private final Player player;
     private final Sector newSector;
 
+    /**
+     * Creates a new MoveAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that moves
+     * @param newSector the destination of the movement
+     */
     protected MoveAction(Game game, Player player, Sector newSector) {
 
         this.game = game;

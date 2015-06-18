@@ -10,10 +10,12 @@ import it.polimi.ingsw.cg_2.model.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * This action represents an attack of the player in his sector, it is created
+ * from a ActionFactoryVisitor when an AttackRequestMsg is received.
  */
 public class AttackAction extends Action {
 
@@ -23,6 +25,12 @@ public class AttackAction extends Action {
     private final Game game;
     private final Player player;
 
+    /**
+     * Creates a new AttackAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that attacks
+     */
     public AttackAction(Game game, Player player) {
 
         this.game = game;
@@ -49,6 +57,18 @@ public class AttackAction extends Action {
     @Override
     public Object execute() {
 
+        /* These situations could happen only by programming errors, we don't
+         want to recover from that. */
+        if (super.hasBeenExecuted()) {
+            throw new AssertionError("An action should be executed only once");
+        } else if (!isValid()) {
+            throw new AssertionError("An action should be executed only if " +
+                    "valid");
+        }
+
+        // Set this action as executed, so it cannot be executed another time
+        super.setExecuted();
+
         List<Player> playersKilled = new ArrayList<>();
         List<Player> playersSurvived = new ArrayList<>();
 
@@ -72,15 +92,25 @@ public class AttackAction extends Action {
             if (playerToKill.haveItem(ItemCard.ItemCardType.DEFENSE)) {
 
                 playerToKill.deactivateItem(ItemCard.ItemCardType.DEFENSE);
+                // Update list of survived players
+                playersSurvived.add(playerToKill);
+                LOG.log(Level.INFO, "A player used DEFENSE.");
 
             } else {
 
                 player.addKill(playerToKill.getCharacter());
                 killPlayer(playerToKill);
+                // Update list of killed players
+                playersKilled.add(playerToKill);
+                LOG.log(Level.INFO, "A player has been killed.");
 
             }
 
         }
+
+        // Create a response result for this action,
+        setMessagePair(ResponseFactory.attackResponse(game, player,
+                attackSector, playersKilled, playersSurvived));
 
         return AttackedState.getInstance();
 
