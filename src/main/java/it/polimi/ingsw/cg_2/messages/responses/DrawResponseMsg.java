@@ -13,6 +13,7 @@ public class DrawResponseMsg {
      * Creates a new DrawResponseMsg.
      *
      * @param cardType the type of the drawn card
+     * @param itemType the type of the item found (can be null)
      */
     public DrawResponseMsg(String cardType, String itemType) {
 
