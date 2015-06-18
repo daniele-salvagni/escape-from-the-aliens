@@ -4,7 +4,9 @@ import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
- *
+ * This is a state of the state machine that manages a game. It represents
+ * the state where a Player drawn a Deception card and an Item card (so he must
+ * choose the position where to make the noise).
  */
 public class DrawDeceptionAndItemState extends TurnState {
 
