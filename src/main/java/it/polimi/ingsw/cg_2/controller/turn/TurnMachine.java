@@ -28,7 +28,7 @@ public class TurnMachine {
     public TurnMachine(Game game) {
 
         this.game = game;
-        state = TurnStartedState.INSTANCE;
+        state = TurnStartedState.getInstance();
 
     }
 
