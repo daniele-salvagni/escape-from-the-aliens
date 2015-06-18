@@ -1,7 +1,9 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
+import it.polimi.ingsw.cg_2.messages.broadcast.AttackBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.responses.AttackResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.MoveResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.model.Game;
@@ -41,7 +43,7 @@ public class ResponseFactory {
     }
 
     protected static ResultMsgPair attackResponse(Game game, Player attacker,
-            Sector position, Player... kills) {
+            Sector position, List<Player> kills, List<Player> survivors) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -53,14 +55,21 @@ public class ResponseFactory {
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-        int[] killsInt = new int[kills.length];
-        for (int i = 0; i < kills.length; i++) {
-            killsInt[i] = players.indexOf(kills[i]);
+        int[] killsInt = new int[kills.size()];
+        int[] survivorsInt = new int[survivors.size()];
+
+        for (int i = 0; i < kills.size(); i++) {
+            killsInt[i] = players.indexOf(kills.get(i));
         }
 
-        responseMsg = new AttackResponse(coordinateStr, killsInt);
-        broadcastMsg = new AttackBroadcast(attackerInt, coordinateStr,
-                killsInt);
+        for (int i = 0; i < survivors.size(); i++) {
+            survivorsInt[i] = players.indexOf(survivors.get(i));
+        }
+
+        responseMsg = new AttackResponseMsg(coordinateStr, killsInt,
+                survivorsInt);
+        broadcastMsg = new AttackBroadcastMsg(attackerInt, coordinateStr,
+                killsInt, survivorsInt);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
