@@ -183,7 +183,7 @@ public class Player {
      * @param itemType the type of item to search for
      * @return true, if the player has at least one item of that type
      */
-    public boolean hasItem(ItemCardType itemType) {
+    public boolean haveItem(ItemCardType itemType) {
 
         for (ItemCard card : heldItems) {
             if (card.getType() == itemType) {
@@ -235,6 +235,12 @@ public class Player {
     public void activateItem(ItemCardType itemType) {
 
         activeItems.add(itemType);
+
+    }
+
+    public boolean haveActiveItem(ItemCardType itemType) {
+
+        return activeItems.contains(itemType);
 
     }
 
