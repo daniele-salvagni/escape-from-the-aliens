@@ -238,6 +238,12 @@ public class Player {
 
     }
 
+    /**
+     * Check if the player activated a certain item
+     *
+     * @param itemType the item type to check
+     * @return true, if the player activated the item
+     */
     public boolean haveActiveItem(ItemCardType itemType) {
 
         return activeItems.contains(itemType);
