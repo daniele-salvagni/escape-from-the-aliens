@@ -141,8 +141,14 @@ public class MoveAction extends Action {
 
         } else if (newSector.getType() == Sector.SectorType.DANGEROUS) {
 
-            // Dangerous sector, nothing happens, just change state
-            return MovedToDangerState.INSTANCE;
+            // Dangerous sector, nothing happens, just change state:
+            // - If no Sedatives item go to MovedToSafeState
+            // - Otherwise go to MovedToDangerState
+
+            if (player.getActiveItems().contains()) // IMPLEMENTARE METODO
+            // CHE DICE SE UN PLAYER HA UNA CARTA DI UN CERTO TIPO
+
+                return MovedToDangerState.INSTANCE;
 
         } else {
 
