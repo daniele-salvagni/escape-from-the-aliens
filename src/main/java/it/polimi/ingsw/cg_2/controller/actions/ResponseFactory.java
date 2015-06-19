@@ -341,4 +341,38 @@ public class ResponseFactory {
 
     }
 
+    protected static ResultMsgPair useSptItemResponseMsg(Game game, Player
+            player, Sector position, List<Player> spottedPlayers) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        String coordinateStr = position.getCooridnate().getX() + ":" +
+                position.getCooridnate().getZ();
+
+        Map<Integer, String> spottedPlayersIntMap = new HashMap<>();
+
+        for (Player spotted : spottedPlayers) {
+
+            int spottedInt = game.getPlayerNumber(spotted);
+            Sector spottedPos = spotted.getCharacter().getPosition();
+            String spottedCoordStr = spottedPos.getCooridnate().getX() + ":" +
+                    spottedPos.getCooridnate().getZ();
+
+            spottedPlayersIntMap.put(spottedInt, spottedCoordStr);
+
+        }
+
+        responseMsg = new UseSptItemResponseMsg(coordinateStr,
+                spottedPlayersIntMap);
+        broadcastMsg = new UseSptItemBroadcastMsg(playerInt, coordinateStr,
+                spottedPlayersIntMap);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+
 }
