@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_2.messages.broadcast;
 /**
  *
  */
-public class UseSdtItemBroadcastMsg {
+public class UseSdtItemBroadcastMsg implements BroadcastMsg {
 
     int player;
 
