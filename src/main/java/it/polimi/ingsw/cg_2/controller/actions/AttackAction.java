@@ -128,7 +128,7 @@ public class AttackAction extends Action {
 
         for (ItemCard card : playerCards) {
 
-            player.removeItem(card.getType());
+            player.removeItem(card);
             itemDeck.discardCard(card);
 
         }
