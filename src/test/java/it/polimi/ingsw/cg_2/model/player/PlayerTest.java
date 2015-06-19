@@ -172,6 +172,17 @@ public class PlayerTest {
     }
 
     @Test
+    public void shouldRemoveSpecificItem() {
+
+        ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
+        player.giveItem(card);
+
+        assertTrue(player.removeItem(card));
+        assertTrue(player.getHeldItems().isEmpty());
+
+    }
+
+    @Test
     public void shouldReturnTrueIfPlayerHaveAnItem() {
 
         ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);

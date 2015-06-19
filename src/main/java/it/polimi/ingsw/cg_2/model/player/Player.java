@@ -214,6 +214,18 @@ public class Player {
     }
 
     /**
+     * Removes a specific item of from the items held by the player.
+     *
+     * @param item the item to remove from the player
+     * @return true, null if the player had the item
+     */
+    public boolean removeItem(ItemCard item) {
+
+        return heldItems.remove(item);
+
+    }
+
+    /**
      * Get a list of the kinds of active items for this player, an
      * unmodifiableList is returned to reduce mutability.
      *
