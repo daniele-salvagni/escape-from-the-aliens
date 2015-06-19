@@ -1,5 +1,9 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+
 /**
  * A response message for the AttackAction. Contains information about the
  * position and the made kills.
@@ -7,8 +11,8 @@ package it.polimi.ingsw.cg_2.messages.responses;
 public class AttackResponseMsg implements ResponseMsg {
 
     private final String coordinate;
-    private final int[] kills;
-    private final int[] survivors;
+    private final Map<Integer, String> kills;
+    private final List<Integer> survivors;
 
     /**
      * Create a new AttackResponseMsg. Coordinates are encoded in a string in
@@ -16,10 +20,11 @@ public class AttackResponseMsg implements ResponseMsg {
      * 0).
      *
      * @param coordinate the coordinate of the attack
-     * @param kills      the list of killed players (can be empty)
+     * @param kills      the map of killed players and their race (can be empty)
      * @param survivors  the list of survived player (can be empty)
      */
-    public AttackResponseMsg(String coordinate, int[] kills, int[] survivors) {
+    public AttackResponseMsg(String coordinate, Map<Integer, String> kills,
+            List<Integer> survivors) {
 
         if (coordinate == null) {
             throw new IllegalArgumentException("coordinate cannot be null.");
@@ -47,13 +52,13 @@ public class AttackResponseMsg implements ResponseMsg {
     }
 
     /**
-     * Get the list of killed players (could be empty).
+     * Get the map of killed players and their race (could be empty).
      *
-     * @return the list of killed players
+     * @return the map of killed players (an unmodifiable view)
      */
-    public int[] getKills() {
+    public Map<Integer, String> getKills() {
 
-        return kills;
+        return Collections.unmodifiableMap(kills);
 
     }
 
@@ -61,11 +66,11 @@ public class AttackResponseMsg implements ResponseMsg {
      * Get the list of survived players that used a defense card (could be
      * empty).
      *
-     * @return the list of survived players
+     * @return the list of survived players (an unmodifiable view)
      */
-    public int[] getSurvivors() {
+    public List<Integer> getSurvivors() {
 
-        return survivors;
+        return Collections.unmodifiableList(survivors);
 
     }
 
