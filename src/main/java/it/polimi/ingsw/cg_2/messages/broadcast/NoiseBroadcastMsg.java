@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_2.messages.broadcast;
 /**
  *
  */
-public class NoiseBroadcastMsg {
+public class NoiseBroadcastMsg implements BroadcastMsg {
 
     private final int player;
     private final String cardType;
