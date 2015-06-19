@@ -1,6 +1,5 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
-import it.polimi.ingsw.cg_2.controller.turn.AttackedState;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.Deck;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
@@ -14,43 +13,19 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * This action represents an attack of the player in his sector, it is created
- * from a ActionFactoryVisitor when an AttackRequestMsg is received.
+ * This action represents an attack of the player in his sector (using an
+ * item), it is created from a ActionFactoryVisitor when an
+ * UseAtkItemRequestMsg is received.
  */
-public class AttackAction extends Action {
+public class UseAtkItemAction extends UseItemAction {
 
-    private static final Logger LOG = Logger.getLogger(AttackAction.class
+    private static final Logger LOG = Logger.getLogger(UseAtkItemAction.class
             .getName());
 
-    private final Game game;
-    private final Player player;
+    public UseAtkItemAction(Game game, Player player, ItemCard.ItemCardType
+            itemType) {
 
-    /**
-     * Creates a new AttackAction.
-     *
-     * @param game   the game where to execute the action
-     * @param player the player that attacks
-     */
-    public AttackAction(Game game, Player player) {
-
-        this.game = game;
-        this.player = player;
-
-    }
-
-    @Override
-    public boolean isValid() {
-
-        // ALIENS can attack, HUMANS no.
-        if (player.getCharacter().getRace() == CharacterRace.ALIEN) {
-
-            return true;
-
-        } else {
-
-            return false;
-
-        }
+        super(game, player, itemType);
 
     }
 
@@ -69,14 +44,20 @@ public class AttackAction extends Action {
         // Set this action as executed, so it cannot be executed another time
         super.setExecuted();
 
+        // Remove the item from the player and put it back in the deck
+        Deck<ItemCard> itemDeck = getGame().getItemDeck();
+        ItemCard item = getPlayer().removeItem(getItemType());
+        itemDeck.discardCard(item);
+
         List<Player> playersKilled = new ArrayList<>();
         List<Player> playersSurvived = new ArrayList<>();
 
-        Sector attackSector = player.getCharacter().getPosition();
-        List<Player> playersInSector = game.getPlayersInSector(attackSector);
+        Sector attackSector = getPlayer().getCharacter().getPosition();
+        List<Player> playersInSector = getGame().getPlayersInSector
+                (attackSector);
 
         // Remove the current player from the list (he cannot kill himself)
-        playersInSector.remove(player);
+        playersInSector.remove(getPlayer());
 
         // Remove escaped and already dead players
         for (Player player : playersInSector) {
@@ -85,8 +66,6 @@ public class AttackAction extends Action {
                 playersInSector.remove(player);
             }
         }
-
-        Deck<ItemCard> itemDeck = game.getItemDeck();
 
         for (Player playerToKill : playersInSector) {
 
@@ -108,7 +87,7 @@ public class AttackAction extends Action {
 
             } else {
 
-                player.addKill(playerToKill.getCharacter());
+                getPlayer().addKill(playerToKill.getCharacter());
                 killPlayer(playerToKill);
                 // Update list of killed players
                 playersKilled.add(playerToKill);
@@ -119,16 +98,16 @@ public class AttackAction extends Action {
         }
 
         // Create a response result for this action,
-        setMessagePair(ResponseFactory.attackResponse(game, player,
-                attackSector, playersKilled, playersSurvived));
+        setMessagePair(ResponseFactory.useAtkItemResponse(getGame(),
+                getPlayer(), attackSector, playersKilled, playersSurvived));
 
-        return AttackedState.getInstance();
+        return null;
 
     }
 
     private void killPlayer(Player playerToKill) {
 
-        Deck<ItemCard> itemDeck = game.getItemDeck();
+        Deck<ItemCard> itemDeck = getGame().getItemDeck();
 
         playerToKill.getCharacter().setAlive(false);
         // Activated items have already been put back into the Item deck
@@ -138,7 +117,7 @@ public class AttackAction extends Action {
 
         for (ItemCard card : playerCards) {
 
-            player.removeItem(card);
+            getPlayer().removeItem(card);
             itemDeck.discardCard(card);
 
         }
