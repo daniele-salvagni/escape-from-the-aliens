@@ -3,10 +3,7 @@ package it.polimi.ingsw.cg_2.controller.actions;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.broadcast.AttackBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
-import it.polimi.ingsw.cg_2.messages.responses.AttackResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.DrawResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.MoveResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.messages.responses.*;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard;
@@ -60,9 +57,7 @@ public class ResponseFactory {
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
 
-        List<Player> players = game.getPlayers();
-
-        int attackerInt = players.indexOf(attacker);
+        int attackerInt = game.getPlayerNumber(attacker);
 
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
@@ -71,11 +66,11 @@ public class ResponseFactory {
         int[] survivorsInt = new int[survivors.size()];
 
         for (int i = 0; i < kills.size(); i++) {
-            killsInt[i] = players.indexOf(kills.get(i));
+            killsInt[i] = game.getPlayerNumber(kills.get(i));
         }
 
         for (int i = 0; i < survivors.size(); i++) {
-            survivorsInt[i] = players.indexOf(survivors.get(i));
+            survivorsInt[i] = game.getPlayerNumber(survivors.get(i));
         }
 
         responseMsg = new AttackResponseMsg(coordinateStr, killsInt,
@@ -100,17 +95,13 @@ public class ResponseFactory {
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
 
-        List<Player> players;
         int playerInt;
         String cardTypeStr;
         String itemTypeStr;
         boolean foundItemBool;
         String coordinateStr;
 
-
-        players = game.getPlayers();
-
-        playerInt = players.indexOf(player);
+        playerInt = game.getPlayerNumber(player);
         cardTypeStr = sectorCard.getType().name();
 
         if (itemCard != null) {
@@ -138,6 +129,40 @@ public class ResponseFactory {
             broadcastMsg = new NoiseBroadcastMsg(playerInt, cardTypeStr,
                     null, foundItemBool);
         }
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+    /**
+     *
+     * @param game
+     * @param player
+     * @param position
+     * @param item
+     * @return
+     */
+    protected static ResultMsgPair noiseResponse(Game game, Player player,
+            Sector position, boolean item) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt;
+        String cardTypeStr;
+        String coordinateStr;
+
+        playerInt = game.getPlayerNumber(player);
+        // We don't broadcast the fact that it was a deception noise, only
+        // that it is a "NOISE"
+        cardTypeStr = SectorCard.SectorCardType.NOISE.name();
+        coordinateStr = position.getCooridnate().getX() + ":" +
+                position.getCooridnate().getZ();
+
+        responseMsg = new NoiseResponseMsg(coordinateStr);
+
+        broadcastMsg = new NoiseBroadcastMsg(playerInt, cardTypeStr,
+                coordinateStr, item);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
