@@ -237,5 +237,17 @@ public class Game {
 
     }
 
+    /**
+     * Gets the number of a certain player (based on the players order)
+     *
+     * @param player the player
+     * @return the number of the player
+     */
+    public int getPlayerNumber(Player player) {
+
+        return players.indexOf(player);
+
+    }
+
 }
 
