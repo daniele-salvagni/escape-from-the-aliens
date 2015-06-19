@@ -10,6 +10,7 @@ public class EscapeResponseMsg implements ResponseMsg {
 
     private final String cardType;
     private final String position;
+    private final int newTurn;
     private final int nextPlayer;
 
     /**
@@ -20,11 +21,12 @@ public class EscapeResponseMsg implements ResponseMsg {
      * @param nextPlayer the next player that will take the turn (if the card
      *                   was GREEN and the player escaped).
      */
-    public EscapeResponseMsg(String cardType, String position,
+    public EscapeResponseMsg(String cardType, String position, int newTurn,
             int nextPlayer) {
 
         this.cardType = cardType;
         this.position = position;
+        this.newTurn = newTurn
         this.nextPlayer = nextPlayer;
 
     }
@@ -48,6 +50,17 @@ public class EscapeResponseMsg implements ResponseMsg {
     public String getPosition() {
 
         return position;
+
+    }
+
+    /**
+     * Get the next turn number.
+     *
+     * @return the new turn number, -1 if the card was GREEN
+     */
+    public int getNewTurn() {
+
+        return newTurn;
 
     }
 
