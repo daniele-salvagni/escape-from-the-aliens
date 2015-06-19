@@ -55,6 +55,7 @@ public class UseSdtItemAction extends UseItemAction {
         setMessagePair(ResponseFactory.useSdtItemResponse(getGame(),
                 getPlayer()));
 
+        // Does not change the state
         return null;
 
     }

@@ -106,6 +106,7 @@ public class UseAtkItemAction extends UseItemAction {
         setMessagePair(ResponseFactory.useAtkItemResponse(getGame(),
                 getPlayer(), attackSector, playersKilled, playersSurvived));
 
+        // Does not change the state
         return null;
 
     }

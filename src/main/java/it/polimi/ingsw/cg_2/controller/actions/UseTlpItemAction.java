@@ -55,6 +55,7 @@ public class UseTlpItemAction extends UseItemAction {
         setMessagePair(ResponseFactory.useTlpItemResponse(getGame(),
                 getPlayer()));
 
+        // Does not change the state
         return null;
 
     }
