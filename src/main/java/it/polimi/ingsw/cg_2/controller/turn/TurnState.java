@@ -41,6 +41,7 @@ public abstract class TurnState {
 
         }
 
+        // Note: Null can be casted to any object type, so this is ok.
         return (TurnState) action.execute();
 
     }
