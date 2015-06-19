@@ -26,7 +26,7 @@ public class EscapeResponseMsg implements ResponseMsg {
 
         this.cardType = cardType;
         this.position = position;
-        this.newTurn = newTurn
+        this.newTurn = newTurn;
         this.nextPlayer = nextPlayer;
 
     }
