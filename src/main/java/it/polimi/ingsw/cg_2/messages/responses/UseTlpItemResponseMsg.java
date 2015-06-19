@@ -5,7 +5,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  */
 public class UseTlpItemResponseMsg implements ResponseMsg {
 
-    String coordinate;
+    private final String coordinate;
 
     public UseTlpItemResponseMsg(String coordinate) {
 
