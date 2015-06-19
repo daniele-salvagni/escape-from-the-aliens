@@ -293,7 +293,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useTlpItemResponseMsg(Game game, Player
+    protected static ResultMsgPair useTlpItemResponse(Game game, Player
             player) {
 
         ResponseMsg responseMsg;
@@ -311,7 +311,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useSdtItemResponseMsg(Game game, Player
+    protected static ResultMsgPair useSdtItemRespons(Game game, Player
             player) {
 
         ResponseMsg responseMsg;
@@ -326,7 +326,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useAdrItemResponseMsg(Game game, Player
+    protected static ResultMsgPair useAdrItemResponse(Game game, Player
             player) {
 
         ResponseMsg responseMsg;
@@ -341,7 +341,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useSptItemResponseMsg(Game game, Player
+    protected static ResultMsgPair useSptItemResponse(Game game, Player
             player, Sector position, List<Player> spottedPlayers) {
 
         ResponseMsg responseMsg;
