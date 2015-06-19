@@ -24,6 +24,14 @@ import java.util.Map;
 public class ResponseFactory {
 
     /**
+     * Suppress the default constructor for noninstantiability.
+     */
+    private ResponseFactory() {
+
+        throw new AssertionError();
+    }
+
+    /**
      * Create a {@link ResultMsgPair} for a {@link MoveAction}
      *
      * @param newPosition the sector destination of the move
