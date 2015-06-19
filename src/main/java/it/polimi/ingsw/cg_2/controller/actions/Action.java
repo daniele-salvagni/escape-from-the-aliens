@@ -92,6 +92,15 @@ public abstract class Action {
      */
     protected void setExecuted() {
 
+        /* These situations could happen only by programming errors, we don't
+         want to recover from that. */
+        if (hasBeenExecuted()) {
+            throw new AssertionError("An action should be executed only once");
+        } else if (!isValid()) {
+            throw new AssertionError("An action should be executed only if " +
+                    "valid");
+        }
+
         executed = true;
 
     }

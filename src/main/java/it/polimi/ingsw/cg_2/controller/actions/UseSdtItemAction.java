@@ -31,15 +31,6 @@ public class UseSdtItemAction extends UseItemAction {
     @Override
     public Object execute() {
 
-        /* These situations could happen only by programming errors, we don't
-         want to recover from that. */
-        if (super.hasBeenExecuted()) {
-            throw new AssertionError("An action should be executed only once");
-        } else if (!isValid()) {
-            throw new AssertionError("An action should be executed only if " +
-                    "valid");
-        }
-
         // Set this action as executed, so it cannot be executed another time
         super.setExecuted();
 
