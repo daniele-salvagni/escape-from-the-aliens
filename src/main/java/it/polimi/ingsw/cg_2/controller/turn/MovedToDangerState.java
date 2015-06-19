@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.turn;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
+import it.polimi.ingsw.cg_2.controller.actions.DrawAction;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
