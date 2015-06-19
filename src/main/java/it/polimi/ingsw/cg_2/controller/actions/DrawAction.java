@@ -10,6 +10,7 @@ import it.polimi.ingsw.cg_2.model.deck.SectorCard;
 import it.polimi.ingsw.cg_2.model.noise.Noise;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -27,7 +28,7 @@ public class DrawAction extends Action {
     /**
      * Creates a new DrawAction.
      *
-     * @param game the game where to perform the action
+     * @param game   the game where to perform the action
      * @param player the player that performs the action
      */
     public DrawAction(Game game, Player player) {
@@ -69,11 +70,15 @@ public class DrawAction extends Action {
         sectorDeck.discardCard(sectorCard);
         ItemCard itemCard;
 
+        LOG.log(Level.INFO, "Player drawn " + sectorCard.getType().name());
+
         // Check if the sector card contains an item
         if (sectorCard.containsItem()) {
             // Draw an item card and give it to the player
             itemCard = itemDeck.drawCard();
             player.giveItem(itemCard);
+            LOG.log(Level.INFO, "Player found item " + itemCard.getType()
+                    .name());
         } else {
             itemCard = null;
         }
