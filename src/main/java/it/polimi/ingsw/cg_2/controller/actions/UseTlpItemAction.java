@@ -16,6 +16,12 @@ public class UseTlpItemAction extends UseItemAction {
     private static final Logger LOG = Logger.getLogger(UseTlpItemAction.class
             .getName());
 
+    /**
+     * Create a new UseTlpActionMsg
+     *
+     * @param game the game where to execute the action
+     * @param player the player that executes the action
+     */
     public UseTlpItemAction(Game game, Player player) {
 
         super(game, player, ItemCard.ItemCardType.TELEPORT);
