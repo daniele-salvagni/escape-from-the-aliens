@@ -269,8 +269,17 @@ public class ResponseFactory {
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-        Map<Integer, String> killsIntMap = new HashMap<>();
         List<Integer> survivorsIntList = new ArrayList<>();
+        Map<Integer, String> killsIntMap = new HashMap<>();
+
+        if (survivors != null) {
+            for (Player survivor : survivors) {
+
+                int survivorInt = game.getPlayerNumber(survivor);
+                survivorsIntList.add(survivorInt);
+
+            }
+        }
 
         if (kills != null) {
             for (Player kill : kills) {
@@ -282,14 +291,7 @@ public class ResponseFactory {
             }
         }
 
-        if (survivors != null) {
-            for (Player survivor : survivors) {
 
-                int survivorInt = game.getPlayerNumber(survivor);
-                survivorsIntList.add(survivorInt);
-
-            }
-        }
 
         responseMsg = new UseAtkItemResponseMsg(coordinateStr, killsIntMap,
                 survivorsIntList);
