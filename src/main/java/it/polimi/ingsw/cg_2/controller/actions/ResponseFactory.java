@@ -5,6 +5,7 @@ import it.polimi.ingsw.cg_2.messages.broadcast.AttackBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.responses.*;
 import it.polimi.ingsw.cg_2.model.Game;
+import it.polimi.ingsw.cg_2.model.deck.HatchCard;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard;
 import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
@@ -135,7 +136,6 @@ public class ResponseFactory {
     }
 
     /**
-     *
      * @param game
      * @param player
      * @param position
@@ -168,5 +168,45 @@ public class ResponseFactory {
 
     }
 
+    /**
+     * @param game
+     * @param player
+     * @param hatchCard
+     * @param nextPlayer null
+     * @return
+     */
+    protected static ResultMsgPair escapeResponse(Game game, Player player,
+            HatchCard hatchCard, Player nextPlayer) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt;
+        String cardTypeStr;
+        String coordinateStr;
+        int nextPlayerInt;
+
+        Sector position = player.getCharacter().getPosition();
+
+        playerInt = game.getPlayerNumber(player);
+        cardTypeStr = hatchCard.getType().name();
+        coordinateStr = position.getCooridnate().getX() + ":" +
+                position.getCooridnate().getZ();
+
+        if (nextPlayer != null) {
+            nextPlayerInt = game.getPlayerNumber(nextPlayer);
+        } else {
+            nextPlayerInt = -1;
+        }
+
+        responseMsg = new EscapeResponseMsg(cardTypeStr, coordinateStr,
+                nextPlayerInt);
+
+        broadcastMsg = new EscapeBroadcastMsg(playerInt, cardTypeStr,
+                coordinateStr, nextPlayerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
 
 }
