@@ -10,6 +10,7 @@ import it.polimi.ingsw.cg_2.model.player.CharacterRace;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -82,6 +83,13 @@ public class EscapeAction extends Action {
             Player nextPlayer = escape(player);
             game.setCurrentPlayer(nextPlayer);
 
+            LOG.log(Level.INFO, "Player " + game.getPlayerNumber
+                    (player) + " found " + hatchCard.getType().name() + " " +
+                    "card.");
+            LOG.log(Level.INFO, "New turn number is " + game.getTurnNumber());
+            LOG.log(Level.INFO, "New player is " + game.getPlayerNumber
+                    (nextPlayer));
+
             // Create a response result for this action,
             setMessagePair(ResponseFactory.escapeResponse(game, player,
                     hatchCard, nextPlayer));
@@ -89,6 +97,10 @@ public class EscapeAction extends Action {
             return TurnStartedState.getInstance();
 
         } else { // RED
+
+            LOG.log(Level.INFO, "Player " + game.getPlayerNumber
+                    (player) + " found " + hatchCard.getType().name() + " " +
+                    "card.");
 
             // Create a response result for this action,
             setMessagePair(ResponseFactory.escapeResponse(game, player,
