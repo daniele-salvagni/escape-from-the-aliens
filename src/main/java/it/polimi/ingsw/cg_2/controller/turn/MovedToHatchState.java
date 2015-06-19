@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.turn;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
+import it.polimi.ingsw.cg_2.controller.actions.EscapeAction;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
@@ -32,8 +33,7 @@ public class MovedToHatchState extends TurnState {
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
         return ((action instanceof PassAction) || (action instanceof
-                UseItemAction)) && action
-                .isValid();
+                EscapeAction)) && action.isValid();
 
     }
 
