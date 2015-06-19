@@ -55,7 +55,8 @@ public class PlayerTest {
     @Test
     public void shouldMoveCharacter() {
 
-        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1), SectorType.HUMAN);
+        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1),
+                SectorType.HUMAN);
         player.moveCharacter(newPosition);
         assertEquals(newPosition, player.getCharacter().getPosition());
 
@@ -71,7 +72,8 @@ public class PlayerTest {
     @Test
     public void shouldUpdateMovementHistory() {
 
-        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1), SectorType.HUMAN);
+        Sector newPosition = new Sector(CubicCoordinate.create(3, -2, -1),
+                SectorType.HUMAN);
         player.moveCharacter(newPosition);
 
         List<Sector> movHistory = player.getMovementHistory();
@@ -125,7 +127,8 @@ public class PlayerTest {
         SectorType sectorType2 = SectorType.DANGEROUS;
         CubicCoordinate coordinate2 = CubicCoordinate.create(2, -1, -1);
         Sector sector2 = new Sector(coordinate2, sectorType2);
-        Character character2 = new Character(sector2, CharacterRank.PSYCHOLOGIST);
+        Character character2 = new Character(sector2, CharacterRank
+                .PSYCHOLOGIST);
 
         player.addKill(character2);
         assertEquals(1, player.getKills().size());
@@ -157,12 +160,43 @@ public class PlayerTest {
         ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
 
         player.giveItem(card);
-        player.removeItem(card);
+        ItemCard removedCard = player.removeItem(ItemCard.ItemCardType
+                .ADRENALINE);
 
+        assertEquals(card, removedCard);
+        assertTrue(player.getHeldItems().isEmpty());
+
+        // Test return null if the player did not have the item
+        assertNull(player.removeItem(ItemCard.ItemCardType.ADRENALINE));
+
+    }
+
+    @Test
+    public void shouldRemoveSpecificItem() {
+
+        ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
+        player.giveItem(card);
+
+        assertTrue(player.removeItem(card));
         assertTrue(player.getHeldItems().isEmpty());
 
     }
 
+    @Test
+    public void shouldReturnTrueIfPlayerHaveAnItem() {
+
+        ItemCard card = new ItemCard(ItemCard.ItemCardType.ADRENALINE);
+        player.giveItem(card);
+        assertTrue(player.haveItem(ItemCard.ItemCardType.ADRENALINE));
+
+    }
+
+    @Test
+    public void shouldReturnFalseIfPlayerhaveNotAnItem() {
+
+        assertFalse(player.haveItem(ItemCard.ItemCardType.ADRENALINE));
+
+    }
 
     @Test
     public void shouldGetUnmodifiableMovementHistory() {
@@ -223,6 +257,27 @@ public class PlayerTest {
     }
 
     @Test
+    public void shouldReturnTrueIfItemIsActive() {
+
+        ItemCard.ItemCardType expectedItem = ItemCard.ItemCardType.ADRENALINE;
+        player.activateItem(expectedItem);
+
+        assertTrue(player.haveActiveItem(ItemCard.ItemCardType.ADRENALINE));
+
+    }
+
+    @Test
+    public void shouldDeactiveteItem() {
+
+        ItemCard.ItemCardType item = ItemCard.ItemCardType.ADRENALINE;
+        player.activateItem(item);
+
+        assertTrue(player.deactivateItem(ItemCard.ItemCardType.ADRENALINE));
+        assertFalse(player.haveActiveItem(ItemCard.ItemCardType.ADRENALINE));
+
+    }
+
+    @Test
     public void shouldClearItems() {
 
         player.activateItem(ItemCard.ItemCardType.ADRENALINE);
@@ -231,5 +286,7 @@ public class PlayerTest {
         assertTrue(player.getActiveItems().isEmpty());
 
     }
+
+
 
 }
