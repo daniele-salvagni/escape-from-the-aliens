@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
+import it.polimi.ingsw.cg_2.model.player.CharacterRace;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
 /**
@@ -38,9 +39,20 @@ public abstract class UseItemAction extends Action {
     @Override
     public boolean isValid() {
 
-        // Using the majority of items is aways valid, if not true we will
-        // override this method in subclasses
-        return true;
+        // ALIENS cannot use items, HUMANS can (if they have it)
+        if (player.getCharacter().getRace() == CharacterRace.ALIEN) {
+
+            return false;
+
+        } else { // HUMAN
+
+            if (player.haveItem(itemType)) {
+                return  true;
+            } else {
+                return false;
+            }
+
+        }
 
     }
 
