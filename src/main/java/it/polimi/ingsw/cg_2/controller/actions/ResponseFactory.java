@@ -286,7 +286,7 @@ public class ResponseFactory {
 
         responseMsg = new UseAtkItemResponseMsg(coordinateStr, killsIntMap,
                 survivorsIntList);
-        broadcastMsg = new AttackBroadcastMsg(playerInt, coordinateStr,
+        broadcastMsg = new useAtkItemBroadcastMsg(playerInt, coordinateStr,
                 killsIntMap, survivorsIntList);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
