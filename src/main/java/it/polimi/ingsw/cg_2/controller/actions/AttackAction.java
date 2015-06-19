@@ -28,7 +28,7 @@ public class AttackAction extends Action {
     /**
      * Creates a new AttackAction.
      *
-     * @param game the game where to execute the action
+     * @param game   the game where to execute the action
      * @param player the player that attacks
      */
     public AttackAction(Game game, Player player) {
@@ -88,8 +88,11 @@ public class AttackAction extends Action {
 
         for (Player playerToKill : playersInSector) {
 
-            // If he does have the DEFENSE card he does survive
-            if (playerToKill.haveItem(ItemCard.ItemCardType.DEFENSE)) {
+            // If he does have the DEFENSE card (and he is human) he does
+            // survive
+            if (playerToKill.haveItem(ItemCard.ItemCardType.DEFENSE) &&
+                    (playerToKill.getCharacter().getRace() == CharacterRace
+                            .HUMAN)) {
 
                 playerToKill.deactivateItem(ItemCard.ItemCardType.DEFENSE);
                 // Update list of survived players
