@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.controller.actions;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.broadcast.AttackBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.broadcast.NoiseBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.responses.*;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.HatchCard;
