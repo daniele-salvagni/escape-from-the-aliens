@@ -49,7 +49,7 @@ public class UseSdtItemAction extends UseItemAction {
         itemDeck.discardCard(item);
 
         // Activate a SEDATIVES card for the player in this turn
-        getPlayer().activateItem(ItemCard.ItemCardType.SEDATIVES);
+        getPlayer().activateItem(getItemType());
 
         // Create a response result for this action,
         setMessagePair(ResponseFactory.useSdtItemResponse(getGame(),
