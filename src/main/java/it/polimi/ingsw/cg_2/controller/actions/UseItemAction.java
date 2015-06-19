@@ -42,19 +42,19 @@ public abstract class UseItemAction extends Action {
 
     }
 
-    public Game getGame() {
+    protected Game getGame() {
 
         return game;
 
     }
 
-    public Player getPlayer() {
+    protected Player getPlayer() {
 
         return player;
 
     }
 
-    public ItemCard.ItemCardType getItemType() {
+    protected ItemCard.ItemCardType getItemType() {
 
         return itemType;
 
