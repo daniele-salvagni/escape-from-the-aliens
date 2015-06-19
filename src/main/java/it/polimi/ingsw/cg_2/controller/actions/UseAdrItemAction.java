@@ -22,7 +22,7 @@ public class UseAdrItemAction extends UseItemAction {
      * @param game the game where to execute the action
      * @param player the player that executes the action
      */
-    public UseSdtItemAction(Game game, Player player) {
+    public UseAdrItemAction(Game game, Player player) {
 
         super(game, player, ItemCard.ItemCardType.ADRENALINE);
 
