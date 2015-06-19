@@ -66,7 +66,6 @@ public class ResponseFactory {
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-
         Map<Integer, String> killsIntMap = new HashMap<>();
         List<Integer> survivorsIntList = new ArrayList<>();
 
@@ -226,7 +225,6 @@ public class ResponseFactory {
     }
 
     /**
-     *
      * @param game
      * @param player
      * @param newTurn
@@ -264,7 +262,6 @@ public class ResponseFactory {
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-
         Map<Integer, String> killsIntMap = new HashMap<>();
         List<Integer> survivorsIntList = new ArrayList<>();
 
@@ -291,6 +288,24 @@ public class ResponseFactory {
                 survivorsIntList);
         broadcastMsg = new AttackBroadcastMsg(playerInt, coordinateStr,
                 killsIntMap, survivorsIntList);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+    protected static ResultMsgPair useTlpItemResponseMsg(Game game, Player
+            player) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+        Sector newPosition = game.getZone().getHumanSector();
+        String coordinateStr = newPosition.getCooridnate().getX() + ":" +
+                newPosition.getCooridnate().getZ();
+
+        responseMsg = new UseTlpItemResponseMsg(coordinateStr);
+        broadcastMsg = new UseTlpItemBroadcastMsg(playerInt, coordinateStr);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
