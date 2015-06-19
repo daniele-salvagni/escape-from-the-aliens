@@ -12,7 +12,10 @@ import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This static factory creates a pair of response messages (a private response
@@ -63,21 +66,33 @@ public class ResponseFactory {
         String coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-        int[] killsInt = new int[kills.size()];
-        int[] survivorsInt = new int[survivors.size()];
 
-        for (int i = 0; i < kills.size(); i++) {
-            killsInt[i] = game.getPlayerNumber(kills.get(i));
+        Map<Integer, String> killsIntMap = new HashMap<>();
+        List<Integer> survivorsIntList = new ArrayList<>();
+
+        if (kills != null) {
+            for (Player kill : kills) {
+
+                int killInt = game.getPlayerNumber(kill);
+                String killRaceStr = kill.getCharacter().getRace().name();
+                killsIntMap.put(killInt, killRaceStr);
+
+            }
         }
 
-        for (int i = 0; i < survivors.size(); i++) {
-            survivorsInt[i] = game.getPlayerNumber(survivors.get(i));
+        if (survivors != null) {
+            for (Player survivor : survivors) {
+
+                int survivorInt = game.getPlayerNumber(survivor);
+                survivorsIntList.add(survivorInt);
+
+            }
         }
 
-        responseMsg = new AttackResponseMsg(coordinateStr, killsInt,
-                survivorsInt);
+        responseMsg = new AttackResponseMsg(coordinateStr, killsIntMap,
+                survivorsIntList);
         broadcastMsg = new AttackBroadcastMsg(attackerInt, coordinateStr,
-                killsInt, survivorsInt);
+                killsIntMap, survivorsIntList);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
@@ -233,6 +248,49 @@ public class ResponseFactory {
         responseMsg = new PassResponseMsg(newTurn, nextPlayerInt);
 
         broadcastMsg = new PassBroadcastMsg(playerInt, newTurn, nextPlayerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+    protected static ResultMsgPair useAtkItemResponse(Game game, Player player,
+            Sector position, List<Player> kills, List<Player> survivors) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        String coordinateStr = position.getCooridnate().getX() + ":" +
+                position.getCooridnate().getZ();
+
+
+        Map<Integer, String> killsIntMap = new HashMap<>();
+        List<Integer> survivorsIntList = new ArrayList<>();
+
+        if (kills != null) {
+            for (Player kill : kills) {
+
+                int killInt = game.getPlayerNumber(kill);
+                String killRaceStr = kill.getCharacter().getRace().name();
+                killsIntMap.put(killInt, killRaceStr);
+
+            }
+        }
+
+        if (survivors != null) {
+            for (Player survivor : survivors) {
+
+                int survivorInt = game.getPlayerNumber(survivor);
+                survivorsIntList.add(survivorInt);
+
+            }
+        }
+
+        responseMsg = new UseAtkItemResponseMsg(coordinateStr, killsIntMap,
+                survivorsIntList);
+        broadcastMsg = new AttackBroadcastMsg(playerInt, coordinateStr,
+                killsIntMap, survivorsIntList);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
