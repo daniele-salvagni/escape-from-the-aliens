@@ -8,7 +8,8 @@ import it.polimi.ingsw.cg_2.model.player.Player;
 import java.util.logging.Logger;
 
 /**
- *
+ * This action represents a player that uses a teleport item, it is created from
+ * a ActionFactoryVisitor when an UseTlpItemRequestMsg is received.
  */
 public class UseTlpItemAction extends UseItemAction {
 
@@ -43,6 +44,10 @@ public class UseTlpItemAction extends UseItemAction {
 
         getPlayer().getCharacter().setPosition(getGame().getZone()
                 .getHumanSector());
+
+        // Create a response result for this action,
+        setMessagePair(ResponseFactory.useTlpItemResponse(getGame(),
+                getPlayer()));
 
         return null;
 
