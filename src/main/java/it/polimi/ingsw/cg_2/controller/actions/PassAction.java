@@ -19,6 +19,12 @@ public class PassAction extends Action {
     private final Game game;
     private final Player player;
 
+    /**
+     * Create a new PassAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that executes the action
+     */
     public PassAction(Game game, Player player) {
 
         this.game = game;
