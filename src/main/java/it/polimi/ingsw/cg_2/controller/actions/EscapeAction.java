@@ -44,7 +44,7 @@ public class EscapeAction extends Action {
         /*
          * Only humans can escape, but the way an alien will not be allowed to
          * execute this action also because he cannot be in the
-         * "MovedToHatchState" (thw only state from which this action is valid).
+         * "MovedToHatchState" (the only state from which this action is valid).
          */
         if (player.getCharacter().getRace() == CharacterRace.HUMAN) {
             return true;
