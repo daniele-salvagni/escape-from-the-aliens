@@ -22,10 +22,9 @@ public class UseAtkItemAction extends UseItemAction {
     private static final Logger LOG = Logger.getLogger(UseAtkItemAction.class
             .getName());
 
-    public UseAtkItemAction(Game game, Player player, ItemCard.ItemCardType
-            itemType) {
+    public UseAtkItemAction(Game game, Player player) {
 
-        super(game, player, itemType);
+        super(game, player, ItemCard.ItemCardType.ATTACK);
 
     }
 
