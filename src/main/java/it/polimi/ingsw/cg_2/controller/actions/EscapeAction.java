@@ -138,6 +138,9 @@ public class EscapeAction extends Action {
             }
         }
 
+        // Increase turn number
+        game.setTurnNumber(game.getTurnNumber() + 1);
+
         // It could return the same player, but in this case the game will
         // end immediately after this.
         return nextPlayer;
