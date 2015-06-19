@@ -90,9 +90,11 @@ public class EscapeAction extends Action {
             LOG.log(Level.INFO, "New player is " + game.getPlayerNumber
                     (nextPlayer));
 
+            int newTurn = game.getTurnNumber();
+
             // Create a response result for this action,
             setMessagePair(ResponseFactory.escapeResponse(game, player,
-                    hatchCard, nextPlayer));
+                    hatchCard, newTurn, nextPlayer));
 
             return TurnStartedState.getInstance();
 
@@ -104,7 +106,7 @@ public class EscapeAction extends Action {
 
             // Create a response result for this action,
             setMessagePair(ResponseFactory.escapeResponse(game, player,
-                    hatchCard, null));
+                    hatchCard, -1, null));
 
             return TriedToEscapeState.getInstance();
 
