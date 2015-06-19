@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
 /**
  *
  */
-public class UseTlpItemResponseMsg {
+public class UseTlpItemResponseMsg implements ResponseMsg {
 
     String coordinate;
 
