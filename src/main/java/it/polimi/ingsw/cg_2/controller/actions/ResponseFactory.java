@@ -169,14 +169,16 @@ public class ResponseFactory {
     }
 
     /**
+     *
      * @param game
      * @param player
      * @param hatchCard
+     * @param newTurn -1
      * @param nextPlayer null
      * @return
      */
     protected static ResultMsgPair escapeResponse(Game game, Player player,
-            HatchCard hatchCard, Player nextPlayer) {
+            HatchCard hatchCard, int newTurn, Player nextPlayer) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -199,11 +201,11 @@ public class ResponseFactory {
             nextPlayerInt = -1;
         }
 
-        responseMsg = new EscapeResponseMsg(cardTypeStr, coordinateStr,
+        responseMsg = new EscapeResponseMsg(cardTypeStr, coordinateStr, newTurn,
                 nextPlayerInt);
 
         broadcastMsg = new EscapeBroadcastMsg(playerInt, cardTypeStr,
-                coordinateStr, nextPlayerInt);
+                coordinateStr, newTurn, nextPlayerInt);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
