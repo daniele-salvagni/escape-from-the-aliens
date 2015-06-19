@@ -293,7 +293,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useTlpItemResponseMsg(Game game, Player
+    protected static ResultMsgPair useTlpItemResponse(Game game, Player
             player) {
 
         ResponseMsg responseMsg;
@@ -310,5 +310,69 @@ public class ResponseFactory {
         return new ResultMsgPair(responseMsg, broadcastMsg);
 
     }
+
+    protected static ResultMsgPair useSdtItemRespons(Game game, Player
+            player) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        responseMsg = new UseSdtItemResponseMsg();
+        broadcastMsg = new UseSdtItemBroadcastMsg(playerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+    protected static ResultMsgPair useAdrItemResponse(Game game, Player
+            player) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        responseMsg = new UseAdrItemResponseMsg();
+        broadcastMsg = new UseAdrItemBroadcastMsg(playerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
+    protected static ResultMsgPair useSptItemResponse(Game game, Player
+            player, Sector position, List<Player> spottedPlayers) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        String coordinateStr = position.getCooridnate().getX() + ":" +
+                position.getCooridnate().getZ();
+
+        Map<Integer, String> spottedPlayersIntMap = new HashMap<>();
+
+        for (Player spotted : spottedPlayers) {
+
+            int spottedInt = game.getPlayerNumber(spotted);
+            Sector spottedPos = spotted.getCharacter().getPosition();
+            String spottedCoordStr = spottedPos.getCooridnate().getX() + ":" +
+                    spottedPos.getCooridnate().getZ();
+
+            spottedPlayersIntMap.put(spottedInt, spottedCoordStr);
+
+        }
+
+        responseMsg = new UseSptItemResponseMsg(coordinateStr,
+                spottedPlayersIntMap);
+        broadcastMsg = new UseSptItemBroadcastMsg(playerInt, coordinateStr,
+                spottedPlayersIntMap);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
 
 }
