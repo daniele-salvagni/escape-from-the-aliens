@@ -311,4 +311,19 @@ public class ResponseFactory {
 
     }
 
+    protected static ResultMsgPair useSdtItemResponseMsg(Game game, Player
+            player) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        responseMsg = new UseSdtItemResponseMsg();
+        broadcastMsg = new UseSdtItemBroadcastMsg(playerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
 }
