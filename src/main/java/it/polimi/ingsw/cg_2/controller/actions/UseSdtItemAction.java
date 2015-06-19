@@ -8,13 +8,20 @@ import it.polimi.ingsw.cg_2.model.player.Player;
 import java.util.logging.Logger;
 
 /**
- *
+ * This action represents a player that uses a sedatives item, it is created
+ * from a ActionFactoryVisitor when an UseSdtItemRequestMsg is received.
  */
 public class UseSdtItemAction extends UseItemAction {
 
     private static final Logger LOG = Logger.getLogger(UseTlpItemAction.class
             .getName());
 
+    /**
+     * Create a new UseSdtItemAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that executes the action
+     */
     public UseSdtItemAction(Game game, Player player) {
 
         super(game, player, ItemCard.ItemCardType.SEDATIVES);
