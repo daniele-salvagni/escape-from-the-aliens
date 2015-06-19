@@ -318,7 +318,7 @@ public class ResponseFactory {
 
     }
 
-    protected static ResultMsgPair useSdtItemRespons(Game game, Player
+    protected static ResultMsgPair useSdtItemResponse(Game game, Player
             player) {
 
         ResponseMsg responseMsg;
