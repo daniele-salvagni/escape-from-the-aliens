@@ -326,4 +326,19 @@ public class ResponseFactory {
 
     }
 
+    protected static ResultMsgPair useAdrItemResponseMsg(Game game, Player
+            player) {
+
+        ResponseMsg responseMsg;
+        BroadcastMsg broadcastMsg;
+
+        int playerInt = game.getPlayerNumber(player);
+
+        responseMsg = new UseAdrItemResponseMsg();
+        broadcastMsg = new UseAdrItemBroadcastMsg(playerInt);
+
+        return new ResultMsgPair(responseMsg, broadcastMsg);
+
+    }
+
 }
