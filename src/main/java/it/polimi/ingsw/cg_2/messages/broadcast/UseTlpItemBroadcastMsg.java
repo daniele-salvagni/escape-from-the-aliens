@@ -5,8 +5,8 @@ package it.polimi.ingsw.cg_2.messages.broadcast;
  */
 public class UseTlpItemBroadcastMsg implements BroadcastMsg {
 
-    int player;
-    String coordinate;
+    private final int player;
+    private final String coordinate;
 
     public UseTlpItemBroadcastMsg(int player, String coordinate) {
 
