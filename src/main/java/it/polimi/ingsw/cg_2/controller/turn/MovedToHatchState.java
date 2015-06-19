@@ -1,23 +1,24 @@
 package it.polimi.ingsw.cg_2.controller.turn;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
+import it.polimi.ingsw.cg_2.controller.actions.EscapeAction;
 import it.polimi.ingsw.cg_2.controller.actions.PassAction;
 import it.polimi.ingsw.cg_2.model.Game;
 
 /**
  * This is a state of the state machine that manages a game. It represents
- * the state where a Player has moved to a Safe Sector.
+ * the state where a Player has moved to an escape Hatch.
  */
-public class MovedToSafeState extends TurnState {
+public class MovedToHatchState extends TurnState {
 
-    private static final MovedToSafeState INSTANCE = new MovedToSafeState();
+    private static final MovedToHatchState INSTANCE = new MovedToHatchState();
 
     /**
-     * Get the instance of the MovedToSafeState singleton class.
+     * Get the instance of the MovedToHatchState singleton class.
      *
      * @return the instance of the singleton
      */
-    public static MovedToSafeState getInstance() {
+    public static MovedToHatchState getInstance() {
 
         return INSTANCE;
 
@@ -32,7 +33,8 @@ public class MovedToSafeState extends TurnState {
 
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
-        return (action instanceof PassAction) && action.isValid();
+        return ((action instanceof PassAction) || (action instanceof
+                EscapeAction)) && action.isValid();
 
     }
 

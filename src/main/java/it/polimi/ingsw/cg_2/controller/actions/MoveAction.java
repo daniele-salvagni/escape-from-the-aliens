@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
+import it.polimi.ingsw.cg_2.controller.turn.MovedToDangerState;
+import it.polimi.ingsw.cg_2.controller.turn.MovedToHatchState;
 import it.polimi.ingsw.cg_2.controller.turn.MovedToSafeState;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
@@ -28,6 +30,13 @@ public class MoveAction extends Action {
     private final Player player;
     private final Sector newSector;
 
+    /**
+     * Creates a new MoveAction.
+     *
+     * @param game the game where to execute the action
+     * @param player the player that moves
+     * @param newSector the destination of the movement
+     */
     protected MoveAction(Game game, Player player, Sector newSector) {
 
         this.game = game;
@@ -137,17 +146,31 @@ public class MoveAction extends Action {
         if (newSector.getType() == Sector.SectorType.SAFE) {
 
             // Safe sector, nothing happens, just change state
-            return MovedToSafeState.INSTANCE;
+            return MovedToSafeState.getInstance();
 
         } else if (newSector.getType() == Sector.SectorType.DANGEROUS) {
 
-            // Dangerous sector, nothing happens, just change state
-            return MovedToDangerState.INSTANCE;
+            // Dangerous sector, nothing happens, just change state:
+            // - If no Sedatives item go to MovedToSafeState
+            // - Otherwise go to MovedToDangerState
+
+            if (player.haveActiveItem(ItemCard.ItemCardType.SEDATIVES)) {
+
+                // Deactivate sedatives after moving
+                player.deactivateItem(ItemCard.ItemCardType.SEDATIVES);
+                LOG.log(Level.INFO, "Player used active SEDATIVES card.");
+                return MovedToSafeState.getInstance();
+
+            } else {
+
+                return MovedToDangerState.getInstance();
+
+            }
 
         } else {
 
             // Hatch sector, nothing happens, just change state
-            return MovedToHatchState.INSTANCE;
+            return MovedToHatchState.getInstance();
 
         }
 
