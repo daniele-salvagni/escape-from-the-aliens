@@ -15,8 +15,10 @@ public abstract class UseItemAction extends Action {
     private final ItemCard.ItemCardType itemType;
 
     /**
-     * Constructor for UseItemAction.
+     * Constructor of the abstract class UseItemAction.
      *
+     * @param game the game where to execute the action
+     * @param player the player that executes the action
      * @param itemType the type of the item to use
      */
     protected UseItemAction(Game game, Player player, ItemCard.ItemCardType
@@ -42,18 +44,33 @@ public abstract class UseItemAction extends Action {
 
     }
 
+    /**
+     * Get the game where to execute the action.
+     *
+     * @return the game where to execute the action
+     */
     protected Game getGame() {
 
         return game;
 
     }
 
+    /**
+     * Get the player that executes the action.
+     *
+     * @return the player that executes the action
+     */
     protected Player getPlayer() {
 
         return player;
 
     }
 
+    /**
+     * Get the type of the item to use.
+     *
+     * @return the type of the item to use
+     */
     protected ItemCard.ItemCardType getItemType() {
 
         return itemType;
