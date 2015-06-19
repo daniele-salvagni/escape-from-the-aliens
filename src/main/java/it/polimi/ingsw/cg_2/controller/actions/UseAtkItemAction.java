@@ -22,6 +22,12 @@ public class UseAtkItemAction extends UseItemAction {
     private static final Logger LOG = Logger.getLogger(UseAtkItemAction.class
             .getName());
 
+    /**
+     * Create a new UseAtkItemAction
+     *
+     * @param game the game where to execute the action
+     * @param player the player that executes the action
+     */
     public UseAtkItemAction(Game game, Player player) {
 
         super(game, player, ItemCard.ItemCardType.ATTACK);
