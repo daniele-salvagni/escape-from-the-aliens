@@ -5,7 +5,7 @@ import java.util.Map;
 /**
  *
  */
-public class UseSptItemResponseMsg {
+public class UseSptItemResponseMsg implements ResponseMsg {
 
     private final String coordinate;
     private final Map<Integer, String> spottedPlayers;
