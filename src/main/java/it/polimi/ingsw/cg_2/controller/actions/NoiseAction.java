@@ -6,6 +6,7 @@ import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.noise.Noise;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -71,6 +72,8 @@ public class NoiseAction extends Action {
         // Add the Noise to the list of noises
         Noise noise = new Noise(player, position, game.getTurnNumber());
         game.addNoise(noise);
+
+        LOG.log(Level.INFO, "Player made noise in " + position.getCooridnate());
 
         return MadeNoiseState.getInstance();
 
