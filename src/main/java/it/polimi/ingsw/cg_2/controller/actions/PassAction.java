@@ -79,7 +79,7 @@ public class PassAction extends Action {
             if (!player.isSuspended() && player.isConnected() && !player
                     .getCharacter().isEscaped() && player.getCharacter()
                     .isAlive()) {
-                players.get((i + playerNumber) % players.size());
+                nextPlayer = players.get((i + playerNumber) % players.size());
             }
         }
 

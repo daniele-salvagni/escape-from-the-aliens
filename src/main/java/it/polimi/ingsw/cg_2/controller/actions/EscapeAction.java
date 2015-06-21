@@ -46,7 +46,7 @@ public class EscapeAction extends Action {
          * execute this action also because he cannot be in the
          * "MovedToHatchState" (the only state from which this action is valid).
          */
-        return (player.getCharacter().getRace() == CharacterRace.HUMAN);
+        return player.getCharacter().getRace() == CharacterRace.HUMAN;
 
     }
 
@@ -135,7 +135,7 @@ public class EscapeAction extends Action {
             if (!player.isSuspended() && player.isConnected() && !player
                     .getCharacter().isEscaped() && player.getCharacter()
                     .isAlive()) {
-                players.get((i + playerNumber) % players.size());
+                nextPlayer = players.get((i + playerNumber) % players.size());
             }
         }
 

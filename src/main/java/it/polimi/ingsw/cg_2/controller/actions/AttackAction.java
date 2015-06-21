@@ -42,7 +42,7 @@ public class AttackAction extends Action {
     public boolean isValid() {
 
         // ALIENS can attack, HUMANS no.
-        return (player.getCharacter().getRace() == CharacterRace.ALIEN);
+        return player.getCharacter().getRace() == CharacterRace.ALIEN;
 
     }
 
