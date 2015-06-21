@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  * A response message for the NoiseAction. Contains only a confirmation about
  * the location of the noise.
  */
-public class NoiseResponseMsg implements ResponseMsg {
+public class NoiseResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
 
@@ -13,7 +13,9 @@ public class NoiseResponseMsg implements ResponseMsg {
      *
      * @param coordinate the position of the made noise
      */
-    public NoiseResponseMsg(String coordinate) {
+    public NoiseResponseMsg(boolean success, String coordinate) {
+
+        super(success);
 
         if (coordinate == null) {
 

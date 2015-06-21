@@ -6,14 +6,16 @@ import java.util.Map;
 /**
  *
  */
-public class UseAtkItemResponseMsg implements ResponseMsg {
+public class UseAtkItemResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
     private final Map<Integer, String> kills;
     private final List<Integer> survivors;
 
-    public UseAtkItemResponseMsg(String coordinate, Map<Integer, String>
-            kills, List<Integer> survivors) {
+    public UseAtkItemResponseMsg(boolean success, String coordinate,
+            Map<Integer, String> kills, List<Integer> survivors) {
+
+        super(success);
 
         this.coordinate = coordinate;
         this.kills = kills;

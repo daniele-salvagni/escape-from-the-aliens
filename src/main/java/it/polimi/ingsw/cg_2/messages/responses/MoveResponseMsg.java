@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  * A response message for the MoveAction, contains information about the new
  * position.
  */
-public class MoveResponseMsg implements ResponseMsg {
+public class MoveResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
     private final String sectorType;
@@ -15,7 +15,10 @@ public class MoveResponseMsg implements ResponseMsg {
      * @param coordinate the new sector coordinate (COL:ROW)
      * @param sectorType the new sector type (SAFE/DANGEROUS/HATCH)
      */
-    public MoveResponseMsg(String coordinate, String sectorType) {
+    public MoveResponseMsg(boolean success, String coordinate, String
+            sectorType) {
+
+        super(success);
 
         this.coordinate = coordinate;
         this.sectorType = sectorType;

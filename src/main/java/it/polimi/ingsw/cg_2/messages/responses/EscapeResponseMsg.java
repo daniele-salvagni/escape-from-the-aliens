@@ -6,7 +6,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  * player
  * that will take the turn (if the card was GREEN and the player escaped).
  */
-public class EscapeResponseMsg implements ResponseMsg {
+public class EscapeResponseMsg extends ActionResponseMsg {
 
     private final String cardType;
     private final String position;
@@ -21,8 +21,10 @@ public class EscapeResponseMsg implements ResponseMsg {
      * @param nextPlayer the next player that will take the turn (if the card
      *                   was GREEN and the player escaped).
      */
-    public EscapeResponseMsg(String cardType, String position, int newTurn,
-            int nextPlayer) {
+    public EscapeResponseMsg(boolean success, String cardType, String
+            position, int newTurn, int nextPlayer) {
+
+        super(success);
 
         this.cardType = cardType;
         this.position = position;

@@ -47,7 +47,7 @@ public class ResponseFactory {
 
         String sectorTypeStr = newPosition.getType().name();
 
-        responseMsg = new MoveResponseMsg(coordinateStr, sectorTypeStr);
+        responseMsg = new MoveResponseMsg(true, coordinateStr, sectorTypeStr);
         broadcastMsg = null; // Broadcast nothing
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
@@ -63,7 +63,9 @@ public class ResponseFactory {
      * @return
      */
     protected static ResultMsgPair attackResponse(Game game, Player attacker,
-            Sector position, List<Player> kills, List<Player> survivors) {
+                                                  Sector position,
+                                                  List<Player> kills,
+                                                  List<Player> survivors) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -95,7 +97,7 @@ public class ResponseFactory {
             }
         }
 
-        responseMsg = new AttackResponseMsg(coordinateStr, killsIntMap,
+        responseMsg = new AttackResponseMsg(true, coordinateStr, killsIntMap,
                 survivorsIntList);
         broadcastMsg = new AttackBroadcastMsg(attackerInt, coordinateStr,
                 killsIntMap, survivorsIntList);
@@ -112,7 +114,8 @@ public class ResponseFactory {
      * @return
      */
     protected static ResultMsgPair drawResponse(Game game, Player player,
-            SectorCard sectorCard, ItemCard itemCard) {
+                                                SectorCard sectorCard,
+                                                ItemCard itemCard) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -138,7 +141,7 @@ public class ResponseFactory {
         coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-        responseMsg = new DrawResponseMsg(cardTypeStr, itemTypeStr);
+        responseMsg = new DrawResponseMsg(true, cardTypeStr, itemTypeStr);
 
         if (sectorCard.getType() == SectorCard.SectorCardType.DECEPTION) {
             // Do not say anything to others, we need to wait the noise
@@ -164,7 +167,8 @@ public class ResponseFactory {
      * @return
      */
     protected static ResultMsgPair noiseResponse(Game game, Player player,
-            Sector position, boolean item) {
+                                                 Sector position, boolean
+                                                         item) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -180,7 +184,7 @@ public class ResponseFactory {
         coordinateStr = position.getCooridnate().getX() + ":" +
                 position.getCooridnate().getZ();
 
-        responseMsg = new NoiseResponseMsg(coordinateStr);
+        responseMsg = new NoiseResponseMsg(true, coordinateStr);
 
         broadcastMsg = new NoiseBroadcastMsg(playerInt, cardTypeStr,
                 coordinateStr, item);
@@ -198,7 +202,9 @@ public class ResponseFactory {
      * @return
      */
     protected static ResultMsgPair escapeResponse(Game game, Player player,
-            HatchCard hatchCard, int newTurn, Player nextPlayer) {
+                                                  HatchCard hatchCard, int
+                                                          newTurn, Player
+                                                          nextPlayer) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -221,8 +227,8 @@ public class ResponseFactory {
             nextPlayerInt = -1;
         }
 
-        responseMsg = new EscapeResponseMsg(cardTypeStr, coordinateStr, newTurn,
-                nextPlayerInt);
+        responseMsg = new EscapeResponseMsg(true, cardTypeStr, coordinateStr,
+                newTurn, nextPlayerInt);
 
         broadcastMsg = new EscapeBroadcastMsg(playerInt, cardTypeStr,
                 coordinateStr, newTurn, nextPlayerInt);
@@ -250,7 +256,7 @@ public class ResponseFactory {
         playerInt = game.getPlayerNumber(player);
         nextPlayerInt = game.getPlayerNumber(nextPlayer);
 
-        responseMsg = new PassResponseMsg(newTurn, nextPlayerInt);
+        responseMsg = new PassResponseMsg(true, newTurn, nextPlayerInt);
 
         broadcastMsg = new PassBroadcastMsg(playerInt, newTurn, nextPlayerInt);
 
@@ -259,7 +265,9 @@ public class ResponseFactory {
     }
 
     protected static ResultMsgPair useAtkItemResponse(Game game, Player player,
-            Sector position, List<Player> kills, List<Player> survivors) {
+                                                      Sector position,
+                                                      List<Player> kills,
+                                                      List<Player> survivors) {
 
         ResponseMsg responseMsg;
         BroadcastMsg broadcastMsg;
@@ -291,9 +299,7 @@ public class ResponseFactory {
             }
         }
 
-
-
-        responseMsg = new UseAtkItemResponseMsg(coordinateStr, killsIntMap,
+        responseMsg = new UseAtkItemResponseMsg(true, coordinateStr, killsIntMap,
                 survivorsIntList);
         broadcastMsg = new UseAtkItemBroadcastMsg(playerInt, coordinateStr,
                 killsIntMap, survivorsIntList);
@@ -313,7 +319,7 @@ public class ResponseFactory {
         String coordinateStr = newPosition.getCooridnate().getX() + ":" +
                 newPosition.getCooridnate().getZ();
 
-        responseMsg = new UseTlpItemResponseMsg(coordinateStr);
+        responseMsg = new UseTlpItemResponseMsg(true, coordinateStr);
         broadcastMsg = new UseTlpItemBroadcastMsg(playerInt, coordinateStr);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
@@ -328,7 +334,7 @@ public class ResponseFactory {
 
         int playerInt = game.getPlayerNumber(player);
 
-        responseMsg = new UseSdtItemResponseMsg();
+        responseMsg = new UseSdtItemResponseMsg(true);
         broadcastMsg = new UseSdtItemBroadcastMsg(playerInt);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
@@ -343,7 +349,7 @@ public class ResponseFactory {
 
         int playerInt = game.getPlayerNumber(player);
 
-        responseMsg = new UseAdrItemResponseMsg();
+        responseMsg = new UseAdrItemResponseMsg(true);
         broadcastMsg = new UseAdrItemBroadcastMsg(playerInt);
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
@@ -374,7 +380,7 @@ public class ResponseFactory {
 
         }
 
-        responseMsg = new UseSptItemResponseMsg(coordinateStr,
+        responseMsg = new UseSptItemResponseMsg(true, coordinateStr,
                 spottedPlayersIntMap);
         broadcastMsg = new UseSptItemBroadcastMsg(playerInt, coordinateStr,
                 spottedPlayersIntMap);

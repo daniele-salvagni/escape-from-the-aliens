@@ -9,10 +9,16 @@ import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  */
 public class GameController {
+
+    private static final Logger LOG = Logger.getLogger(GameController.class
+            .getName());
 
     Game game;
     TurnMachine turnMachine;
@@ -43,6 +49,7 @@ public class GameController {
 
         } catch (InvalidMsgException e) {
 
+            LOG.log(Level.WARNING, "Handled an invalid request.", e);
             // Notify the client that the message is not valid
             return new ResultMsgPair(new InvalidRequestMsg("INVALID"), null);
 

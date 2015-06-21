@@ -8,7 +8,7 @@ import java.util.Map;
  * A response message for the AttackAction. Contains information about the
  * position and the made kills.
  */
-public class AttackResponseMsg implements ResponseMsg {
+public class AttackResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
     private final Map<Integer, String> kills;
@@ -20,11 +20,14 @@ public class AttackResponseMsg implements ResponseMsg {
      * 0).
      *
      * @param coordinate the coordinate of the attack
-     * @param kills      the map of killed players and their race (can be empty)
+     * @param kills      the map of killed players and their race (can be
+     *                   empty)
      * @param survivors  the list of survived player (can be empty)
      */
-    public AttackResponseMsg(String coordinate, Map<Integer, String> kills,
-            List<Integer> survivors) {
+    public AttackResponseMsg(boolean success, String coordinate, Map<Integer,
+            String> kills, List<Integer> survivors) {
+
+        super(success);
 
         if (coordinate == null) {
             throw new IllegalArgumentException("coordinate cannot be null.");

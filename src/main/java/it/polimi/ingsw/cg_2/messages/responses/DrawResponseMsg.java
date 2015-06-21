@@ -4,7 +4,7 @@ package it.polimi.ingsw.cg_2.messages.responses;
  * A response message for the DrawAction. Contains information about the
  * type of the sector card and the item found (if any).
  */
-public class DrawResponseMsg implements ResponseMsg {
+public class DrawResponseMsg extends ActionResponseMsg {
 
     private final String cardType;
     private final String itemType;
@@ -15,7 +15,9 @@ public class DrawResponseMsg implements ResponseMsg {
      * @param cardType the type of the drawn card
      * @param itemType the type of the item found (can be null)
      */
-    public DrawResponseMsg(String cardType, String itemType) {
+    public DrawResponseMsg(boolean success, String cardType, String itemType) {
+
+        super(success);
 
         if (cardType == null) {
             throw new IllegalArgumentException("cardType cannot be null.");
