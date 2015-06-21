@@ -10,8 +10,8 @@ import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
  */
 public class ResultMsgPair {
 
-    public final ResponseMsg RESPONSE;
-    public final BroadcastMsg BROADCAST;
+    public final ResponseMsg response;
+    public final BroadcastMsg broadcast;
 
     /**
      * Creates a new ResultMsgPair containing both the private response and the
@@ -22,8 +22,8 @@ public class ResultMsgPair {
      */
     public ResultMsgPair(ResponseMsg response, BroadcastMsg broadcast) {
 
-        RESPONSE = response;
-        BROADCAST = broadcast;
+        this.response = response;
+        this.broadcast = broadcast;
 
     }
 
