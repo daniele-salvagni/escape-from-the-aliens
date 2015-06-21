@@ -79,10 +79,10 @@ public class AttackAction extends Action {
         playersInSector.remove(player);
 
         // Remove escaped and already dead players
-        for (Player player : playersInSector) {
-            if (!player.getCharacter().isAlive() || player.getCharacter()
-                    .isEscaped()) {
-                playersInSector.remove(player);
+        for (Player playerInSector : playersInSector) {
+            if (!playerInSector.getCharacter().isAlive() || playerInSector
+                    .getCharacter().isEscaped()) {
+                playersInSector.remove(playerInSector);
             }
         }
 

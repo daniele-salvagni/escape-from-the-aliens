@@ -292,8 +292,8 @@ public class Player {
 
         int count = 0;
 
-        for (Character character : kills) {
-            count += (character.getRace() == CharacterRace.HUMAN) ? 1 : 0;
+        for (Character killedChar : kills) {
+            count += (killedChar.getRace() == CharacterRace.HUMAN) ? 1 : 0;
         }
 
         return count;
@@ -309,8 +309,8 @@ public class Player {
 
         int count = 0;
 
-        for (Character character : kills) {
-            count += (character.getRace() == CharacterRace.ALIEN) ? 1 : 0;
+        for (Character killedChar : kills) {
+            count += (killedChar.getRace() == CharacterRace.ALIEN) ? 1 : 0;
         }
 
         return count;
