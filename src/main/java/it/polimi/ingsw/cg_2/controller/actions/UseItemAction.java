@@ -46,11 +46,7 @@ public abstract class UseItemAction extends Action {
 
         } else { // HUMAN
 
-            if (player.haveItem(itemType)) {
-                return  true;
-            } else {
-                return false;
-            }
+            return player.haveItem(itemType);
 
         }
 
