@@ -16,6 +16,8 @@ import java.rmi.server.UnicastRemoteObject;
  */
 public class RMIFactory extends PlayerConnectionFactory {
 
+    public final static int RMI_PORT = 7777;
+
     private final BrokerInterface broker;
     private final RequestHandler requestHandler;
     private SubscriberInterface subscriberInterface;

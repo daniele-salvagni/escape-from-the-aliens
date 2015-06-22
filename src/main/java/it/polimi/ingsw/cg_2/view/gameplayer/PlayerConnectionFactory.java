@@ -10,8 +10,6 @@ import it.polimi.ingsw.cg_2.view.commons.SubscriberInterface;
  */
 public abstract class PlayerConnectionFactory {
 
-    protected final static int RMI_PORT = 7777;
-
     private final ViewUpdater viewUpdater;
     private final Subscriber subscriber;
 
