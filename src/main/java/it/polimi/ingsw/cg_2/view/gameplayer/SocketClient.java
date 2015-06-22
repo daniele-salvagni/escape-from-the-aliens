@@ -227,9 +227,7 @@ public class SocketClient extends Thread implements BrokerInterface,
                 throw new RemoteException("Error while reading from the socket.", e);
             } catch (ClassNotFoundException e) {
                 throw new RemoteException("An invalid message has been returned from " +
-                        "the " +
-
-                        "server.", e);
+                        "the server.", e);
             }
 
             try {
@@ -321,7 +319,6 @@ public class SocketClient extends Thread implements BrokerInterface,
             while (true) {
 
                 waitForSubscription();
-
                 Object received = null;
 
                 synchronized (pubSocket) {
@@ -347,6 +344,5 @@ public class SocketClient extends Thread implements BrokerInterface,
         }
 
     }
-
 
 }
