@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.requests;
 
+import it.polimi.ingsw.cg_2.messages.Token;
+
 /**
  * This class represents a generic request message from the client to the
  * server, the client must identify himself by using an unique token obtained
@@ -8,7 +10,7 @@ package it.polimi.ingsw.cg_2.messages.requests;
  */
 public abstract class RequestMsg {
 
-    String token;
+    Token token;
 
     /**
      * The constructor of this abstract class, it does set the unique token
@@ -16,7 +18,7 @@ public abstract class RequestMsg {
      *
      * @param token the unique token to identify the client
      */
-    public RequestMsg(String token) {
+    public RequestMsg(Token token) {
 
         this.token = token;
 
@@ -28,7 +30,7 @@ public abstract class RequestMsg {
      *
      * @return the unique token that identifies the client
      */
-    public String getToken() {
+    public Token getToken() {
 
         return token;
 

@@ -2,13 +2,14 @@ package it.polimi.ingsw.cg_2.messages.requests.actions;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
+import it.polimi.ingsw.cg_2.messages.Token;
 
 /**
  *
  */
 public class UseAtkRequestMsg extends ActionRequestMsg {
 
-    public UseAtkRequestMsg(String token) {
+    public UseAtkRequestMsg(Token token) {
 
         super(token);
 

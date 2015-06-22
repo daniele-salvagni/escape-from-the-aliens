@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.messages.requests.actions;
 import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.controller.actions.ActionCreator;
 import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
+import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 
 /**
@@ -21,7 +22,7 @@ public abstract class ActionRequestMsg extends RequestMsg implements
      *
      * @param token the token that identifies a client
      */
-    public ActionRequestMsg(String token) {
+    public ActionRequestMsg(Token token) {
 
         super(token);
 
