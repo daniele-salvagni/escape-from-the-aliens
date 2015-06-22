@@ -5,6 +5,8 @@ import it.polimi.ingsw.cg_2.view.commons.BrokerInterface;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import it.polimi.ingsw.cg_2.view.commons.SubscriberInterface;
 
+import java.rmi.RemoteException;
+
 /**
  * Abstract class for a PlayerConnectionFactory.
  */
@@ -36,7 +38,7 @@ public abstract class PlayerConnectionFactory {
     /**
      * Setup a new connection to the game manager as a new client.
      */
-    public void setupConnection() {
+    public void setupConnection() throws RemoteException {
 
         token = getRequestHandler().connect();
 
