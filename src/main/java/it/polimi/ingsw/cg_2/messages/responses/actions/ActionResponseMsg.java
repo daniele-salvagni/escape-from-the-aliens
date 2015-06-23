@@ -1,4 +1,6 @@
-package it.polimi.ingsw.cg_2.messages.responses;
+package it.polimi.ingsw.cg_2.messages.responses.actions;
+
+import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 
 /**
  * This abstract class represents a Response message from the server to the

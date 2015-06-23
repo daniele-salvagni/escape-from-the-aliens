@@ -13,7 +13,7 @@ public class InvalidRequestMsg implements ResponseMsg {
      */
     public InvalidRequestMsg() {
 
-        this(null);
+        this("");
 
     }
 

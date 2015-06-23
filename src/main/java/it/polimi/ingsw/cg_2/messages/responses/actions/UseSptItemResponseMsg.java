@@ -1,4 +1,4 @@
-package it.polimi.ingsw.cg_2.messages.responses;
+package it.polimi.ingsw.cg_2.messages.responses.actions;
 
 import java.util.Map;
 
