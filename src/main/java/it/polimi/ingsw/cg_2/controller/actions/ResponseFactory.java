@@ -3,11 +3,11 @@ package it.polimi.ingsw.cg_2.controller.actions;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.broadcast.*;
 import it.polimi.ingsw.cg_2.messages.responses.*;
+import it.polimi.ingsw.cg_2.messages.responses.actions.*;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.HatchCard;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.SectorCard;
-import it.polimi.ingsw.cg_2.model.map.CubicCoordinate;
 import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.player.Player;
 
