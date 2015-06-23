@@ -9,12 +9,16 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * PlayerConnectionFactory implementation using RMI, imports the RequestHandler
  * and the Broker from the GameManager and exports the Subscriber.
  */
 public class RMIFactory extends PlayerConnectionFactory {
+
+    private static final Logger LOG = Logger.getLogger(RMIFactory.class.getName());
 
     public final static int RMI_PORT = 7777;
 
@@ -66,8 +70,12 @@ public class RMIFactory extends PlayerConnectionFactory {
             setupConnection();
 
         } catch (RemoteException e) {
+            LOG.log(Level.SEVERE, "There was a problem establishing a RMI connection to" +
+                    " the game manager.", e);
             throw e;
         } catch (NotBoundException | ClassCastException e) {
+            LOG.log(Level.SEVERE, "RMI connection error (problem with the remote " +
+                    "interface).", e);
             throw e;
         }
 
