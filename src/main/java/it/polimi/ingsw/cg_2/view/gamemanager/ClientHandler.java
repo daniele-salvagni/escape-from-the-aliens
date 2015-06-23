@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.view.gamemanager;
 
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
+import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 
 import java.io.IOException;
@@ -13,7 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Handles the connection with the client for request-response messages communication.
+ * Handles a single request-response connection from a client. After receiving a request
+ * for a new socket we send an appropriate response and we immediately close the
+ * connection.
  */
 public class ClientHandler extends SocketHandler {
 
@@ -29,10 +32,18 @@ public class ClientHandler extends SocketHandler {
 
     }
 
+    /**
+     * Receive a request message object from a client.
+     *
+     * @return the object received from the client
+     *
+     * @throws ClassNotFoundException problems while reading from the input stream
+     * @throws IOException            in case of error while receiving message from
+     *                                client
+     */
     protected Object receiveObject() throws ClassNotFoundException, IOException {
 
-        Object receivedObject = null;
-        ObjectInputStream ois = null;
+        Object receivedObject;
 
         try {
 
@@ -41,12 +52,7 @@ public class ClientHandler extends SocketHandler {
             ObjectInputStream inputStream = new ObjectInputStream(getSocket()
                     .getInputStream());
 
-            Object object = inputStream.readObject();
-
-            if(!(object instanceof RequestMsg)) {
-                throw new ClassNotFoundException("Received an invalid object.");
-            }
-
+            receivedObject = inputStream.readObject();
 
         } catch (SocketException e) {
             LOG.log(Level.WARNING, "Error while setting socket timeout.", e);
@@ -63,7 +69,13 @@ public class ClientHandler extends SocketHandler {
 
     }
 
-    protected void sendResponse(Object response) throws IOException {
+    /**
+     * Send a response to the client after receiving a request, this also closes the
+     * connection.
+     *
+     * @param response the response to send to the client
+     */
+    protected void sendResponse(Object response) {
 
         try {
 
@@ -82,8 +94,9 @@ public class ClientHandler extends SocketHandler {
         } finally {
             try {
                 getSocket().close();
+                // Response sent (or failed, hopefully not), try to close the connection
             } catch (IOException e) {
-                LOG.log(Level.WARNING, "Exception while closing the socket.", e);
+                LOG.log(Level.WARNING, "Exception while trying to close the socket.", e);
             }
         }
 
@@ -92,11 +105,21 @@ public class ClientHandler extends SocketHandler {
     @Override
     public void run() {
 
-        Object returnedObject;
+        ResponseMsg response;
 
         try {
-            returnedObject = receiveObject();
-            sendResponse(returnedObject);
+
+            Object request = receiveObject();
+
+            if (request instanceof RequestMsg) {
+                response = requestHandler.processRequest((RequestMsg) request);
+            } else {
+                response = new InvalidRequestMsg("Unknown request.");
+            }
+
+            sendResponse(response);
+
+
         } catch (IOException | ClassNotFoundException e) {
             LOG.log(Level.WARNING, "Unhandled errors during client-server communication" +
                     ".", e);
