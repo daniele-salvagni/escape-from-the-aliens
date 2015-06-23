@@ -4,8 +4,10 @@ import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ConnectionRequest;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.SubscribeRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ConnectionResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.messages.responses.SubscribeResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.BrokerInterface;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import it.polimi.ingsw.cg_2.view.commons.SubscriberInterface;
@@ -139,15 +141,7 @@ public class SocketClient extends Thread implements BrokerInterface,
 
     }
 
-    /**
-     * Send a request to be processed on the server and wait for a response.
-     *
-     * @param request the request to be processed by the server
-     * @return the response obtained from the server
-     *
-     * @throws RemoteException if a problem occurs during the connection or if it times
-     *                         out
-     */
+    @Override
     public ResponseMsg processRequest(RequestMsg request) throws RemoteException {
 
         try {
@@ -250,7 +244,7 @@ public class SocketClient extends Thread implements BrokerInterface,
 
         }
 
-        if (!(response instanceof SuccessResponseMsg)) {
+        if (!(response instanceof SubscribeResponseMsg)) {
             throw new IllegalArgumentException("Bad subscribe arguments.");
         }
 
