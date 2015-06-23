@@ -5,17 +5,17 @@ package it.polimi.ingsw.cg_2.messages.responses;
  */
 public class SubscribeResponseMsg implements ResponseMsg {
 
-    private final String topic;
+    private final boolean success;
 
-    public SubscribeResponseMsg(String topic) {
+    public SubscribeResponseMsg(boolean success) {
 
-        this.topic = topic;
+        this.success = success;
 
     }
 
-    public String getTopic() {
+    public boolean isSuccess() {
 
-        return topic;
+        return success;
 
     }
 
