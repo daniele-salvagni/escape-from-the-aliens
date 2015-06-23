@@ -60,7 +60,13 @@ public abstract class PlayerConnectionFactory {
      */
     public abstract BrokerInterface getBrokerInterface();
 
-    public void setToken(Token token) {
+    /**
+     * Set an initial token for the connection (this is required for a reconnection) to be
+     * reconnected as a known client. [NOT YET IMPLEMENTED]
+     *
+     * @param token an old token to reconnect as a known client
+     */
+    protected void setToken(Token token) {
 
         this.token = token;
 
@@ -106,10 +112,9 @@ public abstract class PlayerConnectionFactory {
      */
     public SubscriberInterface getSubscriberInterface() {
 
-        return (SubscriberInterface)subscriber;
+        return (SubscriberInterface) subscriber;
 
     }
-
 
 
 }
