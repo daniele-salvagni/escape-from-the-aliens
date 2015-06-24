@@ -238,7 +238,7 @@ public class Game {
     }
 
     /**
-     * Gets the number of a certain player (based on the players order)
+     * Gets the number of a certain player (based on the players order).
      *
      * @param player the player
      * @return the number of the player
@@ -246,6 +246,17 @@ public class Game {
     public int getPlayerNumber(Player player) {
 
         return players.indexOf(player);
+
+    }
+
+    /**
+     * Get the number of the current player playing the turn.
+     *
+     * @return the number of the current player
+     */
+    public int getCurrentPlayerNumber() {
+
+        return getPlayerNumber(getCurrentPlayer());
 
     }
 
