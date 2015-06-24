@@ -7,7 +7,8 @@ public class GameManager {
 
     public static void main(String[] args) {
 
-        ServerInitializer serverInitializer = new ServerInitializer();
+        ServerConnectionFactory serverInitializer = new ServerConnectionFactory();
+
 
 
     }
