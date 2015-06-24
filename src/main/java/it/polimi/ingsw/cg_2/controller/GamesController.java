@@ -13,7 +13,14 @@ import java.rmi.RemoteException;
 import java.util.*;
 
 /**
- *
+ * This controller controls multiple games, implements a RequestHandler to receive
+ * clients
+ * requests, process them and send back responses. It acts also as a WaitingRoom for new
+ * players connecting to the game manager. When there are two players a countdown starts
+ * to start a new game, if in the meantime someone else tries to connect the timer does
+ * reset and start over. If the number of waiting players reaches 8 the game starts
+ * instantly. The first player that connected to the waiting room is free to change the
+ * default Zone where to play.
  */
 public class GamesController implements RequestHandler {
 
@@ -27,6 +34,11 @@ public class GamesController implements RequestHandler {
 
     private final List<Token> waitingPlayers;
 
+    /**
+     * Create a new GamesController.
+     *
+     * @param publisher the publisher interface to notify clients
+     */
     public GamesController(PublisherInterface publisher) {
 
         timer = new Timer();
@@ -49,6 +61,14 @@ public class GamesController implements RequestHandler {
 
     }
 
+    /**
+     * Handle a new client trying to join a game. When there are two players a countdown
+     * starts to start a new game, if in the meantime someone else tries to connect the
+     * timer does reset and start over. If the number of waiting players reaches 8 the
+     * game starts instantly.
+     *
+     * @param token the token of the client trying to join a new game
+     */
     public void newPlayer(Token token) {
 
         waitingPlayers.add(token);
