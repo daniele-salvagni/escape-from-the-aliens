@@ -2,13 +2,15 @@ package it.polimi.ingsw.cg_2.messages.requests;
 
 import it.polimi.ingsw.cg_2.messages.Token;
 
+import java.io.Serializable;
+
 /**
  * This class represents a generic request message from the client to the
  * server, the client must identify himself by using an unique token obtained
  * from the server at the first connection. If it is the first connection the
  * token is allowed to be null.
  */
-public abstract class RequestMsg {
+public abstract class RequestMsg implements Serializable {
 
     Token token;
 
