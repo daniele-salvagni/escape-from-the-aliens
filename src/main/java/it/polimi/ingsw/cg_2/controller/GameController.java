@@ -28,7 +28,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * The controller for a single game, it manages the requests obtained by the GamesManager
+ * (that dispatches messages to the correct game) and manages the execution of actions by
+ * using a TurnMachine.
  */
 public class GameController {
 
