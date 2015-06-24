@@ -118,6 +118,12 @@ public class AttackAction extends Action {
 
     }
 
+    /**
+     * Kill a player by setting its status to dead, disabling the activated items and
+     * butting back into the item deck his held items.
+     *
+     * @param playerToKill the player to kill
+     */
     private void killPlayer(Player playerToKill) {
 
         Deck<ItemCard> itemDeck = game.getItemDeck();
