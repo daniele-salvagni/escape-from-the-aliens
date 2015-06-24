@@ -4,12 +4,13 @@ import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
  * Handles request messages from a client and return an appropriate response message.
  */
-public interface RequestHandler {
+public interface RequestHandler extends Remote {
 
     /**
      * Ask the server for a new connection by sending a ConnectRequestMsg with a null
