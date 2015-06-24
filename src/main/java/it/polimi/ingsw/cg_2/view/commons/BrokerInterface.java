@@ -7,7 +7,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- *
+ * This remote interface handler the publisher-subscriber server component. It allows
+ * clients to subscribe or unsubscribe from the broker.
  */
 public interface BrokerInterface extends Remote {
 
@@ -15,6 +16,5 @@ public interface BrokerInterface extends Remote {
 
     void unsubscribe(SubscriberInterface subscriber) throws RemoteException,
             IllegalArgumentException;
-
 
 }

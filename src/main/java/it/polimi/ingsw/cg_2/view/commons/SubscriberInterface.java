@@ -6,7 +6,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- *
+ * This remote interface is used by the publisher component to dispatch message to its
+ * subscribers.
  */
 public interface SubscriberInterface extends Remote {
 
