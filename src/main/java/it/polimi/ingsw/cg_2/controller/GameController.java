@@ -13,7 +13,6 @@ import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.DecksFactory;
 import it.polimi.ingsw.cg_2.model.deck.StandardDecksFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
-import it.polimi.ingsw.cg_2.model.map.ZoneLoader;
 import it.polimi.ingsw.cg_2.model.map.ZoneName;
 import it.polimi.ingsw.cg_2.model.player.CharacterRace;
 import it.polimi.ingsw.cg_2.model.player.Player;
@@ -53,6 +52,14 @@ public class GameController {
 
     private final PublisherInterface publisherInterface;
 
+    /**
+     * Create a new gameController, the game is initially instantiated with a standard
+     * decks factory, a standard players factory and the map Galilei (can be changed by
+     * clients).
+     *
+     * @param players            the token of the clients of this game
+     * @param publisherInterface the publisher interface to notify subscribed clients
+     */
     public GameController(List<Token> players, PublisherInterface publisherInterface) {
 
         // Make a copy, minimize mutability
@@ -73,6 +80,9 @@ public class GameController {
 
     }
 
+    /**
+     * Initialize the game model and start the turn machine.
+     */
     public void initGame() {
 
         game = Game.initialize(zFactory, dFactory, pFactory, players.size());
@@ -80,12 +90,22 @@ public class GameController {
 
     }
 
+    /**
+     * Get the progressive ID of this game
+     *
+     * @return the ID of this game
+     */
     public int getGameID() {
 
         return gameID;
 
     }
 
+    /**
+     * Get the topic of this game for publisher-subscriber communication
+     *
+     * @return the main topic of this game
+     */
     public String getTopic() {
 
         return "GAME" + Integer.toString(gameID);
@@ -99,6 +119,7 @@ public class GameController {
      */
     private boolean isGameFinished() {
 
+        // Last turn played
         if (game.getTurnNumber() > MAX_TURNS) {
             return true;
         }
@@ -120,11 +141,8 @@ public class GameController {
             }
         }
 
-        if (playingAliens.isEmpty() || playingHumans.isEmpty()) {
-            return true;
-        }
-
-        return false;
+        // All the humans escaped or died, or all the aliens died
+        return playingAliens.isEmpty() || playingHumans.isEmpty();
 
     }
 
@@ -162,6 +180,12 @@ public class GameController {
 
     }
 
+    /**
+     * Check if it is the turn of the player with the given token
+     *
+     * @param token the token of the player to check
+     * @return true, if it is his turn
+     */
     private boolean isPlayerTurn(Token token) {
 
         return players.indexOf(token) == game.getCurrentPlayerNumber();
