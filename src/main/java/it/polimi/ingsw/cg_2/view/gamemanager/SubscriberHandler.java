@@ -26,7 +26,6 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
     private static final Logger LOG = Logger.getLogger(SubscriberHandler.class.getName());
     private static final int TIMEOUT = 3000;
 
-    private final ExecutorService executorService;
 
     private final BrokerInterface brokerInterface;
 
@@ -35,11 +34,9 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     boolean isSubscribed;
 
-    public SubscriberHandler(Socket socket, ExecutorService executorService,
-                             BrokerInterface brokerInterface) {
+    public SubscriberHandler(Socket socket, BrokerInterface brokerInterface) {
 
         super(socket);
-        this.executorService = executorService;
         this.brokerInterface = brokerInterface;
 
         broadcastBuffer = new ConcurrentLinkedQueue<>();
