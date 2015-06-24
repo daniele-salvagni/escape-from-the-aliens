@@ -42,7 +42,7 @@ public class SocketServer extends Thread {
 
     }
 
-    private SocketHandler newHandler(Socket socket) {
+    protected SocketHandler newHandler(Socket socket) {
 
         return new ClientHandler(socket, requestHandler);
 
