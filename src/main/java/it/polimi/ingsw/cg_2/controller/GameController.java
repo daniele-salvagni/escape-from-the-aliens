@@ -15,12 +15,15 @@ import it.polimi.ingsw.cg_2.model.deck.StandardDecksFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneLoader;
 import it.polimi.ingsw.cg_2.model.map.ZoneName;
+import it.polimi.ingsw.cg_2.model.player.CharacterRace;
+import it.polimi.ingsw.cg_2.model.player.Player;
 import it.polimi.ingsw.cg_2.model.player.PlayersFactory;
 import it.polimi.ingsw.cg_2.model.player.StandardPlayersFactory;
 import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 import it.polimi.ingsw.cg_2.view.gamemanager.PublisherInterface;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -32,6 +35,8 @@ public class GameController {
 
     private static final Logger LOG = Logger.getLogger(GameController.class
             .getName());
+
+    private static final int MAX_TURNS = 39;
 
     private static int numberOfGames = 1;
     private final int gameID;
@@ -63,6 +68,9 @@ public class GameController {
         gameID = numberOfGames;
         numberOfGames++;
 
+        // Create a new GAMEX topic and automatically subscribe the clients of this game.
+        publisherInterface.addTopic(getTopic(), new HashSet<>(players));
+
     }
 
     public void initGame() {
@@ -84,9 +92,38 @@ public class GameController {
 
     }
 
-    private boolean gameFinished() {
+    /**
+     * Check if the game is finished.
+     *
+     * @return true, if the game is finished
+     */
+    private boolean isGameFinished() {
 
-        // TODO
+        if (game.getTurnNumber() > MAX_TURNS) {
+            return true;
+        }
+
+        List<Player> gamePlayers = game.getPlayers();
+        List<Player> playingAliens = new ArrayList<>();
+        List<Player> playingHumans = new ArrayList<>();
+
+        for (Player player : gamePlayers) {
+            if (player.getCharacter().getRace() == CharacterRace.ALIEN) {
+                if (!player.isSuspended() && player.getCharacter().isAlive()) {
+                    playingAliens.add(player);
+                }
+            } else { // HUMAN
+                if (!player.isSuspended() && player.getCharacter().isAlive() && !player
+                        .getCharacter().isEscaped()) {
+                    playingHumans.add(player);
+                }
+            }
+        }
+
+        if (playingAliens.isEmpty() || playingHumans.isEmpty()) {
+            return true;
+        }
+
         return false;
 
     }
