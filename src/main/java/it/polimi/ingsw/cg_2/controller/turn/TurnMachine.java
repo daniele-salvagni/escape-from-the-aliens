@@ -50,7 +50,7 @@ public class TurnMachine {
 
             if (nextState != null) {
 
-                state = nextState;
+                setState(nextState);
                 LOG.log(Level.INFO, "State changed to: " + state.getClass()
                         .getSimpleName());
 
@@ -69,6 +69,28 @@ public class TurnMachine {
             return new ResultMsgPair(new InvalidRequestMsg("RULE"), null);
 
         }
+
+    }
+
+    /**
+     * Get the current state of the State machine.
+     *
+     * @return the current state
+     */
+    public TurnState getState() {
+
+        return state;
+
+    }
+
+    /**
+     * Change the current state of the State machine.
+     *
+     * @param state the new state
+     */
+    public void setState(TurnState state) {
+
+        this.state = state;
 
     }
 
