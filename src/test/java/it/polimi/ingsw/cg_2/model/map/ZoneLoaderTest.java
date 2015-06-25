@@ -13,7 +13,7 @@ public class ZoneLoaderTest {
 
     private static final int ZONE_SECTORS = 16;
     private static final CubicCoordinate ALIEN_SECTOR = CubicCoordinate
-            .createFromOddQ(14, 6);
+            .createFromOddQ(13, 5);
 
     private static CubicCoordinate genericCoord;
 
