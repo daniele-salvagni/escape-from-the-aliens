@@ -76,10 +76,12 @@ public class PassAction extends Action {
 
         // Find the next player
         for (int i = 1; i < players.size(); i++) {
-            if (!player.isSuspended() && player.isConnected() && !player
-                    .getCharacter().isEscaped() && player.getCharacter()
+            Player curPlayer = players.get((i + playerNumber) % players.size());
+            if (!curPlayer.isSuspended() && curPlayer.isConnected() && !curPlayer
+                    .getCharacter().isEscaped() && curPlayer.getCharacter()
                     .isAlive()) {
-                nextPlayer = players.get((i + playerNumber) % players.size());
+                nextPlayer = curPlayer;
+                break;
             }
         }
 
