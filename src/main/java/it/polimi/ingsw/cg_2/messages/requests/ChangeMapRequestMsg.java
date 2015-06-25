@@ -12,6 +12,13 @@ public class ChangeMapRequestMsg extends RequestMsg {
     public ChangeMapRequestMsg(Token token, String map) {
 
         super(token);
+
+        if (!map.matches("^(ASCESA|BALENA|CAVOUR|DILEMMA|EN_GARDE|FERMI|FRENZY|GALILEI" +
+                "|GARIBALDI|GALVANI|MACHIAVELLI|MORGENLAND|SINISTRA|SOCRATES" +
+                "|SOUND_OF_SILENCE)$")) {
+            throw new IllegalArgumentException("Invalid MAP.");
+        }
+
         this.map = map;
 
     }
