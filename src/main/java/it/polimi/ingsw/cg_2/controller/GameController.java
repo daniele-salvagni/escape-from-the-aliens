@@ -88,7 +88,7 @@ public class GameController {
         // The log of executed public actions
         publicLog = new ArrayList<>();
 
-        // Create a new GAMEX topic and automatically subscribe the clients of this game.
+        // Create a new GAMEx topic and automatically subscribe the clients of this game.
         publisherInterface.addTopic(getTopic(), new HashSet<>(players));
         publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
 
@@ -105,6 +105,11 @@ public class GameController {
 
         // Only if the game did not already started
         if (game == null) {
+
+            if (!(players.indexOf(request.getToken()) == 0)) {
+                return new InvalidRequestMsg("Only the first player can change map.");
+            }
+
             try {
                 zFactory = ZoneFactory.newLoader(ZoneName.valueOf(request.getMap()));
                 return new AckResponseMsg("Map changed to " + request.getMap());
@@ -242,8 +247,8 @@ public class GameController {
      * back to the player and, if necessary, broadcast a message to all the clients
      * subscribed to a certain topic.
      *
-     * @param request
-     * @return
+     * @param request the request
+     * @return the appropriate response
      */
     public ResponseMsg handleRequest(RequestMsg request) {
 
@@ -284,7 +289,7 @@ public class GameController {
 
         }
 
-        // BTW this Should not be reached
+        // BTW this Should never be reached
         return null;
 
     }
