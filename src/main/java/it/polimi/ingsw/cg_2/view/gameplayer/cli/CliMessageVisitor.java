@@ -97,8 +97,13 @@ public class CliMessageVisitor implements MessageVisitor {
 
         sb.append("Player");
         sb.append(msg.getPlayer());
-        sb.append(" made");
+        sb.append(" made ");
         sb.append(msg.getCardType());
+
+        if (msg.getCardType().equals("NOISE")) {
+            sb.append(" in sector ");
+            sb.append(msg.getCoordinate());
+        }
 
         if (msg.isItem()) {
             sb.append(" and found an item");
