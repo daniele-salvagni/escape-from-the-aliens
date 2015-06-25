@@ -20,6 +20,23 @@ public class CliInterpteter {
     }
 
     /**
+     * Takes a coordinate in the format A:12 and converts it to the format 0:11.
+     *
+     * @param string the coordinate in the X:00 format (starting from A:1)
+     * @return the coordinate in the XX:YY format (stating from 0:0)
+     */
+    private static String parseCoordinate(String string) {
+
+        String split[] = string.split(":");
+
+        int col = split[0].charAt(0) - 'A';
+        int row = Integer.parseInt(split[1]) - 1;
+
+        return Integer.toString(col) + ":" + Integer.toString(row);
+
+    }
+
+    /**
      * Interpret command line commands and converts them into request messages.
      *
      * @param token the client token to generate the request
@@ -35,10 +52,10 @@ public class CliInterpteter {
             String param = cmd.replaceFirst("map ", "");
             return new ChangeMapRequestMsg(token, param);
 
-        } else if (cmd.matches("^move\\s(([0-9]|[1-9][0-9]):([0-9]|[1-9][0-9]))$")) {
+        } else if (cmd.matches("^move\\s(([A-Z]):([1-9]|[1-9][0-9]))$")) {
 
             String param = cmd.replaceFirst("move ", "");
-            return new MoveRequestMsg(token, param);
+            return new MoveRequestMsg(token, parseCoordinate(param));
 
         } else if (cmd.matches("^attack$")) {
 
@@ -52,10 +69,10 @@ public class CliInterpteter {
 
             return new EscapeRequestMsg(token);
 
-        } else if (cmd.matches("^noise\\s(([0-9]|[1-9][0-9]):([0-9]|[1-9][0-9]))$")) {
+        } else if (cmd.matches("^noise\\s(([A-Z]):([1-9]|[1-9][0-9]))$")) {
 
             String param = cmd.replaceFirst("noise ", "");
-            return new NoiseRequestMsg(token, param);
+            return new NoiseRequestMsg(token, parseCoordinate(param));
 
         } else if (cmd.matches("^pass$")) {
 
@@ -88,11 +105,11 @@ public class CliInterpteter {
 
             }
 
-        } else if (cmd.matches("^use\\sspotlight\\s(([0-9]|[1-9][0-9]):" +
-                "([0-9]|[1-9][0-9]))$")) {
+        } else if (cmd.matches("^use\\sspotlight\\s(([A-Z]):" +
+                "([1-9]|[1-9][0-9]))$")) {
 
             String param = cmd.replaceFirst("use spotlight ", "");
-            return new UseSptRequestMsg(token, param);
+            return new UseSptRequestMsg(token, parseCoordinate(param));
 
         } else {
 

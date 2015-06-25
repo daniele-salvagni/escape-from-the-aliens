@@ -22,6 +22,23 @@ public class CliMessageVisitor implements MessageVisitor {
 
     }
 
+    /**
+     * Takes a coordinate in the format 0:11 and converts it to the format A:12.
+     *
+     * @param string the coordinate in the XX:YY format (stating from 0:0)
+     * @return the coordinate in the X:00 format (starting from A:1)
+     */
+    private static String coordToHuman(String string) {
+
+        String split[] = string.split(":");
+
+        int col = 'A' + Integer.parseInt(split[0]);
+        int row = Integer.parseInt(split[1]) + 1;
+
+        return (char) col + ":" + Integer.toString(row);
+
+    }
+
     ////////////////////////////////////// BROADCAST \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     @Override
@@ -32,7 +49,7 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append("Player");
         sb.append(msg.getPlayer());
         sb.append(" attacked in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         sb.append(attackToString(msg.getKills(), msg.getSurvivors()));
@@ -66,7 +83,7 @@ public class CliMessageVisitor implements MessageVisitor {
         if (msg.getCardtype().equals("RED")) {
 
             sb.append(" tried to escape from hatch ");
-            sb.append(msg.getCoordinate());
+            sb.append(coordToHuman(msg.getCoordinate()));
             sb.append(" but it broke.");
             cli(sb.toString());
             return;
@@ -74,7 +91,7 @@ public class CliMessageVisitor implements MessageVisitor {
         }
 
         sb.append(" escaped from hatch ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(".");
 
         cli(sb.toString());
@@ -102,7 +119,7 @@ public class CliMessageVisitor implements MessageVisitor {
 
         if (msg.getCardType().equals("NOISE")) {
             sb.append(" in sector ");
-            sb.append(msg.getCoordinate());
+            sb.append(coordToHuman(msg.getCoordinate()));
         }
 
         if (msg.isItem()) {
@@ -152,7 +169,7 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append(msg.getPlayer());
         sb.append(" used ATTACK item in sector ");
         sb.append(" attacked in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         sb.append(attackToString(msg.getKills(), msg.getSurvivors()));
@@ -182,7 +199,7 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append("Player");
         sb.append(msg.getPlayer());
         sb.append(" used SPOTLIGHT in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         if (!msg.getSpottedPlayers().isEmpty()) {
@@ -191,7 +208,7 @@ public class CliMessageVisitor implements MessageVisitor {
 
                 sb.append("Player");
                 sb.append(p.getKey());
-                sb.append("[" + p.getValue() + "] ");
+                sb.append("[" + coordToHuman(p.getValue()) + "] ");
 
             }
             sb.append(". ");
@@ -224,7 +241,7 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You attacked in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         sb.append(attackToString(msg.getKills(), msg.getSurvivors()));
@@ -241,7 +258,6 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append("You found a ");
         sb.append(msg.getCardType());
         sb.append(" sector card");
-
 
         if (!msg.getItemType().equals("")) {
 
@@ -265,7 +281,7 @@ public class CliMessageVisitor implements MessageVisitor {
         if (msg.getCardType().equals("RED")) {
 
             sb.append(" tried to escape from hatch ");
-            sb.append(msg.getPosition());
+            sb.append(coordToHuman(msg.getPosition()));
             sb.append(" but it broke.");
             cli(sb.toString());
             return;
@@ -273,7 +289,7 @@ public class CliMessageVisitor implements MessageVisitor {
         }
 
         sb.append(" escaped from hatch ");
-        sb.append(msg.getPosition());
+        sb.append(coordToHuman(msg.getPosition()));
         sb.append(".");
 
         cli(sb.toString());
@@ -287,7 +303,6 @@ public class CliMessageVisitor implements MessageVisitor {
         cli(sb.toString());
 
 
-
     }
 
     @Override
@@ -296,7 +311,7 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You moved to ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(" in a ");
         sb.append(msg.getSectorType());
         sb.append(" sector.");
@@ -311,7 +326,7 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You made noise in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(".");
 
         cli(sb.toString());
@@ -338,7 +353,7 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You used ATTACK in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         sb.append(attackToString(msg.getKills(), msg.getSurvivors()));
@@ -360,7 +375,7 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You used SPOTLIGHT in sector ");
-        sb.append(msg.getCoordinate());
+        sb.append(coordToHuman(msg.getCoordinate()));
         sb.append(". ");
 
         if (!msg.getSpottedPlayers().isEmpty()) {
@@ -369,7 +384,7 @@ public class CliMessageVisitor implements MessageVisitor {
 
                 sb.append("Player");
                 sb.append(p.getKey());
-                sb.append("[" + p.getValue() + "] ");
+                sb.append("[" + coordToHuman(p.getValue()) + "] ");
 
             }
             sb.append(". ");
