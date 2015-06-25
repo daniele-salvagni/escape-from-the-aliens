@@ -87,7 +87,7 @@ public class DrawAction extends Action {
         setMessagePair(ResponseFactory.drawResponse(game, player,
                 sectorCard, itemCard));
 
-        if (sectorCard.getType() != SectorCard.SectorCardType.DECEPTION) {
+        if (sectorCard.getType() == SectorCard.SectorCardType.DECEPTION) {
 
             if (itemCard != null) {
 
