@@ -57,7 +57,7 @@ public class AttackResponseMsg extends ActionResponseMsg {
      *
      * @return the map of killed players (an unmodifiable view)
      */
-    public HashMap<Integer, String> getKills() {
+    public Map<Integer, String> getKills() {
 
         return kills;
 
@@ -69,7 +69,7 @@ public class AttackResponseMsg extends ActionResponseMsg {
      *
      * @return the list of survived players (an unmodifiable view)
      */
-    public ArrayList<Integer> getSurvivors() {
+    public List<Integer> getSurvivors() {
 
         return survivors;
 

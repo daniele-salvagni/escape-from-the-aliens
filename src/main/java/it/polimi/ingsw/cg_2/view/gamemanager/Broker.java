@@ -37,8 +37,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public synchronized void subscribe(SubscriberInterface subscriber, Token token)
-            throws IllegalArgumentException {
+    public synchronized void subscribe(SubscriberInterface subscriber, Token token) {
 
         if (subscriber == null) {
             throw new IllegalArgumentException("SubscriberInterface must not be null.");
@@ -58,8 +57,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public synchronized void unsubscribe(SubscriberInterface subscriber) throws
-            IllegalArgumentException {
+    public synchronized void unsubscribe(SubscriberInterface subscriber) {
 
         // If it was already removed nothing happens
         boolean unsubscribed = subscribers.values().remove(subscriber);
@@ -71,8 +69,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public synchronized void publish(BroadcastMsg message, String topic)
-            throws IllegalArgumentException {
+    public synchronized void publish(BroadcastMsg message, String topic) {
 
         if (message == null) {
             throw new IllegalArgumentException("Message must not be null.");
@@ -106,7 +103,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public synchronized void addTopic(String topic) throws IllegalArgumentException {
+    public synchronized void addTopic(String topic) {
 
         if (topics.contains(topic)) {
             throw new IllegalArgumentException("Topic already present.");
@@ -117,8 +114,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public void addTopic(String topic, Set<Token> clients) throws
-            IllegalArgumentException {
+    public void addTopic(String topic, Set<Token> clients) {
 
         addTopic(topic);
         subscribeClientsToTopic(topic, clients);
@@ -142,7 +138,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     public void subscribeClientsToTopic(String topic, Set<Token> clients) {
 
         if (!topics.contains(topic)) {
-            throw new IllegalArgumentException("Invalid topic.");
+            throw new IllegalArgumentException("Invalid topic(does not exist).");
         } else if (clients == null) {
             throw new IllegalArgumentException("Clients must not be null");
         }
@@ -155,7 +151,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     public void unsubscribeClientFromTopic(String topic, Token client) {
 
         if (!topics.contains(topic)) {
-            throw new IllegalArgumentException("Invalid topic.");
+            throw new IllegalArgumentException("Invalid topic (does not exist).");
         } else if (client == null) {
             throw new IllegalArgumentException("Client must not be null");
         }
@@ -187,7 +183,7 @@ public class Broker implements BrokerInterface, PublisherInterface {
     }
 
     @Override
-    public void removeTopic(String topic) throws IllegalArgumentException {
+    public void removeTopic(String topic) {
 
         if (!topics.contains(topic)) {
             throw new IllegalArgumentException("Invalid topic.");

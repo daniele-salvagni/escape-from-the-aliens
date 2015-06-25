@@ -31,13 +31,13 @@ public class UseAtkItemResponseMsg extends ActionResponseMsg {
 
     }
 
-    public HashMap<Integer, String> getKills() {
+    public Map<Integer, String> getKills() {
 
         return kills;
 
     }
 
-    public ArrayList<Integer> getSurvivors() {
+    public List<Integer> getSurvivors() {
 
         return survivors;
 

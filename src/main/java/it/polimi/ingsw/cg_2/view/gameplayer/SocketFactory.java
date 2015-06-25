@@ -14,8 +14,7 @@ public class SocketFactory extends PlayerConnectionFactory {
     private static final int SOCKET_PUBLISHER_PORT = 1338;
     private final SocketClient socketClient;
 
-    public SocketFactory(String host, ViewUpdater viewUpdater) throws IOException,
-            IllegalArgumentException {
+    public SocketFactory(String host, ViewUpdater viewUpdater) throws IOException {
 
         super(viewUpdater);
 

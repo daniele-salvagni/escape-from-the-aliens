@@ -24,7 +24,7 @@ public interface PublisherInterface {
      * @param topic the name of the new topic
      * @throws IllegalArgumentException if the topic did already exist
      */
-    void addTopic(String topic) throws IllegalArgumentException;
+    void addTopic(String topic);
 
     /**
      * Ass a new topic to the publisher topic and automatically subscribe a set of
@@ -35,7 +35,7 @@ public interface PublisherInterface {
      * @throws IllegalArgumentException if the topic did already exist or clients are
      *                                  invalid
      */
-    void addTopic(String topic, Set<Token> clients) throws IllegalArgumentException;
+    void addTopic(String topic, Set<Token> clients);
 
     /**
      * Subscribe a client to a specific topics.
@@ -83,6 +83,6 @@ public interface PublisherInterface {
      * @param topic the topic to remove
      * @throws IllegalArgumentException if the component did not exist
      */
-    void removeTopic(String topic) throws IllegalArgumentException;
+    void removeTopic(String topic);
 
 }

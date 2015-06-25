@@ -27,7 +27,7 @@ public class UseSptItemResponseMsg extends ActionResponseMsg {
 
     }
 
-    public HashMap<Integer, String> getSpottedPlayers() {
+    public Map<Integer, String> getSpottedPlayers() {
 
         return spottedPlayers;
 
