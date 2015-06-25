@@ -115,9 +115,9 @@ public class ZoneLoader extends ZoneFactory {
             for (int row = 0; row < gridHeight; row++) {
 
                 // Create a new CubicCoordinate
-                // // !IMPORTANT! we start form (1, 1) // //
+                // // !IMPORTANT! we start form (0, 0) // //
                 CubicCoordinate coord = CubicCoordinate
-                        .createFromOddQ(col + 1, row + 1);
+                        .createFromOddQ(col, row);
 
                 // And use it to create a new Sector
                 addSectorFromColor(sectors, colorGrid[col][row], coord);
