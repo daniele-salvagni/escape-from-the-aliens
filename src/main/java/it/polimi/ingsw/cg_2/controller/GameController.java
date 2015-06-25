@@ -8,6 +8,7 @@ import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.UseTlpItemBroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
@@ -90,6 +91,29 @@ public class GameController {
         // Create a new GAMEX topic and automatically subscribe the clients of this game.
         publisherInterface.addTopic(getTopic(), new HashSet<>(players));
         publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
+
+    }
+
+    /**
+     * Change the map (zone) where the game will be played, can be done only before
+     * starting the game.
+     *
+     * @param request the map change request message
+     * @return the appropriate response message
+     */
+    public ResponseMsg changeMap(ChangeMapRequestMsg request) {
+
+        // Only if the game did not already started
+        if (game == null) {
+            try {
+                zFactory = ZoneFactory.newLoader(ZoneName.valueOf(request.getMap()));
+                return new AckResponseMsg("Map changed to " + request.getMap());
+            } catch (Exception e) {
+                LOG.log(Level.WARNING, "There was a problem changing the map.");
+            }
+        }
+
+        return new InvalidRequestMsg("Can't change map.");
 
     }
 
@@ -226,7 +250,11 @@ public class GameController {
         // ########################################### Requests that can always be handled
 
         if (request instanceof SendChatMsg) {
-            handleChatMessage((SendChatMsg) request);
+            return handleChatMessage((SendChatMsg) request);
+        }
+
+        if (request instanceof ChangeMapRequestMsg) {
+            return changeMap((ChangeMapRequestMsg) request);
         }
 
         // ################################## Requests that require the game to be started
