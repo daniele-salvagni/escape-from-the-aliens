@@ -11,6 +11,8 @@ import it.polimi.ingsw.cg_2.view.gamemanager.PublisherInterface;
 
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This controller controls multiple games, implements a RequestHandler to receive
@@ -24,15 +26,18 @@ import java.util.*;
  */
 public class GamesController implements RequestHandler {
 
-    private static final int COUNTDOWN = 30;
+    private static final Logger LOG = Logger.getLogger(GamesController.class.getName());
 
-    private PublisherInterface publisherInterface;
-    private Map<Token, GameController> clients;
+    private static final int COUNTDOWN = 10;
+
+    private final PublisherInterface publisherInterface;
+    private final Map<Token, GameController> clients;
 
     Timer timer;
     TimerTask timerTask;
 
     private final List<Token> waitingPlayers;
+    private GameController waitingGame;
 
     /**
      * Create a new GamesController.
@@ -43,21 +48,9 @@ public class GamesController implements RequestHandler {
 
         timer = new Timer();
         waitingPlayers = new ArrayList<>();
-
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-
-                GameController newGame = new GameController(waitingPlayers,
-                        publisherInterface);
-                for (Token waitingPlayer : waitingPlayers) {
-                    clients.put(waitingPlayer, newGame);
-                }
-
-                waitingPlayers.clear();
-
-            }
-        };
+        this.publisherInterface = publisher;
+        clients = new HashMap<>();
+        waitingGame = new GameController(publisher);
 
     }
 
@@ -72,12 +65,36 @@ public class GamesController implements RequestHandler {
     public void newPlayer(Token token) {
 
         waitingPlayers.add(token);
+        waitingGame.addPlayer(token);
+        clients.put(token, waitingGame);
+
+        LOG.log(Level.INFO, "New player added to waiting room.");
 
         if ((waitingPlayers.size() >= 2) && (waitingPlayers.size() <= 7)) {
 
-            timerTask.cancel();
             timer.cancel();
-            timer.schedule(timerTask, COUNTDOWN * 1000);
+
+            timerTask = new TimerTask() {
+                @Override
+                public void run() {
+                    try {
+
+                        waitingGame.initGame();
+                        waitingGame = new GameController(publisherInterface);
+                        waitingPlayers.clear();
+
+                        LOG.log(Level.INFO, "New game created.");
+
+                    } catch (Exception e) {
+                        LOG.log(Level.SEVERE, "Unexpected exception while creating a " +
+                                "new game.", e);
+                    }
+                }
+            };
+
+            timer = new Timer();
+
+            timer.schedule(timerTask, (long) COUNTDOWN * 1000);
 
         } else if ((waitingPlayers.size() == 8)) {
 
@@ -124,9 +141,7 @@ public class GamesController implements RequestHandler {
 
             }
 
-
         }
-
 
     }
 

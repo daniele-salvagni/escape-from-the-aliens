@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.controller;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
+import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitorImpl;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.Token;
@@ -67,13 +68,12 @@ public class GameController {
      * decks factory, a standard players factory and the map Galilei (can be changed by
      * clients).
      *
-     * @param players            the token of the clients of this game
      * @param publisherInterface the publisher interface to notify subscribed clients
      */
-    public GameController(List<Token> players, PublisherInterface publisherInterface) {
+    public GameController(PublisherInterface publisherInterface) {
 
         // Make a copy, minimize mutability
-        this.players = new ArrayList<>(players);
+        this.players = new ArrayList<>();
         this.publisherInterface = publisherInterface;
 
         dFactory = new StandardDecksFactory();
@@ -88,9 +88,8 @@ public class GameController {
         // The log of executed public actions
         publicLog = new ArrayList<>();
 
-        // Create a new GAMEx topic and automatically subscribe the clients of this game.
-        publisherInterface.addTopic(getTopic(), new HashSet<>(players));
-        publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
+        // Create a new GAMEx topic.
+        publisherInterface.addTopic(getTopic());
 
     }
 
@@ -123,12 +122,32 @@ public class GameController {
     }
 
     /**
+     * Add a player to the game (only if the game did not already started)
+     *
+     * @param token the token of the player to add
+     */
+    public void addPlayer(Token token) {
+
+        if (game == null) {
+            players.add(token);
+            // Subscribe the client to the topic of this game
+            publisherInterface.subscribeClientToTopic(getTopic(), token);
+        }
+
+    }
+
+    /**
      * Initialize the game model and start the turn machine.
      */
     public void initGame() {
 
         game = Game.initialize(zFactory, dFactory, pFactory, players.size());
         turnMachine = new TurnMachine(game);
+        actionFactory = new ActionFactoryVisitorImpl(game, players, turnMachine);
+
+
+        // TODO: Remove
+        publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
 
     }
 

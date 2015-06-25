@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.controller.turn.DrawnDeceptionAndItemState;
+import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
 import it.polimi.ingsw.cg_2.controller.turn.TurnState;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.actions.*;
@@ -21,20 +22,21 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
 
     private final Game game;
     private final List<Token> clients;
-    private final TurnState turnState;
+    private final TurnMachine turnMachine;
 
     /**
      * Create a new ActionFactoryVisitorImpl.
      *
-     * @param game the game where to execute actions
-     * @param clients the ordered list of clients (same order as game players)
-     * @param turnState the current state of the turn machine
+     * @param game        the game where to execute actions
+     * @param clients     the ordered list of clients (same order as game players)
+     * @param turnMachine the turn machine that manages the turns of this game
      */
-    public ActionFactoryVisitorImpl(Game game, List<Token> clients, TurnState turnState) {
+    public ActionFactoryVisitorImpl(Game game, List<Token> clients, TurnMachine
+            turnMachine) {
 
         this.game = game;
         this.clients = new ArrayList<>(clients);
-        this.turnState = turnState;
+        this.turnMachine = turnMachine;
 
     }
 
@@ -124,7 +126,8 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
     @Override
     public Action visit(NoiseRequestMsg requestMsg) {
 
-        boolean item = (turnState == DrawnDeceptionAndItemState.getInstance());
+        boolean item = (turnMachine.getState() == DrawnDeceptionAndItemState
+                .getInstance());
 
         return new NoiseAction(game, getPlayerByToken(requestMsg.getToken()),
                 getSectorFromString(requestMsg.getCoordinate()), item);
