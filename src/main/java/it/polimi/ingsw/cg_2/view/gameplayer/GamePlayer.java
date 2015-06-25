@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliInterpteter;
+import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliMessageVisitor;
 import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliUpdater;
 
 import java.io.IOException;
@@ -44,16 +45,7 @@ public class GamePlayer {
 
                 response = requestHandler.processRequest(request);
 
-                if (response == null) {
-                    System.out.println("null received");
-                } else
-
-                    if (response instanceof InvalidRequestMsg) {
-                        System.out.println(((InvalidRequestMsg) response).getReason().toString());
-
-                    } else {
-                        System.out.println(response.toString());
-                    }
+                testview.update(response);
 
             }
 

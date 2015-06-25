@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.view.gameplayer;
 
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 
 /**
  *
@@ -8,5 +9,7 @@ import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 public interface ViewUpdater {
 
     void update(BroadcastMsg msg);
+
+    void update(ResponseMsg msg);
 
 }
