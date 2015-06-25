@@ -11,13 +11,22 @@ import it.polimi.ingsw.cg_2.messages.requests.actions.*;
 public class CliInterpteter {
 
     /**
+     * Suppress the default constructor for noninstantiability.
+     */
+    private CliInterpteter() {
+
+        throw new AssertionError();
+
+    }
+
+    /**
      * Interpret command line commands and converts them into request messages.
      *
      * @param token the client token to generate the request
      * @param cmd the command string
      * @return the corresponding action, null if the command was not well formed
      */
-    public RequestMsg parseString(Token token, String cmd) {
+    public static RequestMsg parseString(Token token, String cmd) {
 
         if (cmd.matches("^(map\\s(ASCESA|BALENA|CAVOUR|DILEMMA|EN_GARDE|FERMI" +
                 "|FRENZY|GALILEI|GARIBALDI|GALVANI|MACHIAVELLI|MORGENLAND|SINISTRA" +
@@ -91,8 +100,6 @@ public class CliInterpteter {
 
         }
 
-
     }
-
 
 }
