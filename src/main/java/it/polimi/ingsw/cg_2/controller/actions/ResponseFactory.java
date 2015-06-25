@@ -72,8 +72,8 @@ public class ResponseFactory {
 
         int attackerInt = game.getPlayerNumber(attacker);
 
-        String coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        String coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         Map<Integer, String> killsIntMap = new HashMap<>();
         List<Integer> survivorsIntList = new ArrayList<>();
