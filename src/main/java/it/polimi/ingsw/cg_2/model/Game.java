@@ -64,8 +64,10 @@ public class Game {
         this.players = pFactory.createPlayers(pNumber, zone.getHumanSector(),
                 zone.getAlienSector());
 
+        currentPlayer = players.get(0);
+
         noises = new ArrayList<>();
-        turnNumber = 0;
+        turnNumber = 1;
 
     }
 

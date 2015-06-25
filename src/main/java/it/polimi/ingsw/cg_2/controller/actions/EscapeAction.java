@@ -132,18 +132,18 @@ public class EscapeAction extends Action {
 
         // Find the next player
         for (int i = 1; i < players.size(); i++) {
-            if (!player.isSuspended() && player.isConnected() && !player
-                    .getCharacter().isEscaped() && player.getCharacter()
+            Player curPlayer = players.get((i + playerNumber) % players.size());
+            if (!curPlayer.isSuspended() && curPlayer.isConnected() && !curPlayer
+                    .getCharacter().isEscaped() && curPlayer.getCharacter()
                     .isAlive()) {
-                nextPlayer = players.get((i + playerNumber) % players.size());
+                nextPlayer = curPlayer;
+                break;
             }
         }
 
         // Increase turn number
         game.setTurnNumber(game.getTurnNumber() + 1);
 
-        // It could return the same player, but in this case the game will
-        // end immediately after this.
         return nextPlayer;
 
     }
