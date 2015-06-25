@@ -66,7 +66,8 @@ public class TurnMachine {
             // The action is NOT valid, inform the client and don't broadcast
             // any message. We inform that the problem is with the game rules
             // (invalid sequence of actions or action parameters not allowed).
-            return new ResultMsgPair(new InvalidRequestMsg("RULE"), null);
+            return new ResultMsgPair(new InvalidRequestMsg("Request against game rules" +
+                    "."), null);
 
         }
 
