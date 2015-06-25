@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -9,8 +11,8 @@ import java.util.Map;
 public class UseAtkItemResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
-    private final Map<Integer, String> kills;
-    private final List<Integer> survivors;
+    private final HashMap<Integer, String> kills;
+    private final ArrayList<Integer> survivors;
 
     public UseAtkItemResponseMsg(boolean success, String coordinate,
             Map<Integer, String> kills, List<Integer> survivors) {
@@ -18,8 +20,8 @@ public class UseAtkItemResponseMsg extends ActionResponseMsg {
         super(success);
 
         this.coordinate = coordinate;
-        this.kills = kills;
-        this.survivors = survivors;
+        this.kills = new HashMap<>(kills);
+        this.survivors = new ArrayList<>(survivors);
 
     }
 
@@ -29,13 +31,13 @@ public class UseAtkItemResponseMsg extends ActionResponseMsg {
 
     }
 
-    public Map<Integer, String> getKills() {
+    public HashMap<Integer, String> getKills() {
 
         return kills;
 
     }
 
-    public List<Integer> getSurvivors() {
+    public ArrayList<Integer> getSurvivors() {
 
         return survivors;
 
