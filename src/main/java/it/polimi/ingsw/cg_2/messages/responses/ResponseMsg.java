@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 import java.io.Serializable;
 
 /**
@@ -7,5 +9,7 @@ import java.io.Serializable;
  * subsequent to a client request.
  */
 public interface ResponseMsg extends Serializable {
+
+    void display(MessageVisitor visitor);
 
 }
