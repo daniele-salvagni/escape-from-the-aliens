@@ -106,7 +106,7 @@ public abstract class PlayerConnectionFactory {
     }
 
     /**
-     * Get the subscriber interface
+     * Get the subscriber interface.
      *
      * @return the subscriber interface
      */

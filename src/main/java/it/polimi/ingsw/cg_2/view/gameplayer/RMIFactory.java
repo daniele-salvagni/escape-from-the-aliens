@@ -62,10 +62,10 @@ public class RMIFactory extends PlayerConnectionFactory {
 
             /*
              * Subscriber exports its own remote interface SubscriberInterface
-			  * so that it can receive invocations from remote brokers.
+			 * so that it can receive invocations from remote brokers.
 			 */
             subscriberInterface = (SubscriberInterface) UnicastRemoteObject
-                    .exportObject(getSubscriberInterface(), 0);
+                    .exportObject(getSubscriber(), 0);
 
             setupConnection();
 
