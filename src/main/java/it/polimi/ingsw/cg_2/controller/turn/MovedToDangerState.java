@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.controller.turn;
 
 import it.polimi.ingsw.cg_2.controller.actions.Action;
+import it.polimi.ingsw.cg_2.controller.actions.AttackAction;
 import it.polimi.ingsw.cg_2.controller.actions.DrawAction;
 import it.polimi.ingsw.cg_2.controller.actions.UseItemAction;
 import it.polimi.ingsw.cg_2.model.Game;
@@ -33,8 +34,8 @@ public class MovedToDangerState extends TurnState {
 
         // Check if the the action sequence is valid and then if the action
         // itself is valid.
-        return ((action instanceof DrawAction) || (action instanceof
-                UseItemAction)) && action.isValid();
+        return ((action instanceof DrawAction) || (action instanceof AttackAction) ||
+                (action instanceof UseItemAction)) && action.isValid();
 
     }
 
