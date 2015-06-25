@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * A response message for the DrawAction. Contains information about the
  * type of the sector card and the item found (if any).
@@ -48,4 +50,11 @@ public class DrawResponseMsg extends ActionResponseMsg {
 
         return itemType;
     }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
+
+    }
+
 }

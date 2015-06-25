@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 import java.util.*;
 
 /**
@@ -72,6 +74,12 @@ public class AttackResponseMsg extends ActionResponseMsg {
     public List<Integer> getSurvivors() {
 
         return survivors;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

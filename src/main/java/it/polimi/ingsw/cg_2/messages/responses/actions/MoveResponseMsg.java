@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * A response message for the MoveAction, contains information about the new
  * position.
@@ -44,6 +46,12 @@ public class MoveResponseMsg extends ActionResponseMsg {
     public String getSectorType() {
 
         return sectorType;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

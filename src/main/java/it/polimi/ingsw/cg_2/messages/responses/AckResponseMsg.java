@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * An acknowledgment signal message.
  */
@@ -35,6 +37,12 @@ public class AckResponseMsg implements ResponseMsg {
     public String getMessage() {
 
         return message;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

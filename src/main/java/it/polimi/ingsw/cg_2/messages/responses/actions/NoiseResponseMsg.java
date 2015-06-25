@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * A response message for the NoiseAction. Contains only a confirmation about
  * the location of the noise.
@@ -35,6 +37,12 @@ public class NoiseResponseMsg extends ActionResponseMsg {
     public String getCoordinate() {
 
         return coordinate;
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
+
     }
 
 }
