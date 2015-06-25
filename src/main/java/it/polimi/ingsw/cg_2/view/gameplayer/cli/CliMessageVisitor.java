@@ -189,7 +189,7 @@ public class CliMessageVisitor implements MessageVisitor {
                 sb.append("[" + p.getValue() + "] ");
 
             }
-            sb.append("died. ");
+            sb.append(". ");
         } else {
             sb.append("No one has been revealed.");
         }
@@ -330,6 +330,16 @@ public class CliMessageVisitor implements MessageVisitor {
     @Override
     public void display(UseAtkItemResponseMsg msg) {
 
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("You used ATTACK in sector ");
+        sb.append(msg.getCoordinate());
+        sb.append(". ");
+
+        sb.append(attackToString(msg.getKills(), msg.getSurvivors()));
+
+        cli(sb.toString());
+
     }
 
     @Override
@@ -341,6 +351,28 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(UseSptItemResponseMsg msg) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("You used SPOTLIGHT in sector ");
+        sb.append(msg.getCoordinate());
+        sb.append(". ");
+
+        if (!msg.getSpottedPlayers().isEmpty()) {
+            sb.append("Spotlight revealed ");
+            for (Map.Entry<Integer, String> p : msg.getSpottedPlayers().entrySet()) {
+
+                sb.append("Player");
+                sb.append(p.getKey());
+                sb.append("[" + p.getValue() + "] ");
+
+            }
+            sb.append(". ");
+        } else {
+            sb.append("No one has been revealed.");
+        }
+
+        cli(sb.toString());
 
     }
 
