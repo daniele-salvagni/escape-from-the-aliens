@@ -21,8 +21,7 @@ public class Subscriber implements SubscriberInterface {
     @Override
     public void dispatchMessage(BroadcastMsg message) throws RemoteException {
 
-        // TEST - TODO
-        System.out.println("Received public message: " + message.toString());
+        viewUpdater.update(message);
 
     }
 

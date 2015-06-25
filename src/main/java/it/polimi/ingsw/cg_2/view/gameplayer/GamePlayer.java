@@ -7,6 +7,7 @@ import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliInterpteter;
+import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliUpdater;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -19,7 +20,7 @@ public class GamePlayer {
 
     public static void main(String[] args) {
 
-        TESTVIEW testview = new TESTVIEW();
+        ViewUpdater testview = new CliUpdater();
 
         try {
 
