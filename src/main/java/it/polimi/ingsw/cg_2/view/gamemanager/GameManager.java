@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.view.gamemanager;
 
+import it.polimi.ingsw.cg_2.controller.GamesController;
+
 /**
  *
  */
@@ -10,7 +12,7 @@ public class GameManager {
         ServerConnectionFactory serverInitializer = new ServerConnectionFactory();
         PublisherInterface publisherInterface = serverInitializer.getPublisherInterface();
 
-        TESTCONTROLLER testcontroller = new TESTCONTROLLER();
+        GamesController testcontroller = new GamesController(publisherInterface);
 
         serverInitializer.setRequestHandler(testcontroller);
         serverInitializer.startServers();
