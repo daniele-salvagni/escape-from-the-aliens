@@ -25,6 +25,12 @@ public class ClientHandler extends SocketHandler {
     private static final int TIMEOUT = 3000;
     private final RequestHandler requestHandler;
 
+    /**
+     * Creates a new client handler.
+     *
+     * @param client the socket used by the client
+     * @param requestHandler the interface to handle client requests
+     */
     public ClientHandler(Socket client, RequestHandler requestHandler) {
 
         super(client);

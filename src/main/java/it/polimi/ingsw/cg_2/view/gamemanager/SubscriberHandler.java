@@ -19,13 +19,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Handle the subscriber in the publisher-subscriber component. It receives subscription
+ * requests and after a successful subscription all the messages received from the
+ * dispatchMessage method are processed from the queue and sent to the subscriber.
  */
 public class SubscriberHandler extends SocketHandler implements SubscriberInterface {
 
     private static final Logger LOG = Logger.getLogger(SubscriberHandler.class.getName());
     private static final int TIMEOUT = 3000;
-
 
     private final BrokerInterface brokerInterface;
 
@@ -34,6 +35,12 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     boolean isSubscribed;
 
+    /**
+     * Create a new subscriberhandler
+     *
+     * @param socket the socket connection
+     * @param brokerInterface the broker interface used to setup new subscriptions
+     */
     public SubscriberHandler(Socket socket, BrokerInterface brokerInterface) {
 
         super(socket);
@@ -45,6 +52,12 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     }
 
+    /**
+     * Manages a subscription request by dispatching it to the broker interface.
+     *
+     * @param subscribeRequest the subscription request
+     * @throws IOException if a problem occurred during subscription
+     */
     private void manageSubscription(SubscribeRequestMsg subscribeRequest) throws
             IOException {
 
@@ -62,6 +75,11 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     }
 
+    /**
+     * Listens for a subscription request.
+     *
+     * @return the subscription request message
+     */
     private SubscribeRequestMsg receiveSubscriptionRequest() {
 
         // Return null if there is a problem
@@ -98,6 +116,9 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     }
 
+    /**
+     * Manages the unsubscription of this client from the broker.
+     */
     private void unsubscribe() {
 
         if (isSubscribed) {
@@ -113,6 +134,12 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     }
 
+    /**
+     * Sends a message to the subscriber.
+     *
+     * @param message the message to send
+     * @throws IOException if there was a problem during the transfer of the message
+     */
     private void sendMsg(Object message) throws IOException {
 
         try {
@@ -128,6 +155,12 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     }
 
+    /**
+     * Send to the subscriber the content of the broadcastBuffer.
+     *
+     * @throws IOException if there was a problem during the transfer of the message
+     * @throws InterruptedException if there was an interrupted exception
+     */
     private void broadcastBuffer() throws IOException, InterruptedException {
 
         synchronized (broadcastBuffer) {
@@ -162,7 +195,7 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
             subscribeRequest = receiveSubscriptionRequest();
             manageSubscription(subscribeRequest);
 
-            while(true) {
+            while (true) {
                 broadcastBuffer();
             }
 

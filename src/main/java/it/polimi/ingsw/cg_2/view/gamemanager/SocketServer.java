@@ -26,6 +26,13 @@ public class SocketServer extends Thread {
     // broker)
     private RequestHandler requestHandler;
 
+    /**
+     * Create a new SocketServer.
+     *
+     * @param port the port where to listen
+     * @param executorService an executor service to handle the threads
+     * @param requestHandler the interface to handle client requests
+     */
     public SocketServer(int port, ExecutorService executorService, RequestHandler
             requestHandler) {
 
@@ -34,6 +41,12 @@ public class SocketServer extends Thread {
 
     }
 
+    /**
+     * Create a new SocketServer.
+     *
+     * @param port the port where to listen
+     * @param executorService an executor service to handle the threads
+     */
     protected SocketServer(int port, ExecutorService executorService) {
 
         this.port = port;
@@ -42,12 +55,21 @@ public class SocketServer extends Thread {
 
     }
 
+    /**
+     * Get a new Client handler for client-server reqeusts.
+     *
+     * @param socket the socket used for the connection
+     * @return the new client handler
+     */
     protected SocketHandler newHandler(Socket socket) {
 
         return new ClientHandler(socket, requestHandler);
 
     }
 
+    /**
+     * Stop the server component.
+     */
     public synchronized void stopServer() {
 
         // Attempts to stop all actively executing tasks, halts the processing of
@@ -93,30 +115,55 @@ public class SocketServer extends Thread {
 
     }
 
+    /**
+     * Get the port where the socket is listening to.
+     *
+     * @return the socket port
+     */
     protected int getPort() {
 
         return port;
 
     }
 
+    /**
+     * Get the ExecutorService.
+     *
+     * @return the ExecutorService
+     */
     protected ExecutorService getExecutorService() {
 
         return executorService;
 
     }
 
+    /**
+     * Get the RequestHandler.
+     *
+     * @return the RequestHandler
+     */
     protected RequestHandler getRequestHandler() {
 
         return requestHandler;
 
     }
 
+    /**
+     * Check if the server is stopped or not.
+     *
+     * @return true, if the server is stopped
+     */
     protected boolean isStopped() {
 
         return isStopped;
 
     }
 
+    /**
+     * Set the server stopped status
+     *
+     * @param isStopped true, to set the server as stopped
+     */
     protected void setStopped(boolean isStopped) {
 
         this.isStopped = isStopped;
