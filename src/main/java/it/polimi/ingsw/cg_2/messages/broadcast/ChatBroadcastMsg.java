@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  *
  */
@@ -24,6 +26,12 @@ public class ChatBroadcastMsg implements BroadcastMsg {
     public String getMessage() {
 
         return message;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

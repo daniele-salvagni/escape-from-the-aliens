@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +48,12 @@ public class AttackBroadcastMsg implements BroadcastMsg {
     public List<Integer> getSurvivors() {
 
         return survivors;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

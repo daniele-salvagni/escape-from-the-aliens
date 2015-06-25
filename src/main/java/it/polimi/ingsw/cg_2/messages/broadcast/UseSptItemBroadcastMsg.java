@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +38,12 @@ public class UseSptItemBroadcastMsg implements BroadcastMsg {
     public Map<Integer, String> getSpottedPlayers() {
 
         return spottedPlayers;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 
