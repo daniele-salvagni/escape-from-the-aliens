@@ -1,6 +1,7 @@
 package it.polimi.ingsw.cg_2.view.gameplayer.cli;
 
 import it.polimi.ingsw.cg_2.messages.broadcast.*;
+import it.polimi.ingsw.cg_2.messages.responses.AckResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ConnectionResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.SubscribeResponseMsg;
@@ -359,6 +360,13 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(SubscribeResponseMsg msg) {
+
+        // Do nothing
+
+    }
+
+    @Override
+    public void display(AckResponseMsg msg) {
 
         // Do nothing
 
