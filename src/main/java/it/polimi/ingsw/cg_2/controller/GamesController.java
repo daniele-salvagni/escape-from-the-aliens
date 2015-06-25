@@ -102,10 +102,6 @@ public class GamesController implements RequestHandler {
     @Override
     public ResponseMsg processRequest(RequestMsg request) throws RemoteException {
 
-        if (!(request instanceof RequestMsg)) {
-            return new InvalidRequestMsg("Invalid request (unrecognized).");
-        }
-
         if (request instanceof ConnectionRequest) {
 
             ConnectionRequest connectionRequest = (ConnectionRequest) request;

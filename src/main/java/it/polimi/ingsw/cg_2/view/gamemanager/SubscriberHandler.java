@@ -13,8 +13,8 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.rmi.RemoteException;
+import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.ExecutorService;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -30,13 +30,13 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
 
     private final BrokerInterface brokerInterface;
 
-    private final ConcurrentLinkedQueue<BroadcastMsg> broadcastBuffer;
+    private final Queue<BroadcastMsg> broadcastBuffer;
     private ObjectOutputStream outputStream;
 
     boolean isSubscribed;
 
     /**
-     * Create a new subscriberhandler
+     * Create a new subscriberhandler.
      *
      * @param socket the socket connection
      * @param brokerInterface the broker interface used to setup new subscriptions
@@ -95,9 +95,7 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
                 throw new ClassCastException();
             subscribeMessage = (SubscribeRequestMsg) object;
 
-            /*
-             * Closes the input half of the socket connection.
-			 */
+            // Close the input half od the socket
             try {
                 getSocket().shutdownInput();
             } catch (IOException e) {

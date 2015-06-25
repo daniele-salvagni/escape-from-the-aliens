@@ -10,8 +10,8 @@ import java.io.IOException;
  */
 public class SocketFactory extends PlayerConnectionFactory {
 
-    private final static int SOCKET_SERVER_PORT = 1337;
-    private final static int SOCKET_PUBLISHER_PORT = 1338;
+    private static final int SOCKET_SERVER_PORT = 1337;
+    private static final int SOCKET_PUBLISHER_PORT = 1338;
     private final SocketClient socketClient;
 
     public SocketFactory(String host, ViewUpdater viewUpdater) throws IOException,
@@ -34,14 +34,14 @@ public class SocketFactory extends PlayerConnectionFactory {
     @Override
     public RequestHandler getRequestHandler() {
 
-        return (RequestHandler) socketClient;
+        return socketClient;
 
     }
 
     @Override
     public BrokerInterface getBrokerInterface() {
 
-        return (BrokerInterface) socketClient;
+        return socketClient;
 
     }
 }

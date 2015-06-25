@@ -1,7 +1,6 @@
 package it.polimi.ingsw.cg_2.view.commons;
 
 import it.polimi.ingsw.cg_2.messages.Token;
-import it.polimi.ingsw.cg_2.view.gameplayer.Subscriber;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
