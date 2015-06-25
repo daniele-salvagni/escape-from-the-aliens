@@ -1,10 +1,12 @@
 package it.polimi.ingsw.cg_2.view.gameplayer;
 
+import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.MoveRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
+import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliInterpteter;
 
 import java.io.IOException;
 import java.rmi.NotBoundException;
@@ -32,12 +34,14 @@ public class GamePlayer {
 
             Scanner in = new Scanner(System.in);
             while (true) {
-                String coord = in.nextLine(); // just to wait
+
+
+                String cmd = in.nextLine(); // just to wait
                 ResponseMsg response = null;
 
-                //response = requestHandler.processRequest(new MoveRequestMsg(playerConnectionFactory.getToken(), coord));
+                RequestMsg request = CliInterpteter.parseString(playerConnectionFactory.getToken(), cmd);
 
-                response = requestHandler.processRequest(new SendChatMsg(playerConnectionFactory.getToken(), coord));
+                response = requestHandler.processRequest(request);
 
                 if (response == null) {
                     System.out.println("null received");
