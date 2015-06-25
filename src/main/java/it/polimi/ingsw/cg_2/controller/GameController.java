@@ -5,8 +5,13 @@ import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.Token;
+import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.broadcast.UseTlpItemBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
+import it.polimi.ingsw.cg_2.messages.responses.AckResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.model.Game;
@@ -54,6 +59,8 @@ public class GameController {
 
     private final PublisherInterface publisherInterface;
 
+    private final List<BroadcastMsg> publicLog;
+
     /**
      * Create a new gameController, the game is initially instantiated with a standard
      * decks factory, a standard players factory and the map Galilei (can be changed by
@@ -77,8 +84,12 @@ public class GameController {
         gameID = numberOfGames;
         numberOfGames++;
 
+        // The log of executed public actions
+        publicLog = new ArrayList<>();
+
         // Create a new GAMEX topic and automatically subscribe the clients of this game.
         publisherInterface.addTopic(getTopic(), new HashSet<>(players));
+        publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
 
     }
 
@@ -157,7 +168,7 @@ public class GameController {
      * @param request the request message from the client
      * @return the result of the execution of the message (response & broadcast)
      */
-    public ResultMsgPair executeAction(ActionRequestMsg request) {
+    private ResultMsgPair executeAction(ActionRequestMsg request) {
 
         Action action;
 
@@ -179,7 +190,6 @@ public class GameController {
 
         }
 
-
     }
 
     /**
@@ -194,11 +204,38 @@ public class GameController {
 
     }
 
+    private ResponseMsg handleChatMessage(SendChatMsg request) {
+
+        int clientNum = players.indexOf(request.getToken());
+        BroadcastMsg broadcast = new ChatBroadcastMsg(clientNum, request.getMessage());
+        publisherInterface.publish(broadcast, getTopic());
+        return new AckResponseMsg("Chat message delivered.");
+
+    }
+
+    /**
+     * Handle a generic request coming from a client, and generate a response to be sent
+     * back to the player and, if necessary, broadcast a message to all the clients
+     * subscribed to a certain topic.
+     *
+     * @param request
+     * @return
+     */
     public ResponseMsg handleRequest(RequestMsg request) {
+
+        // ########################################### Requests that can always be handled
+
+        if (request instanceof SendChatMsg) {
+            handleChatMessage((SendChatMsg) request);
+        }
+
+        // ################################## Requests that require the game to be started
 
         if (game == null) {
             return new InvalidRequestMsg("Please wait for the game to start.");
         }
+
+        // ############################# Requests that require the player playing the turn
 
         if (!isPlayerTurn(request.getToken())) {
             return new InvalidRequestMsg("Please wait your turn to play.");
@@ -209,14 +246,17 @@ public class GameController {
             ResultMsgPair result = executeAction((ActionRequestMsg) request);
 
             if (result.broadcast != null) {
+                // Publish a public message
                 publisherInterface.publish(result.broadcast, getTopic());
+                // Add it to the public log
+                publicLog.add(result.broadcast);
             }
 
             return result.response;
 
         }
 
-        // TODO: Other Requests (not actions, if any)
+        // BTW this Should not be reached
         return null;
 
     }
