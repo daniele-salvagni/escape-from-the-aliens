@@ -64,8 +64,10 @@ public class Game {
         this.players = pFactory.createPlayers(pNumber, zone.getHumanSector(),
                 zone.getAlienSector());
 
+        currentPlayer = players.get(0);
+
         noises = new ArrayList<>();
-        turnNumber = 0;
+        turnNumber = 1;
 
     }
 
@@ -238,7 +240,7 @@ public class Game {
     }
 
     /**
-     * Gets the number of a certain player (based on the players order)
+     * Gets the number of a certain player (based on the players order).
      *
      * @param player the player
      * @return the number of the player
@@ -246,6 +248,17 @@ public class Game {
     public int getPlayerNumber(Player player) {
 
         return players.indexOf(player);
+
+    }
+
+    /**
+     * Get the number of the current player playing the turn.
+     *
+     * @return the number of the current player
+     */
+    public int getCurrentPlayerNumber() {
+
+        return getPlayerNumber(getCurrentPlayer());
 
     }
 
