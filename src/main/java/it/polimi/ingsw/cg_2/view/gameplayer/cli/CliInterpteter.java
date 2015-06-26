@@ -2,6 +2,7 @@ package it.polimi.ingsw.cg_2.view.gameplayer.cli;
 
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.*;
 
@@ -110,6 +111,10 @@ public class CliInterpteter {
 
             String param = cmd.replaceFirst("use spotlight ", "");
             return new UseSptRequestMsg(token, parseCoordinate(param));
+
+        }else if (cmd.matches("^get info$")) {
+
+            return new PrivateDataRequestMsg(token);
 
         } else {
 
