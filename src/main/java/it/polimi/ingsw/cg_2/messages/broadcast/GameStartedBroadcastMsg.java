@@ -1,22 +1,24 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 import java.util.HashMap;
 
 /**
  *
  */
-public class GameStartedBroadcastMsg {
+public class GameStartedBroadcastMsg implements BroadcastMsg {
 
     private final int gameNumber;
     private final int numberOfPlayers;
-    private final int zoneName;
-    private final int gameMode;
+    private final String zoneName;
+    private final String gameMode;
     private final int playerTurn;
 
     private final HashMap<String, String> zoneSectors;
 
-    public GameStartedBroadcastMsg(int gameNumber, int numberOfPlayers, int zoneName,
-                                   int gameMode, int playerTurn, HashMap<String,
+    public GameStartedBroadcastMsg(int gameNumber, int numberOfPlayers, String zoneName,
+                                   String gameMode, int playerTurn, HashMap<String,
                                    String> zoneSectors) {
 
         this.gameNumber = gameNumber;
@@ -40,13 +42,13 @@ public class GameStartedBroadcastMsg {
 
     }
 
-    public int getZoneName() {
+    public String getZoneName() {
 
         return zoneName;
 
     }
 
-    public int getGameMode() {
+    public String getGameMode() {
 
         return gameMode;
 
@@ -61,6 +63,12 @@ public class GameStartedBroadcastMsg {
     public HashMap<String, String> getZoneSectors() {
 
         return zoneSectors;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 
