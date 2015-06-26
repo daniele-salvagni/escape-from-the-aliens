@@ -47,7 +47,7 @@ public class CliMessageVisitor implements MessageVisitor {
      */
     private static String coordToHuman(String string) {
 
-        String split[] = string.split(":");
+        String[] split = string.split(":");
 
         int col = 'A' + Integer.parseInt(split[0]);
         int row = Integer.parseInt(split[1]) + 1;

@@ -67,7 +67,7 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
     private Sector getSectorFromString(String coordStr) {
 
         // The format s ensured by the message constructor
-        String split[] = coordStr.split(":");
+        String[] split = coordStr.split(":");
 
         CubicCoordinate coord = CubicCoordinate.createFromOddQ(Integer.parseInt
                 (split[0]), Integer.parseInt(split[1]));
@@ -107,7 +107,7 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
     public Action visit(MoveRequestMsg requestMsg) {
 
         String coordStr = requestMsg.getCoordinate();
-        String split[] = coordStr.split(":");
+        String[] split = coordStr.split(":");
 
         CubicCoordinate coord = CubicCoordinate.createFromOddQ(Integer.parseInt
                 (split[0]), Integer.parseInt(split[1]));

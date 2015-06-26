@@ -29,7 +29,7 @@ public class CliInterpteter {
      */
     private static String parseCoordinate(String string) {
 
-        String split[] = string.split(":");
+        String[] split = string.split(":");
 
         int col = split[0].charAt(0) - 'A';
         int row = Integer.parseInt(split[1]) - 1;
