@@ -89,7 +89,9 @@ The ZoneHelper class is able to support every map dimension, however the impleme
 
 Here follows a graphical representation of the convertion process from human to computer readable and vice versa, notice how hard it is to understand neighbors in the version with 1px per sector:
 
-![Image processing](http://i.imgur.com/lYzt2cx.png)
+![Image processing](http://i.imgur.com/INfo0dU.png)
+
+[Vertical Version](http://i.imgur.com/lYzt2cx.png)
 
 ##### Color Palette #####
 
@@ -131,4 +133,3 @@ When a game needs to send an update to its clients, it sends a publish request t
 Every message (public or private) sent from the server to the client also contains a visit method from the **Visitor Pattern** so that the clients can display the displayed information without having to check for the concrete type of the message. This is useful also to implement different visitors for different types of interface (e.g. **CLI** or **GUI**).
 
 The same communications pattern are transparently implemented for both **RMI** and **Socket**, thanks to polymorphism you don't need to know which one you are using to "talk" with the game manager.
-
