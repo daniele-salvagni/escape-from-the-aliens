@@ -125,15 +125,15 @@ public class EscapeAction extends Action {
 
         player.clearActiveItems();
 
-        int playerNumber = game.getPlayerNumber(player);
         List<Player> players = game.getPlayers();
+        int playerNumber = game.getPlayerNumber(player);
 
         Player nextPlayer = player;
 
         // Find the next player
         for (int i = 1; i < players.size(); i++) {
             Player curPlayer = players.get((i + playerNumber) % players.size());
-            if (!curPlayer.isSuspended() && curPlayer.isConnected() && !curPlayer
+            if (curPlayer.isConnected() && !curPlayer.isSuspended() && !curPlayer
                     .getCharacter().isEscaped() && curPlayer.getCharacter()
                     .isAlive()) {
                 nextPlayer = curPlayer;
@@ -142,7 +142,8 @@ public class EscapeAction extends Action {
         }
 
         // Increase turn number
-        game.setTurnNumber(game.getTurnNumber() + 1);
+        int newTurnNumber = game.getTurnNumber() + 1;
+        game.setTurnNumber(newTurnNumber);
 
         return nextPlayer;
 
