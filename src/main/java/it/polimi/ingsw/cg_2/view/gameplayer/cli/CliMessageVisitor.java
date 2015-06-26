@@ -432,7 +432,29 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append(msg.getRank());
         sb.append(" of ");
         sb.append(msg.getRace());
-        sb.append(" race.");
+        sb.append(" race. ");
+
+        sb.append("You are in position ");
+        sb.append(coordToHuman(msg.getPosition()));
+        sb.append(".\n");
+
+        if (!msg.getHeldItems().isEmpty()) {
+            sb.append("You have the following items:");
+            for (String item : msg.getHeldItems()) {
+                sb.append(" ");
+                sb.append(item);
+            }
+            sb.append(".\n");
+        }
+
+        if (!msg.getActivatedItems().isEmpty()) {
+            sb.append("You activated the following items:");
+            for (String item : msg.getActivatedItems()) {
+                sb.append(" ");
+                sb.append(item);
+            }
+            sb.append(".");
+        }
 
         cli(sb.toString());
 
