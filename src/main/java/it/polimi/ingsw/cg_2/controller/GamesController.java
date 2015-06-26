@@ -28,7 +28,7 @@ public class GamesController implements RequestHandler {
 
     private static final Logger LOG = Logger.getLogger(GamesController.class.getName());
 
-    private static final int COUNTDOWN = 10;
+    private static final int COUNTDOWN = 15;
 
     private final PublisherInterface publisherInterface;
     private final Map<Token, GameController> clients;
