@@ -1,10 +1,7 @@
 package it.polimi.ingsw.cg_2.view.gameplayer.cli;
 
 import it.polimi.ingsw.cg_2.messages.broadcast.*;
-import it.polimi.ingsw.cg_2.messages.responses.AckResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.ConnectionResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
-import it.polimi.ingsw.cg_2.messages.responses.SubscribeResponseMsg;
+import it.polimi.ingsw.cg_2.messages.responses.*;
 import it.polimi.ingsw.cg_2.messages.responses.actions.*;
 import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
 
@@ -421,6 +418,23 @@ public class CliMessageVisitor implements MessageVisitor {
     public void display(AckResponseMsg msg) {
 
         // Do nothing
+
+    }
+
+    @Override
+    public void display(PrivateDataResponseMsg msg) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("You are the Player");
+        sb.append(msg.getPlayerNumber());
+        sb.append(", you rank is ");
+        sb.append(msg.getRank());
+        sb.append(" of ");
+        sb.append(msg.getRace());
+        sb.append(" race.");
+
+        cli(sb.toString());
 
     }
 
