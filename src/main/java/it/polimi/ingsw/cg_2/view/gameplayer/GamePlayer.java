@@ -22,11 +22,23 @@ public class GamePlayer {
     public static void main(String[] args) {
 
         ViewUpdater testview = new CliUpdater();
+        Scanner in = new Scanner(System.in);
 
         try {
 
-            PlayerConnectionFactory playerConnectionFactory = new SocketFactory
-                    ("localhost", testview);
+
+            System.out.println("RMI or Socket?");
+            String choice = in.nextLine();
+
+            PlayerConnectionFactory playerConnectionFactory;
+
+            if (choice.equals("RMI")) {
+                playerConnectionFactory = new RMIFactory("localhost", testview);
+            } else {
+                playerConnectionFactory = new SocketFactory
+                        ("localhost", testview);
+            }
+
 
             //PlayerConnectionFactory playerConnectionFactory = new RMIFactory
             // ("localhost", testview);
@@ -34,7 +46,7 @@ public class GamePlayer {
 
             //requestHandler.connect();
 
-            Scanner in = new Scanner(System.in);
+
             while (true) {
 
 
@@ -42,6 +54,11 @@ public class GamePlayer {
                 ResponseMsg response = null;
 
                 RequestMsg request = CliInterpteter.parseString(playerConnectionFactory.getToken(), cmd);
+
+                if (request==null){
+                    System.out.println("ERROR: Invalid command");
+                    continue;
+                }
 
                 response = requestHandler.processRequest(request);
 
@@ -51,6 +68,8 @@ public class GamePlayer {
 
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (NotBoundException e) {
             e.printStackTrace();
         }
 

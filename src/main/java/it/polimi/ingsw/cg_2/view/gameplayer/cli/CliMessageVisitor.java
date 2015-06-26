@@ -544,7 +544,13 @@ public class CliMessageVisitor implements MessageVisitor {
     @Override
     public void display(PublicLogResponseMsg msg) {
 
-        cli("######################### PRINTING LOG #########################");
+        if (msg.getLog().isEmpty()) {
+            cli("Public log is currently empty.");
+            return;
+        }
+
+        cli("######################### PRINTING LOG START #########################");
+        cli("########################## PRINTING LOG END ##########################");
 
         for (BroadcastMsg message : msg.getLog()) {
             message.display(this);

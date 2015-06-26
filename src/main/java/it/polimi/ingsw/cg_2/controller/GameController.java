@@ -12,13 +12,11 @@ import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.GameStartedBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.PublicLogRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
-import it.polimi.ingsw.cg_2.messages.responses.AckResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
-import it.polimi.ingsw.cg_2.messages.responses.PrivateDataResponseMsg;
-import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
+import it.polimi.ingsw.cg_2.messages.responses.*;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.DecksFactory;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
@@ -347,6 +345,10 @@ public class GameController {
 
         if (request instanceof PrivateDataRequestMsg) {
             return fetchPrivateData((PrivateDataRequestMsg) request);
+        }
+
+        if (request instanceof PublicLogRequestMsg) {
+            return new PublicLogResponseMsg(publicLog);
         }
 
         // ############################# Requests that require the player playing the turn

@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.view.gameplayer.cli;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.PublicLogRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.*;
 
@@ -41,7 +42,7 @@ public class CliInterpteter {
      * Interpret command line commands and converts them into request messages.
      *
      * @param token the client token to generate the request
-     * @param cmd the command string
+     * @param cmd   the command string
      * @return the corresponding action, null if the command was not well formed
      */
     public static RequestMsg parseString(Token token, String cmd) {
@@ -112,9 +113,13 @@ public class CliInterpteter {
             String param = cmd.replaceFirst("use spotlight ", "");
             return new UseSptRequestMsg(token, parseCoordinate(param));
 
-        }else if (cmd.matches("^get info$")) {
+        } else if (cmd.matches("^get info$")) {
 
             return new PrivateDataRequestMsg(token);
+
+        } else if (cmd.matches("^get log$")) {
+
+            return new PublicLogRequestMsg(token);
 
         } else {
 
