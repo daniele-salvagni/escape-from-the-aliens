@@ -336,6 +336,8 @@ public class CliMessageVisitor implements MessageVisitor {
             sb.append(".");
         }
 
+        cli(sb.toString());
+
 
     }
 
