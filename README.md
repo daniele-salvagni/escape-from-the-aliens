@@ -53,7 +53,7 @@ The following command will be available before and after starting a game:
 
 The following commands will be available during a game, based on the specific [game rules](http://www.escapefromthealiensinouterspace.com/pdf/manuale_eng_black_divise.pdf):
 
-* `get info` - Display **private** informations about the player, such as: the race (alien or human), the rank, the current position, the held and activated items (if any). You should use this command at the start of the game to know the informations about your character.
+* `get info` - Display **private** informations about the player, such as: the race (alien or human), the rank, the current position, the held and activated items (if any). You should use this command at the start of the game to know the information about your character.
 * `move <L:XX>` - Move to the specified sector, where `L` is a letter from A to Z and `XX` a number from 1 to 99 (e.g. `move S:22`).
 * `attack` - Perform an attack in the current sector.
 * `draw` - Draw a sector card (when in a DANGEROUS sector, only if you don't attack), you could also found an item by doing this.
@@ -67,7 +67,7 @@ Any other command is not valid.
 
 ## Implementation details ##
 
-The whole architecture of the application follows the **MVC** pattern, the model contains all the information to store the state of the game manager, the controller manages game initialization and rules, the view is comosed by two parts: a remote view on the game manager connected to the local view on the game player to reotely interact with the controller.
+The whole architecture of the application follows the **MVC** pattern, the model contains all the information to store the state of the game manager, the controller manages game initialization and rules, the view is composed by two parts: a remote view on the game manager connected to the local view on the game player to remotely interact with the controller.
 
 ### Model ###
 
@@ -75,11 +75,11 @@ The whole architecture of the application follows the **MVC** pattern, the model
 
 The model is pretty straightforward, the various decks of cards are implemented with a generic `Deck` class that automatically shuffle cards in a transparent way when they are finished, some standard creational pattern have been used to instantiate various classes and Zones are loaded from files.
 
-The constraints of the hexagonal maps are modeled by implementing some of the algorithms on Amit Patel's blog ([Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/)).
+The constraints of the hexagonal maps are modeled by implementing some of the algorithms on *Amit Patel*'s blog ([Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/)).
 
 #### Map encoding ####
 
-As hexahonal maps are hard to understand, we decided not to use Plain Text, XML files or external tools, but we used something quick and accessible to everyone to edit them or create new ones, images.
+As hexagonal maps are hard to understand, we decided not to use Plain Text, XML files or external tools, but we used something quick and accessible to everyone to edit them or create new ones, images.
 
 The official supported format for map files is .PNG (but also other formats may work), it is mandatory not to use lossy compression. By using 2x2px cells and shifting down each even column by 1px it is very easy to understand cell adjacency, giving an overview of the map and the possibility for anyone to edit them with the most basic image editing software. It could also be helpful in the case of the implementation of a random map generator to have an overview of the generated maps without the need of a graphical interface.
 
@@ -87,7 +87,7 @@ Every standard **RGB** color is supported, however we suggest not to use Black a
 
 The ZoneHelper class is able to support every map dimension, however the implementation of this game will be fixed to a 23x14 cells size like the non-digital version. Smaller maps should be handled correctly so in the case of switching to bigger maps older ones should still be compatible.
 
-Here follows a graphical representation of the convertion process from human to computer readable and vice versa, notice how hard it is to understand neighbors in the version with 1px per sector:
+Here follows a graphical representation of the conversion process from human to computer readable and vice versa, notice how hard it is to understand neighbors in the version with 1px per sector:
 
 ![Image processing](http://i.imgur.com/INfo0dU.png)
 
@@ -120,7 +120,7 @@ Here is also an UML diagram that shows the messages alongside the controller (lo
 
 ### View ###
 
-The view is separated in two parts, a remote view on the game manager and a local view on the gameplayer to interact with the game manager. Communication between them can happen with both RMI or Socket based on the choice of each different client.
+The view is separated in two parts, a remote view on the game manager and a local view on the game player to interact with the game manager. Communication between them can happen with both RMI or Socket based on the choice of each different client.
 
 ![View UML Diagram](http://i.imgur.com/1WTvy3q.png)
 
@@ -128,7 +128,7 @@ The view is separated in two parts, a remote view on the game manager and a loca
 
 Client-Server communication uses a **request-response** communication pattern, while game updates are sent by a broker following the **publisher-subscriber** pattern.
 
-When a game needs to send an update to its clients, it sends a publish request to the broker with a specific topic for that game. Those publish requests will be put in a **queue** which will then be dispatched to the clients that subsribed to that topic when possible.
+When a game needs to send an update to its clients, it sends a publish request to the broker with a specific topic for that game. Those publish requests will be put in a **queue** which will then be dispatched to the clients that subscribed to that topic when possible.
 
 Every message (public or private) sent from the server to the client also contains a visit method from the **Visitor Pattern** so that the clients can display the displayed information without having to check for the concrete type of the message. This is useful also to implement different visitors for different types of interface (e.g. **CLI** or **GUI**).
 
