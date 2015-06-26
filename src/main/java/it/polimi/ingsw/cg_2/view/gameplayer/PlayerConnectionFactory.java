@@ -116,7 +116,7 @@ public abstract class PlayerConnectionFactory {
      */
     public SubscriberInterface getSubscriberInterface() {
 
-        return (SubscriberInterface) subscriber;
+        return subscriber;
 
     }
 

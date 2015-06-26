@@ -47,7 +47,7 @@ public class CliMessageVisitor implements MessageVisitor {
      */
     private static String coordToHuman(String string) {
 
-        String split[] = string.split(":");
+        String[] split = string.split(":");
 
         int col = 'A' + Integer.parseInt(split[0]);
         int row = Integer.parseInt(split[1]) + 1;
@@ -483,15 +483,13 @@ public class CliMessageVisitor implements MessageVisitor {
         StringBuilder sb = new StringBuilder();
 
         sb.append("You used SPOTLIGHT in sector ");
-        sb.append(coordToHuman(msg.getCoordinate()));
-        sb.append(". ");
+        sb.append(coordToHuman(msg.getCoordinate())).append(". ");
 
         if (!msg.getSpottedPlayers().isEmpty()) {
             sb.append("Spotlight revealed ");
             for (Map.Entry<Integer, String> p : msg.getSpottedPlayers().entrySet()) {
 
-                sb.append("Player");
-                sb.append(p.getKey());
+                sb.append("Player").append(p.getKey());
                 sb.append("[" + coordToHuman(p.getValue()) + "] ");
 
             }

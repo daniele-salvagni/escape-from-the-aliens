@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.controller.turn.DrawnDeceptionAndItemState;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
-import it.polimi.ingsw.cg_2.controller.turn.TurnState;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.actions.*;
 import it.polimi.ingsw.cg_2.model.Game;
@@ -67,7 +66,7 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
     private Sector getSectorFromString(String coordStr) {
 
         // The format s ensured by the message constructor
-        String split[] = coordStr.split(":");
+        String[] split = coordStr.split(":");
 
         CubicCoordinate coord = CubicCoordinate.createFromOddQ(Integer.parseInt
                 (split[0]), Integer.parseInt(split[1]));
@@ -107,7 +106,7 @@ public class ActionFactoryVisitorImpl implements ActionFactoryVisitor {
     public Action visit(MoveRequestMsg requestMsg) {
 
         String coordStr = requestMsg.getCoordinate();
-        String split[] = coordStr.split(":");
+        String[] split = coordStr.split(":");
 
         CubicCoordinate coord = CubicCoordinate.createFromOddQ(Integer.parseInt
                 (split[0]), Integer.parseInt(split[1]));

@@ -2,31 +2,28 @@ package it.polimi.ingsw.cg_2.view.gamemanager;
 
 import it.polimi.ingsw.cg_2.controller.GamesController;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
- *
+ * Entry point to start a GameManager.
  */
 public class GameManager {
+
+    private static final Logger LOG = Logger.getLogger(GameManager.class.getName());
 
     public static void main(String[] args) {
 
         ServerConnectionFactory serverInitializer = new ServerConnectionFactory();
         PublisherInterface publisherInterface = serverInitializer.getPublisherInterface();
 
-        GamesController testcontroller = new GamesController(publisherInterface);
+        GamesController mainController = new GamesController(publisherInterface);
 
-        serverInitializer.setRequestHandler(testcontroller);
+        serverInitializer.setRequestHandler(mainController);
         serverInitializer.startServers();
 
-        while(true) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
+        LOG.log(Level.INFO, "Game manager started, listening for RMI and Socket " +
+                "incoming connections.");
 
     }
 

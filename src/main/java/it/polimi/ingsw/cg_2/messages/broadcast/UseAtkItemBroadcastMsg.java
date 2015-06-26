@@ -12,24 +12,18 @@ import java.util.Map;
  */
 public class UseAtkItemBroadcastMsg implements BroadcastMsg {
 
-    private final int player;
     private final String coordinate;
     private final HashMap<Integer, String> kills;
     private final ArrayList<Integer> survivors;
+    private final int player;
 
     public UseAtkItemBroadcastMsg(int player, String coordinate, Map<Integer,
             String> kills, List<Integer> survivors) {
 
-        this.player = player;
         this.coordinate = coordinate;
         this.kills = new HashMap<>(kills);
         this.survivors = new ArrayList<>(survivors);
-
-    }
-
-    public int getPlayer() {
-
-        return player;
+        this.player = player;
 
     }
 
@@ -48,6 +42,12 @@ public class UseAtkItemBroadcastMsg implements BroadcastMsg {
     public List<Integer> getSurvivors() {
 
         return survivors;
+
+    }
+
+    public int getPlayer() {
+
+        return player;
 
     }
 
