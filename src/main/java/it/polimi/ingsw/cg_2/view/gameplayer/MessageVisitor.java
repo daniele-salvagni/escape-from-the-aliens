@@ -61,4 +61,6 @@ public interface MessageVisitor {
 
     void display(AckResponseMsg msg);
 
+    void display(PrivateDataResponseMsg msg);
+
 }
