@@ -6,7 +6,8 @@ import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import java.io.IOException;
 
 /**
- *
+ * The Socket implementation of the PlayerConnectionFactory, creates a new SocketClient
+ * which implements both the RequestHandler and the BrokerInterface.
  */
 public class SocketFactory extends PlayerConnectionFactory {
 
@@ -14,6 +15,13 @@ public class SocketFactory extends PlayerConnectionFactory {
     private static final int SOCKET_PUBLISHER_PORT = 1338;
     private final SocketClient socketClient;
 
+    /**
+     * Create a new SocketFactory.
+     *
+     * @param host        the hostname of the game manager
+     * @param viewUpdater the view updater
+     * @throws IOException if there was a problem setting up the connection
+     */
     public SocketFactory(String host, ViewUpdater viewUpdater) throws IOException {
 
         super(viewUpdater);
