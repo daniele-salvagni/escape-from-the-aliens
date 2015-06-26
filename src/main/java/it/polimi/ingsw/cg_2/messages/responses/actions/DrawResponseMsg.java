@@ -51,6 +51,7 @@ public class DrawResponseMsg extends ActionResponseMsg {
         return itemType;
     }
 
+    @Override
     public void display(MessageVisitor visitor) {
 
         visitor.display(this);

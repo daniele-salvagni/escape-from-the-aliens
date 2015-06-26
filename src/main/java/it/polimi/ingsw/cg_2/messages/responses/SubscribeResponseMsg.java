@@ -21,6 +21,7 @@ public class SubscribeResponseMsg implements ResponseMsg {
 
     }
 
+    @Override
     public void display(MessageVisitor visitor) {
 
         visitor.display(this);

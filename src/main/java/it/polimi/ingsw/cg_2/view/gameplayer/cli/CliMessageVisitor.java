@@ -105,7 +105,7 @@ public class CliMessageVisitor implements MessageVisitor {
         sb.append("Player");
         sb.append(msg.getPlayer());
 
-        if (msg.getCardtype().equals("RED")) {
+        if (msg.getCardType().equals("RED")) {
 
             sb.append(" tried to escape from hatch ");
             sb.append(coordToHuman(msg.getCoordinate()));

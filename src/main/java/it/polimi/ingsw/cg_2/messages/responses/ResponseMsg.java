@@ -10,6 +10,11 @@ import java.io.Serializable;
  */
 public interface ResponseMsg extends Serializable {
 
+    /**
+     * Visit this message to display the result.
+     *
+     * @param visitor the visitor
+     */
     void display(MessageVisitor visitor);
 
 }
