@@ -11,54 +11,49 @@ import java.rmi.NotBoundException;
 import java.util.Scanner;
 
 /**
- *
+ * Entry point for a game player.
  */
 public class GamePlayer {
 
     public static void main(String[] args) {
 
-        ViewUpdater testview = new CliUpdater();
-        Scanner in = new Scanner(System.in);
+        ViewUpdater view = new CliUpdater();
+        Scanner scanner = new Scanner(System.in);
+
+        String connectionType;
+
+        do {
+            System.out.println("Enter RMI or SOCKET to choose the connection type:");
+            connectionType = scanner.nextLine();
+        } while (!connectionType.matches("^(RMI|SOCKET)$"));
 
         try {
 
-
-            System.out.println("RMI or Socket?");
-            String choice = in.nextLine();
-
             PlayerConnectionFactory playerConnectionFactory;
 
-            if (choice.equals("RMI")) {
-                playerConnectionFactory = new RMIFactory("localhost", testview);
+            if (connectionType.matches("^(RMI)$")) {
+                playerConnectionFactory = new RMIFactory("localhost", view);
             } else {
-                playerConnectionFactory = new SocketFactory
-                        ("localhost", testview);
+                playerConnectionFactory = new SocketFactory("localhost", view);
             }
 
-
-            //PlayerConnectionFactory playerConnectionFactory = new RMIFactory
-            // ("localhost", testview);
             RequestHandler requestHandler = playerConnectionFactory.getRequestHandler();
-
-            //requestHandler.connect();
-
 
             while (true) {
 
+                String cmd = scanner.nextLine();
 
-                String cmd = in.nextLine();
-                ResponseMsg response = null;
+                ResponseMsg response;
+                RequestMsg request = CliInterpteter.parseString(playerConnectionFactory
+                        .getToken(), cmd);
 
-                RequestMsg request = CliInterpteter.parseString(playerConnectionFactory.getToken(), cmd);
-
-                if (request==null){
+                if (request == null) {
                     System.out.println("ERROR: Invalid command");
                     continue;
                 }
 
                 response = requestHandler.processRequest(request);
-
-                testview.update(response);
+                view.update(response);
 
             }
 
@@ -69,8 +64,6 @@ public class GamePlayer {
             e.printStackTrace();
         }
 
-
     }
-
 
 }
