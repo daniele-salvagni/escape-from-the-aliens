@@ -230,6 +230,29 @@ public class CliMessageVisitor implements MessageVisitor {
 
     }
 
+    @Override
+    public void display(GameStartedBroadcastMsg msg) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Game");
+        sb.append(msg.getGameNumber());
+        sb.append(" started in zone ");
+        sb.append(msg.getZoneName());
+        sb.append(", game mode is ");
+        sb.append(msg.getGameMode());
+        sb.append(" and there are ");
+        sb.append(msg.getNumberOfPlayers());
+        sb.append(" players.");
+
+        sb.append("\nThe turn starts from Player");
+        sb.append(msg.getPlayerTurn());
+        sb.append(".");
+
+        cli(sb.toString());
+
+    }
+
     ////////////////////////////////////// RESPONSES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     @Override
@@ -428,7 +451,7 @@ public class CliMessageVisitor implements MessageVisitor {
 
         sb.append("You are the Player");
         sb.append(msg.getPlayerNumber());
-        sb.append(", you rank is ");
+        sb.append(" and you rank is ");
         sb.append(msg.getRank());
         sb.append(" of ");
         sb.append(msg.getRace());
@@ -436,19 +459,19 @@ public class CliMessageVisitor implements MessageVisitor {
 
         sb.append("You are in position ");
         sb.append(coordToHuman(msg.getPosition()));
-        sb.append(".\n");
+        sb.append(".");
 
         if (!msg.getHeldItems().isEmpty()) {
-            sb.append("You have the following items:");
+            sb.append("\nYou have the following items:");
             for (String item : msg.getHeldItems()) {
                 sb.append(" ");
                 sb.append(item);
             }
-            sb.append(".\n");
+            sb.append(".");
         }
 
         if (!msg.getActivatedItems().isEmpty()) {
-            sb.append("You activated the following items:");
+            sb.append("\nYou activated the following items:");
             for (String item : msg.getActivatedItems()) {
                 sb.append(" ");
                 sb.append(item);

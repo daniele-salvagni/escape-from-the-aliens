@@ -29,6 +29,8 @@ public interface MessageVisitor {
 
     void display(UseTlpItemBroadcastMsg msg);
 
+    void display(GameStartedBroadcastMsg msg);
+
 
     void display(AttackResponseMsg msg);
 
