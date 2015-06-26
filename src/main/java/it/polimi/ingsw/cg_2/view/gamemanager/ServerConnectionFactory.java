@@ -22,10 +22,10 @@ public class ServerConnectionFactory {
     private static final Logger LOG = Logger.getLogger(ServerConnectionFactory.class
             .getName());
 
-    private final static int RMI_PORT = 7777;
-    private final static int SOCKET_SERVER_PORT = 1337;
-    private final static int SOCKET_PUBLISHER_PORT = 1338;
-    private final static int MAX_SUB_THREADS = 24;
+    private static final int RMI_PORT = 7777;
+    private static final int SOCKET_SERVER_PORT = 1337;
+    private static final int SOCKET_PUBLISHER_PORT = 1338;
+    private static final int MAX_SUB_THREADS = 24;
 
     private RequestHandler requestHandler;
     private final Broker broker;

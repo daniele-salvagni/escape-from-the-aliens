@@ -42,6 +42,10 @@ public abstract class PlayerConnectionFactory {
 
         token = getRequestHandler().connect();
 
+        if (viewUpdater.getPlayerNum() == -1) {
+            viewUpdater.setPlayerNum(token.getPlayerNumber());
+        }
+
         getBrokerInterface().subscribe(getSubscriberInterface(), token);
 
     }
@@ -106,7 +110,7 @@ public abstract class PlayerConnectionFactory {
     }
 
     /**
-     * Get the subscriber interface
+     * Get the subscriber interface.
      *
      * @return the subscriber interface
      */

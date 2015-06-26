@@ -29,6 +29,7 @@ public class Character {
         this.rank = rank;
         this.race = race;
         alive = true;
+        escaped = false;
 
     }
 
@@ -96,18 +97,18 @@ public class Character {
      */
     public boolean isEscaped() {
 
-        return alive;
+        return escaped;
 
     }
 
     /**
      * Sets the status of the character, true if escaped or false if not.
      *
-     * @param alive the new escaped status
+     * @param escaped the new escaped status
      */
-    public void setEscaped(boolean alive) {
+    public void setEscaped(boolean escaped) {
 
-        this.alive = alive;
+        this.escaped = escaped;
 
     }
 

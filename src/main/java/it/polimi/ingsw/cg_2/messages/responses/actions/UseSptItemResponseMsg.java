@@ -1,5 +1,8 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -8,7 +11,7 @@ import java.util.Map;
 public class UseSptItemResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
-    private final Map<Integer, String> spottedPlayers;
+    private final HashMap<Integer, String> spottedPlayers;
 
     public UseSptItemResponseMsg(boolean success, String coordinate,
                 Map<Integer, String> spottedPlayers) {
@@ -16,7 +19,7 @@ public class UseSptItemResponseMsg extends ActionResponseMsg {
         super(success);
 
         this.coordinate = coordinate;
-        this.spottedPlayers = spottedPlayers;
+        this.spottedPlayers = new HashMap<>(spottedPlayers);
 
     }
 
@@ -29,6 +32,12 @@ public class UseSptItemResponseMsg extends ActionResponseMsg {
     public Map<Integer, String> getSpottedPlayers() {
 
         return spottedPlayers;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

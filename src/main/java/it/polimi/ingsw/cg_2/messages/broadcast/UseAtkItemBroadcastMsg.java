@@ -1,5 +1,9 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -10,16 +14,16 @@ public class UseAtkItemBroadcastMsg implements BroadcastMsg {
 
     private final int player;
     private final String coordinate;
-    private final Map<Integer, String> kills;
-    private final List<Integer> survivors;
+    private final HashMap<Integer, String> kills;
+    private final ArrayList<Integer> survivors;
 
     public UseAtkItemBroadcastMsg(int player, String coordinate, Map<Integer,
             String> kills, List<Integer> survivors) {
 
         this.player = player;
         this.coordinate = coordinate;
-        this.kills = kills;
-        this.survivors = survivors;
+        this.kills = new HashMap<>(kills);
+        this.survivors = new ArrayList<>(survivors);
 
     }
 
@@ -44,6 +48,12 @@ public class UseAtkItemBroadcastMsg implements BroadcastMsg {
     public List<Integer> getSurvivors() {
 
         return survivors;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

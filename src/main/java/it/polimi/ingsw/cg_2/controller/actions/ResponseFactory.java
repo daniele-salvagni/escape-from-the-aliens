@@ -72,8 +72,8 @@ public class ResponseFactory {
 
         int attackerInt = game.getPlayerNumber(attacker);
 
-        String coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        String coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         Map<Integer, String> killsIntMap = new HashMap<>();
         List<Integer> survivorsIntList = new ArrayList<>();
@@ -133,13 +133,13 @@ public class ResponseFactory {
             itemTypeStr = itemCard.getType().name();
             foundItemBool = true;
         } else {
-            itemTypeStr = null;
+            itemTypeStr = "";
             foundItemBool = false;
         }
 
         Sector position = player.getCharacter().getPosition();
-        coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         responseMsg = new DrawResponseMsg(true, cardTypeStr, itemTypeStr);
 
@@ -152,7 +152,7 @@ public class ResponseFactory {
                     coordinateStr, foundItemBool);
         } else { // SILENCE
             broadcastMsg = new NoiseBroadcastMsg(playerInt, cardTypeStr,
-                    null, foundItemBool);
+                    "", foundItemBool);
         }
 
         return new ResultMsgPair(responseMsg, broadcastMsg);
@@ -181,8 +181,8 @@ public class ResponseFactory {
         // We don't broadcast the fact that it was a deception noise, only
         // that it is a "NOISE"
         cardTypeStr = SectorCard.SectorCardType.NOISE.name();
-        coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         responseMsg = new NoiseResponseMsg(true, coordinateStr);
 
@@ -218,8 +218,8 @@ public class ResponseFactory {
 
         playerInt = game.getPlayerNumber(player);
         cardTypeStr = hatchCard.getType().name();
-        coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         if (nextPlayer != null) {
             nextPlayerInt = game.getPlayerNumber(nextPlayer);
@@ -274,8 +274,8 @@ public class ResponseFactory {
 
         int playerInt = game.getPlayerNumber(player);
 
-        String coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        String coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         List<Integer> survivorsIntList = new ArrayList<>();
         Map<Integer, String> killsIntMap = new HashMap<>();
@@ -316,8 +316,8 @@ public class ResponseFactory {
 
         int playerInt = game.getPlayerNumber(player);
         Sector newPosition = game.getZone().getHumanSector();
-        String coordinateStr = newPosition.getCooridnate().getX() + ":" +
-                newPosition.getCooridnate().getZ();
+        String coordinateStr = newPosition.getCooridnate().getOddQCol() + ":" +
+                newPosition.getCooridnate().getOddQRow();
 
         responseMsg = new UseTlpItemResponseMsg(true, coordinateStr);
         broadcastMsg = new UseTlpItemBroadcastMsg(playerInt, coordinateStr);
@@ -364,8 +364,8 @@ public class ResponseFactory {
 
         int playerInt = game.getPlayerNumber(player);
 
-        String coordinateStr = position.getCooridnate().getX() + ":" +
-                position.getCooridnate().getZ();
+        String coordinateStr = position.getCooridnate().getOddQCol() + ":" +
+                position.getCooridnate().getOddQRow();
 
         Map<Integer, String> spottedPlayersIntMap = new HashMap<>();
 
@@ -373,8 +373,8 @@ public class ResponseFactory {
 
             int spottedInt = game.getPlayerNumber(spotted);
             Sector spottedPos = spotted.getCharacter().getPosition();
-            String spottedCoordStr = spottedPos.getCooridnate().getX() + ":" +
-                    spottedPos.getCooridnate().getZ();
+            String spottedCoordStr = spottedPos.getCooridnate().getOddQCol() + ":" +
+                    spottedPos.getCooridnate().getOddQRow();
 
             spottedPlayersIntMap.put(spottedInt, spottedCoordStr);
 

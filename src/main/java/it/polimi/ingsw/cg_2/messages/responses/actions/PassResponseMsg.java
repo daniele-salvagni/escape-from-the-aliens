@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * A response message for the PassAction. Contains only a confirmation by
  * sending the new turn number.
@@ -45,4 +47,11 @@ public class PassResponseMsg extends ActionResponseMsg {
         return nextPlayer;
 
     }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
+
+    }
+
 }

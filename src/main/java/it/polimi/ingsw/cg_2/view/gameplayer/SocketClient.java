@@ -71,8 +71,7 @@ public class SocketClient extends Thread implements BrokerInterface,
      * @throws IllegalArgumentException if an argument is invalid (null)
      */
     public SocketClient(String host, int serverPort, int pubPort, ViewUpdater
-            viewUpdater, SubscriberInterface subscriberInterface) throws IOException,
-            IllegalArgumentException {
+            viewUpdater, SubscriberInterface subscriberInterface) throws IOException {
 
         if (host == null) {
             throw new IllegalArgumentException("Host cannot be null.");
@@ -253,8 +252,7 @@ public class SocketClient extends Thread implements BrokerInterface,
     }
 
     @Override
-    public void unsubscribe(SubscriberInterface subscriber) throws RemoteException,
-            IllegalArgumentException {
+    public void unsubscribe(SubscriberInterface subscriber) throws RemoteException {
 
         try {
 

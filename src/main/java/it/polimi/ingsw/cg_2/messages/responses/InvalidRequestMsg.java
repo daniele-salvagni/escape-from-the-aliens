@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * This response message is sent to the client if his request was not valid. It
  * could contain a reason (mainly for debugging purposes).
@@ -36,6 +38,12 @@ public class InvalidRequestMsg implements ResponseMsg {
     public String getReason() {
 
         return reason;
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
+
     }
 
 }

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * A response message for the EscapeAction. Contains information about the
  * type of the hatch card, a confirmation about the position and the next
@@ -74,6 +76,12 @@ public class EscapeResponseMsg extends ActionResponseMsg {
     public int getNextPlayer() {
 
         return nextPlayer;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

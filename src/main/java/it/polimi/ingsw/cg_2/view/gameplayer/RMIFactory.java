@@ -20,7 +20,7 @@ public class RMIFactory extends PlayerConnectionFactory {
 
     private static final Logger LOG = Logger.getLogger(RMIFactory.class.getName());
 
-    public final static int RMI_PORT = 7777;
+    public static final int RMI_PORT = 7777;
 
     private final BrokerInterface broker;
     private final RequestHandler requestHandler;
@@ -41,31 +41,21 @@ public class RMIFactory extends PlayerConnectionFactory {
         super(viewUpdater);
 
         try {
-            /*
-             * LocateRegistry class provides static methods for synthesizing
-             * a remote interface to a registry at a particular network
-             * address (host and port).
-             */
+
+            // Returns a reference to the remote object Registry on the specified host
+            // and port. If host is null, the local host is used.
             Registry registry = LocateRegistry.getRegistry(host, RMI_PORT);
 
-            /*
-             * lookup method searches for the remote interface binded to name
-             * "RequestHandler" in the same host's registry.
-             */
+            // Returns the remote reference bound to the specified name in this registry.
             requestHandler = (RequestHandler) registry.lookup("RequestHandler");
 
-            /*
-             * lookup method searches for the remote interface binded to name
-             * "Broker" in the same host's registry.
-             */
             broker = (BrokerInterface) registry.lookup("Broker");
 
-            /*
-             * Subscriber exports its own remote interface SubscriberInterface
-			  * so that it can receive invocations from remote brokers.
-			 */
+            // Exports the remote object to make it available to receive incoming
+            // calls, using the particular supplied port. By using 0 RMI implementation
+            // chooses a port.
             subscriberInterface = (SubscriberInterface) UnicastRemoteObject
-                    .exportObject(getSubscriberInterface(), 0);
+                    .exportObject(getSubscriber(), 0);
 
             setupConnection();
 

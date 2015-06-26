@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  *
  */
@@ -41,6 +43,12 @@ public class NoiseBroadcastMsg implements BroadcastMsg {
     public boolean isItem() {
 
         return item;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

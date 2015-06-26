@@ -14,6 +14,12 @@ public class MoveRequestMsg extends ActionRequestMsg {
     public MoveRequestMsg(Token token, String coordinate) {
 
         super(token);
+
+        // Validates the XX:YY format, where XX and YY are 0-99
+        if (!coordinate.matches("^(([0-9]|[1-9][0-9]):([0-9]|[1-9][0-9]))$")) {
+            throw new IllegalArgumentException("Invalid coordinate format");
+        }
+
         this.coordinate = coordinate;
 
     }

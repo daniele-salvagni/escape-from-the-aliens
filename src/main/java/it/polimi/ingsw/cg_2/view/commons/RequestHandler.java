@@ -8,7 +8,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * Handles request messages from a client and return an appropriate response message.
+ * This remote interface handles the server component by receiving request messages from a
+ * client and returning an appropriate response message.
  */
 public interface RequestHandler extends Remote {
 

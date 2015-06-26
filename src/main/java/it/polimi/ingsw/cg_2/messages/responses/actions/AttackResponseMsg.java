@@ -1,8 +1,8 @@
 package it.polimi.ingsw.cg_2.messages.responses.actions;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
+import java.util.*;
 
 /**
  * A response message for the AttackAction. Contains information about the
@@ -11,8 +11,8 @@ import java.util.Map;
 public class AttackResponseMsg extends ActionResponseMsg {
 
     private final String coordinate;
-    private final Map<Integer, String> kills;
-    private final List<Integer> survivors;
+    private final HashMap<Integer, String> kills;
+    private final ArrayList<Integer> survivors;
 
     /**
      * Create a new AttackResponseMsg. Coordinates are encoded in a string in
@@ -38,8 +38,8 @@ public class AttackResponseMsg extends ActionResponseMsg {
         }
 
         this.coordinate = coordinate;
-        this.kills = kills;
-        this.survivors = survivors;
+        this.kills = new HashMap<>(kills);
+        this.survivors = new ArrayList<>(survivors);
 
     }
 
@@ -61,7 +61,7 @@ public class AttackResponseMsg extends ActionResponseMsg {
      */
     public Map<Integer, String> getKills() {
 
-        return Collections.unmodifiableMap(kills);
+        return kills;
 
     }
 
@@ -73,7 +73,13 @@ public class AttackResponseMsg extends ActionResponseMsg {
      */
     public List<Integer> getSurvivors() {
 
-        return Collections.unmodifiableList(survivors);
+        return survivors;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

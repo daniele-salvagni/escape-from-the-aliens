@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  *
  */
@@ -49,6 +51,12 @@ public class EscapeBroadcastMsg implements BroadcastMsg {
     public int getNextPlayer() {
 
         return nextPlayer;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 

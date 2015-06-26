@@ -50,10 +50,7 @@ public class TurnMachine {
 
             if (nextState != null) {
 
-                state = nextState;
-                LOG.log(Level.INFO, "State changed to: " + state.getClass()
-                        .getSimpleName());
-
+                setState(nextState);
 
             }
 
@@ -66,9 +63,33 @@ public class TurnMachine {
             // The action is NOT valid, inform the client and don't broadcast
             // any message. We inform that the problem is with the game rules
             // (invalid sequence of actions or action parameters not allowed).
-            return new ResultMsgPair(new InvalidRequestMsg("RULE"), null);
+            return new ResultMsgPair(new InvalidRequestMsg("Request against game rules" +
+                    "."), null);
 
         }
+
+    }
+
+    /**
+     * Get the current state of the State machine.
+     *
+     * @return the current state
+     */
+    public TurnState getState() {
+
+        return state;
+
+    }
+
+    /**
+     * Change the current state of the State machine.
+     *
+     * @param state the new state
+     */
+    public void setState(TurnState state) {
+
+        LOG.log(Level.INFO, "State changed to: " + state.getClass().getSimpleName());
+        this.state = state;
 
     }
 

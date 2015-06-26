@@ -135,9 +135,9 @@ public class GameTest {
     }
 
     @Test
-    public void turnNumberShouldBeZero() {
+    public void turnNumberShouldBeOne() {
 
-        assertEquals(0, game.getTurnNumber());
+        assertEquals(1, game.getTurnNumber());
 
     }
 
@@ -156,13 +156,6 @@ public class GameTest {
         game2.setTurnNumber(expectedTurnNumber);
 
         assertEquals(expectedTurnNumber, game2.getTurnNumber());
-
-    }
-
-    @Test
-    public void currentPlayerShouldBeNull() {
-
-        assertNull(game.getCurrentPlayer());
 
     }
 

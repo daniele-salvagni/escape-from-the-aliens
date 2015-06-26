@@ -1,5 +1,7 @@
 package it.polimi.ingsw.cg_2.messages.broadcast;
 
+import it.polimi.ingsw.cg_2.view.gameplayer.MessageVisitor;
+
 /**
  * Created by dan on 19/06/15.
  */
@@ -24,6 +26,12 @@ public class UseTlpItemBroadcastMsg implements BroadcastMsg {
     public String getCoordinate() {
 
         return coordinate;
+
+    }
+
+    public void display(MessageVisitor visitor) {
+
+        visitor.display(this);
 
     }
 
