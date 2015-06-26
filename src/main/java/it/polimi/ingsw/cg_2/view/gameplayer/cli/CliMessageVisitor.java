@@ -542,6 +542,17 @@ public class CliMessageVisitor implements MessageVisitor {
     }
 
     @Override
+    public void display(PublicLogResponseMsg msg) {
+
+        cli("######################### PRINTING LOG #########################");
+
+        for (BroadcastMsg message : msg.getLog()) {
+            message.display(this);
+        }
+
+    }
+
+    @Override
     public void display(InvalidRequestMsg msg) {
 
         StringBuilder sb = new StringBuilder();

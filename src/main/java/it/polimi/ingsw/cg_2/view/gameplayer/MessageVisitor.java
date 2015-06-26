@@ -65,6 +65,8 @@ public interface MessageVisitor {
 
     void display(PrivateDataResponseMsg msg);
 
+    void display(PublicLogResponseMsg msg);
+
 
     void setPlayerNum(int playerNum);
 
