@@ -11,16 +11,19 @@ public class GameStartedBroadcastMsg {
     private final int numberOfPlayers;
     private final int zoneName;
     private final int gameMode;
+    private final int playerTurn;
 
     private final HashMap<String, String> zoneSectors;
 
     public GameStartedBroadcastMsg(int gameNumber, int numberOfPlayers, int zoneName,
-                                   int gameMode, HashMap<String, String> zoneSectors) {
+                                   int gameMode, int playerTurn, HashMap<String,
+                                   String> zoneSectors) {
 
         this.gameNumber = gameNumber;
         this.numberOfPlayers = numberOfPlayers;
         this.zoneName = zoneName;
         this.gameMode = gameMode;
+        this.playerTurn = playerTurn;
         this.zoneSectors = zoneSectors;
 
     }
@@ -46,6 +49,12 @@ public class GameStartedBroadcastMsg {
     public int getGameMode() {
 
         return gameMode;
+
+    }
+
+    public int getPlayerTurn() {
+
+        return playerTurn;
 
     }
 
