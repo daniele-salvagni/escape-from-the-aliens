@@ -305,6 +305,40 @@ public class CliMessageVisitor implements MessageVisitor {
 
     }
 
+    @Override
+    public void display(GameFinishedBroadcastMsg msg) {
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append("Game finished!");
+
+        if (!msg.getWinners().isEmpty()) {
+            sb.append("\nWinners are");
+            for (Map.Entry<Integer, String> p : msg.getWinners().entrySet()) {
+
+                sb.append(" Player");
+                sb.append(p.getKey());
+                sb.append("(" + p.getValue() + ")");
+
+            }
+            sb.append(".");
+        }
+
+        if (!msg.getLosers().isEmpty()) {
+            sb.append("\nLosers are ");
+            for (Map.Entry<Integer, String> p : msg.getLosers().entrySet()) {
+
+                sb.append(" Player");
+                sb.append(p.getKey());
+                sb.append("(" + p.getValue() + ")");
+
+            }
+            sb.append(".");
+        }
+
+
+    }
+
     ////////////////////////////////////// RESPONSES \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
     @Override

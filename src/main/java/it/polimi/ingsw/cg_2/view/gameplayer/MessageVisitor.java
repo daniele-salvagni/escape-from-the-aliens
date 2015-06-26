@@ -31,6 +31,8 @@ public interface MessageVisitor {
 
     void display(GameStartedBroadcastMsg msg);
 
+    void display(GameFinishedBroadcastMsg msg);
+
 
     void display(AttackResponseMsg msg);
 
