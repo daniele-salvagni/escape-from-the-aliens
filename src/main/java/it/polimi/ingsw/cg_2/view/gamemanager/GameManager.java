@@ -3,7 +3,7 @@ package it.polimi.ingsw.cg_2.view.gamemanager;
 import it.polimi.ingsw.cg_2.controller.GamesController;
 
 /**
- *
+ * Entry point to start a GameManager.
  */
 public class GameManager {
 
@@ -12,21 +12,13 @@ public class GameManager {
         ServerConnectionFactory serverInitializer = new ServerConnectionFactory();
         PublisherInterface publisherInterface = serverInitializer.getPublisherInterface();
 
-        GamesController testcontroller = new GamesController(publisherInterface);
+        GamesController mainController = new GamesController(publisherInterface);
 
-        serverInitializer.setRequestHandler(testcontroller);
+        serverInitializer.setRequestHandler(mainController);
         serverInitializer.startServers();
 
-        while(true) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
+        System.out.println("Game manager started, listening for RMI and Socket " +
+                "connections.");
 
     }
 
