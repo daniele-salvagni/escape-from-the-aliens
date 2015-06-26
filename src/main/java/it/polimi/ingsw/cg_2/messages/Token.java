@@ -10,16 +10,31 @@ import java.io.Serializable;
 public class Token implements Serializable {
 
     private final String uuid;
+    // Player number is optional
+    private int playerNumber;
 
     public Token(String uuid) {
 
         this.uuid = uuid;
+        playerNumber = -1;
 
     }
 
     public String getUuid() {
 
         return uuid;
+
+    }
+
+    public int getPlayerNumber() {
+
+        return playerNumber;
+
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+
+        this.playerNumber = playerNumber;
 
     }
 
