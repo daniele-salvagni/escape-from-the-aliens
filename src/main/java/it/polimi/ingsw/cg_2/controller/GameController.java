@@ -10,7 +10,6 @@ import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.GameStartedBroadcastMsg;
-import it.polimi.ingsw.cg_2.messages.broadcast.UseTlpItemBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
@@ -34,7 +33,6 @@ import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 import it.polimi.ingsw.cg_2.view.gamemanager.PublisherInterface;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -149,7 +147,6 @@ public class GameController {
         turnMachine = new TurnMachine(game);
         actionFactory = new ActionFactoryVisitorImpl(game, players, turnMachine);
 
-        // TODO: Remove
         publisherInterface.publish(new GameStartedBroadcastMsg(getGameID(), players
                 .size(), zone.name(), "ADVANCED", 0, null), getTopic());
 
