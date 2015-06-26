@@ -5,12 +5,11 @@ import it.polimi.ingsw.cg_2.messages.Token;
 /**
  *
  */
-public class PrivateDataRequestMsg extends RequestMsg {
+public class LogRequestMsg extends RequestMsg{
 
-    public PrivateDataRequestMsg(Token token) {
+    public LogRequestMsg(Token token) {
 
         super(token);
-
     }
 
 }
