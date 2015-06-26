@@ -32,4 +32,18 @@ public class CliUpdater implements ViewUpdater {
 
     }
 
+    @Override
+    public void setPlayerNum(int playerNum) {
+
+        visitor.setPlayerNum(playerNum);
+
+    }
+
+    @Override
+    public int getPlayerNum() {
+
+        return visitor.getPlayerNum();
+
+    }
+
 }

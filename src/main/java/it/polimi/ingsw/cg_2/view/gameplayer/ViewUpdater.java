@@ -12,4 +12,8 @@ public interface ViewUpdater {
 
     void update(ResponseMsg msg);
 
+    void setPlayerNum(int playerNum);
+
+    int getPlayerNum();
+
 }

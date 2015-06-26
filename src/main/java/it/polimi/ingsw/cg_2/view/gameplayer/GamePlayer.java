@@ -38,7 +38,7 @@ public class GamePlayer {
             while (true) {
 
 
-                String cmd = in.nextLine(); // just to wait
+                String cmd = in.nextLine();
                 ResponseMsg response = null;
 
                 RequestMsg request = CliInterpteter.parseString(playerConnectionFactory.getToken(), cmd);

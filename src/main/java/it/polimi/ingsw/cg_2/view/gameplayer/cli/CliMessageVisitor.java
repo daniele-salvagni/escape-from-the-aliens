@@ -13,6 +13,26 @@ import java.util.Map;
  */
 public class CliMessageVisitor implements MessageVisitor {
 
+    private int playerNum;
+
+    public CliMessageVisitor() {
+
+        playerNum = -1;
+
+    }
+
+    public int getPlayerNum() {
+
+        return playerNum;
+
+    }
+
+    public void setPlayerNum(int playerNum) {
+
+        this.playerNum = playerNum;
+
+    }
+
     private void cli(String string) {
 
         System.out.println(string);
@@ -40,6 +60,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(AttackBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -71,6 +95,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(EscapeBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -106,6 +134,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(NoiseBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -147,6 +179,10 @@ public class CliMessageVisitor implements MessageVisitor {
     @Override
     public void display(UseAdrItemBroadcastMsg msg) {
 
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("Player");
@@ -159,6 +195,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(UseAtkItemBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -178,6 +218,10 @@ public class CliMessageVisitor implements MessageVisitor {
     @Override
     public void display(UseSdtItemBroadcastMsg msg) {
 
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
+
         StringBuilder sb = new StringBuilder();
 
         sb.append("Player");
@@ -190,6 +234,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(UseSptItemBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -219,6 +267,10 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(UseTlpItemBroadcastMsg msg) {
+
+        if (playerNum == msg.getPlayer()) {
+            return;
+        }
 
         StringBuilder sb = new StringBuilder();
 
@@ -446,6 +498,12 @@ public class CliMessageVisitor implements MessageVisitor {
 
     @Override
     public void display(PrivateDataResponseMsg msg) {
+
+        // Player number, when set, will be used to filter out some messages
+        // (If it was a problem getting it from the token)
+        if (playerNum == -1) {
+            playerNum = msg.getPlayerNumber();
+        }
 
         StringBuilder sb = new StringBuilder();
 
