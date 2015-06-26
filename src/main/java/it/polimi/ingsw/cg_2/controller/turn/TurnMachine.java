@@ -51,9 +51,6 @@ public class TurnMachine {
             if (nextState != null) {
 
                 setState(nextState);
-                LOG.log(Level.INFO, "State changed to: " + state.getClass()
-                        .getSimpleName());
-
 
             }
 
@@ -91,6 +88,7 @@ public class TurnMachine {
      */
     public void setState(TurnState state) {
 
+        LOG.log(Level.INFO, "State changed to: " + state.getClass().getSimpleName());
         this.state = state;
 
     }
