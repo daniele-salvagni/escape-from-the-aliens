@@ -2,7 +2,6 @@ package it.polimi.ingsw.cg_2.controller.actions;
 
 import it.polimi.ingsw.cg_2.controller.turn.DrawnDeceptionAndItemState;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
-import it.polimi.ingsw.cg_2.controller.turn.TurnState;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.requests.actions.*;
 import it.polimi.ingsw.cg_2.model.Game;

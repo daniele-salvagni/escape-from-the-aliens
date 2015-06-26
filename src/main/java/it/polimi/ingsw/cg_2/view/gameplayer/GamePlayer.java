@@ -1,13 +1,9 @@
 package it.polimi.ingsw.cg_2.view.gameplayer;
 
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
-import it.polimi.ingsw.cg_2.messages.requests.actions.MoveRequestMsg;
-import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
-import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.view.commons.RequestHandler;
 import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliInterpteter;
-import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliMessageVisitor;
 import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliUpdater;
 
 import java.io.IOException;
