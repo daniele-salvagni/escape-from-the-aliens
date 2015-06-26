@@ -3,6 +3,7 @@ package it.polimi.ingsw.cg_2.controller;
 import it.polimi.ingsw.cg_2.controller.actions.Action;
 import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitorImpl;
+import it.polimi.ingsw.cg_2.controller.turn.FinishedState;
 import it.polimi.ingsw.cg_2.controller.turn.TurnMachine;
 import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.Token;
@@ -10,14 +11,17 @@ import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.UseTlpItemBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
+import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.RequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.ActionRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.actions.SendChatMsg;
 import it.polimi.ingsw.cg_2.messages.responses.AckResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.InvalidRequestMsg;
+import it.polimi.ingsw.cg_2.messages.responses.PrivateDataResponseMsg;
 import it.polimi.ingsw.cg_2.messages.responses.ResponseMsg;
 import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.DecksFactory;
+import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.StandardDecksFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneName;
@@ -145,7 +149,6 @@ public class GameController {
         turnMachine = new TurnMachine(game);
         actionFactory = new ActionFactoryVisitorImpl(game, players, turnMachine);
 
-
         // TODO: Remove
         publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
 
@@ -207,6 +210,26 @@ public class GameController {
 
     }
 
+    private void finishGame() {
+
+        //publisherInterface.publish();
+
+        turnMachine.setState(FinishedState.getInstance());
+
+    }
+
+    /**
+     * Check if it is the turn of the player with the given token
+     *
+     * @param token the token of the player to check
+     * @return true, if it is his turn
+     */
+    private boolean isPlayerTurn(Token token) {
+
+        return players.indexOf(token) == game.getCurrentPlayerNumber();
+
+    }
+
     /**
      * Handle a request from the client, a Message is passed to a Factory that
      * uses the Visitor pattern to create an appropriate atomic Action (command
@@ -241,17 +264,54 @@ public class GameController {
     }
 
     /**
-     * Check if it is the turn of the player with the given token
+     * Fetch the private data of a single player upon request.
      *
-     * @param token the token of the player to check
-     * @return true, if it is his turn
+     * @param request the request message
+     * @return the appropriate response containing player's private data
      */
-    private boolean isPlayerTurn(Token token) {
+    private ResponseMsg fetchPrivateData(PrivateDataRequestMsg request) {
 
-        return players.indexOf(token) == game.getCurrentPlayerNumber();
+        if (game == null) {
+            return new InvalidRequestMsg("The game is not started yet.");
+        }
+
+        int playerNumber = players.indexOf(request.getToken());
+        Player gamePlayer = game.getPlayers().get(playerNumber);
+
+        String pRankStr = gamePlayer.getCharacter().getRank().name();
+        String pRaceStr = gamePlayer.getCharacter().getRace().name();
+
+        List<String> heldItems = new ArrayList<>();
+        List<String> activatedItems = new ArrayList<>();
+
+        String position = gamePlayer.getCharacter().getPosition().getCooridnate()
+                .getOddQCol() + ":" + gamePlayer.getCharacter().getPosition()
+                .getCooridnate().getOddQRow();
+
+        for (ItemCard heldItem : gamePlayer.getHeldItems()) {
+
+            heldItems.add(heldItem.getType().name());
+
+        }
+
+        for (ItemCard.ItemCardType activeItem : gamePlayer.getActiveItems()) {
+
+            activatedItems.add(activeItem.name());
+
+        }
+
+        return new PrivateDataResponseMsg(pRaceStr, pRankStr, playerNumber, position,
+                heldItems, activatedItems);
 
     }
 
+    /**
+     * Handles a chat message by sending an acknowledgment to th sender and broadcasting
+     * it to the other players of the game.
+     *
+     * @param request the chat request
+     * @return the acknowledgment
+     */
     private ResponseMsg handleChatMessage(SendChatMsg request) {
 
         int clientNum = players.indexOf(request.getToken());
@@ -285,6 +345,10 @@ public class GameController {
 
         if (game == null) {
             return new InvalidRequestMsg("Please wait for the game to start.");
+        }
+
+        if (request instanceof PrivateDataRequestMsg) {
+            return fetchPrivateData((PrivateDataRequestMsg) request);
         }
 
         // ############################# Requests that require the player playing the turn
