@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.broadcast.GameFinishedBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.GameStartedBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
@@ -31,7 +32,9 @@ import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 import it.polimi.ingsw.cg_2.view.gamemanager.PublisherInterface;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -206,9 +209,58 @@ public class GameController {
 
     }
 
+    /**
+     * Finish a game by setting the turnMachine to a finished state and broadcasting an
+     * end game message to everyone.
+     */
     private void finishGame() {
 
-        //publisherInterface.publish();
+        List<Player> gamePlayers = new ArrayList<>(game.getPlayers());
+        List<Player> winners = new ArrayList<>();
+        List<Player> losers = new ArrayList<>();
+
+        for (Player player : gamePlayers) {
+            if ((player.getCharacter().getRace() == CharacterRace.HUMAN) && (player
+                    .getCharacter().isEscaped())) {
+                winners.add(player);
+            } else if ((player.getCharacter().getRace() == CharacterRace.HUMAN) && !
+                    (player.getCharacter().isEscaped())) {
+                losers.add(player);
+            }
+        }
+
+        gamePlayers.removeAll(winners);
+        gamePlayers.removeAll(losers);
+
+        if (losers.isEmpty()) { // All the humans escaped, all aliens lose
+            losers.addAll(gamePlayers);
+        } else { // Else alive aliens are winners, dead are losers
+            for (Player player : gamePlayers) {
+                if ((player.getCharacter().getRace() == CharacterRace.ALIEN) && (player
+                        .getCharacter().isAlive())) {
+                    winners.add(player);
+                } else if ((player.getCharacter().getRace() == CharacterRace.ALIEN) && !
+                        (player.getCharacter().isAlive())) {
+                    losers.add(player);
+                }
+            }
+        }
+
+        Map<Integer, String> winnersMsg = new HashMap<>();
+        Map<Integer, String> losersMsg = new HashMap<>();
+
+        for (Player winner : winners) {
+            winnersMsg.put(game.getPlayerNumber(winner), winner.getCharacter().getRace
+                    ().name());
+        }
+
+        for (Player loser : losers) {
+            losersMsg.put(game.getPlayerNumber(loser), loser.getCharacter().getRace()
+                    .name());
+        }
+
+        publisherInterface.publish(new GameFinishedBroadcastMsg(winnersMsg, losersMsg),
+                getTopic());
 
         turnMachine.setState(FinishedState.getInstance());
 
@@ -366,6 +418,10 @@ public class GameController {
                 publisherInterface.publish(result.broadcast, getTopic());
                 // Add it to the public log
                 publicLog.add(result.broadcast);
+            }
+
+            if (isGameFinished()) {
+                finishGame();
             }
 
             return result.response;
