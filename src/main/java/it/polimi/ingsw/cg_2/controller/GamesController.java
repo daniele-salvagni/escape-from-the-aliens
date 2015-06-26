@@ -111,6 +111,7 @@ public class GamesController implements RequestHandler {
     public Token connect() throws RemoteException {
 
         Token newToken = new Token(UUID.randomUUID().toString());
+        newToken.setPlayerNumber(waitingPlayers.size());
         newPlayer(newToken);
         return newToken;
 
