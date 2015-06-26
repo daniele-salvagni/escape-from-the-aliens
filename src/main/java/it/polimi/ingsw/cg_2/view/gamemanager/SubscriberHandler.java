@@ -149,6 +149,7 @@ public class SubscriberHandler extends SocketHandler implements SubscriberInterf
             outputStream.flush();
         } catch (IOException e) {
             LOG.log(Level.WARNING, "Error while writing to the output stream.", e);
+            unsubscribe();
         }
 
     }
