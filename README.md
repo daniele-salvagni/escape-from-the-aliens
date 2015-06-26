@@ -120,7 +120,7 @@ Here is also an UML diagram that shows the messages alongside the controller (lo
 
 ### View ###
 
-The view is separated in two parts, a remote view on the game manager and a local view on the gameplayer to interact with the game manager.
+The view is separated in two parts, a remote view on the game manager and a local view on the gameplayer to interact with the game manager. Communication between them can happen with both RMI or Socket based on the choice of each different client.
 
 ![View UML Diagram](http://i.imgur.com/1WTvy3q.png)
 
