@@ -9,11 +9,15 @@ import it.polimi.ingsw.cg_2.view.gameplayer.cli.CliUpdater;
 import java.io.IOException;
 import java.rmi.NotBoundException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Entry point for a game player.
  */
 public class GamePlayer {
+
+    private static final Logger LOG = Logger.getLogger(GamePlayer.class.getName());
 
     public static void main(String[] args) {
 
@@ -59,9 +63,9 @@ public class GamePlayer {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "Can't establish an Socket connection.");
         } catch (NotBoundException e) {
-            e.printStackTrace();
+            LOG.log(Level.SEVERE, "Can't establish an RMI connection.");
         }
 
     }
