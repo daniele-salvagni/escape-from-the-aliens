@@ -9,6 +9,7 @@ import it.polimi.ingsw.cg_2.messages.ResultMsgPair;
 import it.polimi.ingsw.cg_2.messages.Token;
 import it.polimi.ingsw.cg_2.messages.broadcast.BroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.ChatBroadcastMsg;
+import it.polimi.ingsw.cg_2.messages.broadcast.GameStartedBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.broadcast.UseTlpItemBroadcastMsg;
 import it.polimi.ingsw.cg_2.messages.requests.ChangeMapRequestMsg;
 import it.polimi.ingsw.cg_2.messages.requests.PrivateDataRequestMsg;
@@ -59,9 +60,7 @@ public class GameController {
 
     private final List<Token> players;
 
-    private DecksFactory dFactory;
-    private PlayersFactory pFactory;
-    private ZoneFactory zFactory;
+    private ZoneName zone;
 
     private final PublisherInterface publisherInterface;
 
@@ -80,11 +79,8 @@ public class GameController {
         this.players = new ArrayList<>();
         this.publisherInterface = publisherInterface;
 
-        dFactory = new StandardDecksFactory();
-        pFactory = new StandardPlayersFactory();
-
         // This is just the default map, can be changed
-        zFactory = ZoneFactory.newLoader(ZoneName.GALILEI);
+        zone = ZoneName.GALILEI;
 
         gameID = numberOfGames;
         numberOfGames++;
@@ -114,7 +110,7 @@ public class GameController {
             }
 
             try {
-                zFactory = ZoneFactory.newLoader(ZoneName.valueOf(request.getMap()));
+                zone = ZoneName.valueOf(request.getMap());
                 return new AckResponseMsg("Map changed to " + request.getMap());
             } catch (Exception e) {
                 LOG.log(Level.WARNING, "There was a problem changing the map.");
@@ -126,7 +122,7 @@ public class GameController {
     }
 
     /**
-     * Add a player to the game (only if the game did not already started)
+     * Add a player to the game (only if the game did not already started).
      *
      * @param token the token of the player to add
      */
@@ -145,17 +141,22 @@ public class GameController {
      */
     public void initGame() {
 
+        ZoneFactory zFactory = ZoneFactory.newLoader(zone);
+        DecksFactory dFactory = new StandardDecksFactory();
+        PlayersFactory pFactory = new StandardPlayersFactory();
+
         game = Game.initialize(zFactory, dFactory, pFactory, players.size());
         turnMachine = new TurnMachine(game);
         actionFactory = new ActionFactoryVisitorImpl(game, players, turnMachine);
 
         // TODO: Remove
-        publisherInterface.publish(new UseTlpItemBroadcastMsg(1, "3:7"), getTopic());
+        publisherInterface.publish(new GameStartedBroadcastMsg(getGameID(), players
+                .size(), zone.name(), "ADVANCED", 0, null), getTopic());
 
     }
 
     /**
-     * Get the progressive ID of this game
+     * Get the progressive ID of this game.
      *
      * @return the ID of this game
      */
@@ -166,7 +167,7 @@ public class GameController {
     }
 
     /**
-     * Get the topic of this game for publisher-subscriber communication
+     * Get the topic of this game for publisher-subscriber communication.
      *
      * @return the main topic of this game
      */
