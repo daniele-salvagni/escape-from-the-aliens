@@ -5,12 +5,18 @@ import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.messages.Token;
 
 /**
- *
+ * Message to request to perform a noise in a certain coordinate (DECEPTION).
  */
 public class NoiseRequestMsg extends ActionRequestMsg {
 
     private final String coordinate;
 
+    /**
+     * Create a new NoiseRequestMsg request message.
+     *
+     * @param token the token that identifies the client
+     * @param coordinate the coordinate where to make the noise in the format (COL:ROW)
+     */
     public NoiseRequestMsg(Token token, String coordinate) {
 
         super(token);
@@ -24,6 +30,11 @@ public class NoiseRequestMsg extends ActionRequestMsg {
 
     }
 
+    /**
+     * Get the coordinate where to make the noise in the format (COL:ROW).
+     *
+     * @return the coordinate where to make the noise in the format (COL:ROW)
+     */
     public String getCoordinate() {
 
         return coordinate;

@@ -5,12 +5,18 @@ import it.polimi.ingsw.cg_2.controller.actions.ActionFactoryVisitor;
 import it.polimi.ingsw.cg_2.messages.Token;
 
 /**
- *
+ * A message to request to move to a certain coordinate.
  */
 public class MoveRequestMsg extends ActionRequestMsg {
 
     private final String coordinate;
 
+    /**
+     * Create anew MoveRequestMsg request message.
+     *
+     * @param token the token that identifies the client
+     * @param coordinate the coordinate where to move in the format (COL:ROW)
+     */
     public MoveRequestMsg(Token token, String coordinate) {
 
         super(token);
@@ -24,6 +30,11 @@ public class MoveRequestMsg extends ActionRequestMsg {
 
     }
 
+    /**
+     * Get the destination coordinate of the movement in the format (COL:ROW).
+     *
+     * @return the destination coordinate of the movement in the format (COL:ROW)
+     */
     public String getCoordinate() {
 
         return coordinate;

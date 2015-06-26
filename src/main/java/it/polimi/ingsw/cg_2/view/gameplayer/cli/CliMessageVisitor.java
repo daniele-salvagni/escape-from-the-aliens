@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * A visitor class for the Visitor Pattern to visit incoming messages and display them on
+ * a Command Line Interface.
  */
 public class CliMessageVisitor implements MessageVisitor {
 
