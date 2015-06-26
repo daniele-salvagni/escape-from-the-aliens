@@ -39,6 +39,7 @@ public class NoiseResponseMsg extends ActionResponseMsg {
         return coordinate;
     }
 
+    @Override
     public void display(MessageVisitor visitor) {
 
         visitor.display(this);

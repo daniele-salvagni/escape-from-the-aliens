@@ -77,6 +77,7 @@ public class AttackResponseMsg extends ActionResponseMsg {
 
     }
 
+    @Override
     public void display(MessageVisitor visitor) {
 
         visitor.display(this);
