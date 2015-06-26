@@ -22,6 +22,8 @@ import it.polimi.ingsw.cg_2.model.Game;
 import it.polimi.ingsw.cg_2.model.deck.DecksFactory;
 import it.polimi.ingsw.cg_2.model.deck.ItemCard;
 import it.polimi.ingsw.cg_2.model.deck.StandardDecksFactory;
+import it.polimi.ingsw.cg_2.model.map.CloseableSector;
+import it.polimi.ingsw.cg_2.model.map.Sector;
 import it.polimi.ingsw.cg_2.model.map.ZoneFactory;
 import it.polimi.ingsw.cg_2.model.map.ZoneName;
 import it.polimi.ingsw.cg_2.model.player.CharacterRace;
@@ -31,10 +33,7 @@ import it.polimi.ingsw.cg_2.model.player.StandardPlayersFactory;
 import it.polimi.ingsw.cg_2.utils.exception.InvalidMsgException;
 import it.polimi.ingsw.cg_2.view.gamemanager.PublisherInterface;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -187,6 +186,21 @@ public class GameController {
             return true;
         }
 
+        // Chech if all the hatches are closed
+        Set<Sector> hatches = game.getZone().getHatchSectors();
+        int openHatches = 0;
+
+        for (Sector hatch : hatches) {
+            if (((CloseableSector)hatch).isOpen()) {
+                openHatches++;
+            }
+        }
+
+        if (openHatches == 0) {
+            return true;
+        }
+
+        // Check if a race is completely dead or escaped
         List<Player> gamePlayers = game.getPlayers();
         List<Player> playingAliens = new ArrayList<>();
         List<Player> playingHumans = new ArrayList<>();
