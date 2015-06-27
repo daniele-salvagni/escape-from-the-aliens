@@ -91,7 +91,8 @@ Here follows a graphical representation of the conversion process from human to 
 
 ![Image processing](http://i.imgur.com/INfo0dU.png)
 
-[Vertical Version](http://i.imgur.com/lYzt2cx.png)
+[Vertical Version](http://i.imgur.com/ueXg8D8.png)  
+*The red circle shows that by shifting columns by half a sector adjacencies becomes clear as every sector has 6 neighbors instead of 4 (or 8 considering diagonals).*
 
 ##### Color Palette #####
 
