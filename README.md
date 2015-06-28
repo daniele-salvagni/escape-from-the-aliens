@@ -75,7 +75,8 @@ The whole architecture of the application follows the **MVC** pattern, the model
 
 The model is pretty straightforward, the various decks of cards are implemented with a generic `Deck` class that automatically shuffle cards in a transparent way when they are finished, some standard creational pattern have been used to instantiate various classes and Zones are loaded from files.
 
-The constraints of the hexagonal maps are modeled by implementing some of the algorithms on *Amit Patel*'s blog ([Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/)).
+![Cubic Coordinates](http://i.imgur.com/fmDp5Tm.png)
+*The constraints of the hexagonal maps are modeled by implementing some of the algorithms on **Amit Patel**'s blog ([Hexagonal Grids](http://www.redblobgames.com/grids/hexagons/)).*
 
 #### Map encoding ####
 
