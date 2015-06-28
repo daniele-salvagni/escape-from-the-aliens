@@ -131,7 +131,7 @@ Here is also an UML diagram that shows the messages alongside the controller (lo
 The view is separated in two parts, a remote view on the game manager and a local view on the game player to interact with the game manager. Communication between them can happen with both RMI or Socket based on the choice of each different client.
 
 ![View UML Diagram](http://i.imgur.com/AMy2huX.png)
-*Red classes are used by Sockets, Yellow ones by RtMI and in Violet are highlighted common interfaces between game manager and game player.*
+*Red classes are used by Sockets, Yellow ones by RMI and in Violet are highlighted common interfaces between game manager and game player.*
 
 #### Communication ####
 
