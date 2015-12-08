@@ -1,14 +1,8 @@
 # Escape from the Aliens #
 
-This is the repository for the java implementation of the board game *Escape from Aliens in Outer Space*. This project is part of the Software Engineering 2015 course at Politecnico di Milano, group **CG_2**.
+This is the repository for the java implementation of the board game *Escape from Aliens in Outer Space*. This project is part of the Software Engineering 2015 course (and Final Test) at Politecnico di Milano.
 
 ## General info ##
-
-### Group members: ###
-
-* Daniele Salvagni
-* Simone Triventi
-
 
 ### Repository folders: ###
 
@@ -146,3 +140,10 @@ The same communications pattern are transparently implemented for both **RMI** a
 ## Credits ##
 
 The original board game and the maps are property of [Santa Ragione](http://www.santaragione.com/).
+
+### Group members: ###
+
+Group **CG_2**
+
+* [Daniele Salvagni](https://github.com/daniele-salvagni)
+* Simone Triventi
