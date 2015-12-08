@@ -141,9 +141,7 @@ The same communications pattern are transparently implemented for both **RMI** a
 
 The original board game and the maps are property of [Santa Ragione](http://www.santaragione.com/).
 
-### Group members: ###
-
-Group **CG_2**
+Group members (CG_2):
 
 * [Daniele Salvagni](https://github.com/daniele-salvagni)
 * Simone Triventi
