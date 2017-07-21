@@ -1,14 +1,19 @@
-# Escape from the Aliens #
+<p align="center"><img src="https://user-images.githubusercontent.com/6751621/28461252-0fc6e73e-6e16-11e7-87a7-2277b3765efa.png"></p>
 
-This is the repository for the java implementation of the board game *Escape from Aliens in Outer Space*. This project is part of the Software Engineering 2015 course (and Final Test) at Politecnico di Milano.
+-----
+
+## Escape from the Aliens #
+
+This is the repository for the java implementation of the board game *[Escape from Aliens in Outer Space](http://www.eftaios.com/)*. This project is part of the Software Engineering 2015 course (and Final Test) at Politecnico di Milano.
 
 ## General info ##
 
 ### Repository folders: ###
 
-* **src/:** contains the java source code of the application.
+* **src/main:** contains the java source code of the application.
+* **src/test:** application unit tests using junit.
 * **docs/:** various resources unrelated to the source code like spare documentation and uml diagrams. 
-* **docs/maps/:** a collection of maps, resources to manually draw them and a quick graphical documentation on the map import/export process.
+* **docs/maps/:** a collection of maps, resources to manually draw new ones and a quick graphical documentation on the map import/export process.
 
 ## Usage info ##
 
@@ -22,6 +27,8 @@ To start a game player run `src/main/java/it/polimi/ingsw/cg_2/view/gameplayer/G
 
 * Insert `RMI` to use Remote Method Invocation
 * Insert `SOCKET` to use a Socket connection
+
+Every client can use a different kind of connection.
 
 #### Waiting rooms ####
 
@@ -84,9 +91,9 @@ The ZoneHelper class is able to support every map dimension, however the impleme
 
 Here follows a graphical representation of the conversion process from human to computer readable and vice versa, notice how hard it is to understand neighbors in the version with 1px per sector:
 
-![Image processing](http://i.imgur.com/ukORPts.png)
+![Image Processing](https://user-images.githubusercontent.com/6751621/28462159-565f79c8-6e1a-11e7-83d7-cd30be355268.png)
 
-*The red circle shows that by shifting columns by half a sector adjacencies becomes clear as every sector has 6 neighbors instead of 4 (or 8 considering diagonals). [Vertical Version](http://i.imgur.com/ueXg8D8.png) *
+*The red circle shows that by shifting columns by half a sector adjacencies becomes clear as every sector has 6 neighbors instead of 4 (or 8 considering diagonals).*
 
 
 
